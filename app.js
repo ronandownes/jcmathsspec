@@ -13,16 +13,7 @@
   const header = document.querySelector(".site-header");
   const nav = header?.querySelector(".top-nav");
   const href = (file, hash = "") => `${sectionBase}${file}${hash ? `#${hash}` : ""}`;
-
-  if (!document.querySelector('link[data-jc-nav-css]')) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.dataset.jcNavCss = "true";
-    link.href = `${inSections ? "../" : ""}css/navigation.css?v=20260729-nav9`;
-    document.head.appendChild(link);
-  }
-
-  if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
+if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
     const script = document.createElement("script");
     script.dataset.geometryVisuals = "true";
     script.src = "../js/geometry-visuals.js?v=20260729-3";
@@ -281,3 +272,4 @@
 
   render(true);
 })();
+
