@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Geometry & Trigonometry | JC Maths Spec</title>
+
+<link rel="stylesheet"
+      href="../css/styles.css">
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+<a class="brand"
+   href="../index.html">
+
+  <span>Junior Cycle Mathematics</span>
+  <strong>JC Maths Spec</strong>
+
+</a>
+
+
+<nav class="top-nav"
+     aria-label="Main navigation">
+
+  <a class="nav-coming nav-live"
+     href="front-matter.html">
+    Front Matter
+  </a>
+
+  <details class="menu unifying-menu">
+
+  <summary data-overview="unifying.html#unifying-overview">
+    Unifying
+  </summary>
+
+  <div class="menu-panel unifying-menu-panel">
+
+    <a class="menu-overview-link" href="unifying.html#unifying-overview">
+      Unifying overview
+    </a>
+
+    <div class="menu-group-label">
+      BUILDING BLOCKS
+    </div>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U1">
+      <strong>U.1</strong>
+      <span>Recall &amp; demonstrate understanding</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U2">
+      <strong>U.2</strong>
+      <span>Apply procedures</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U3">
+      <strong>U.3</strong>
+      <span>Recognise equality</span>
+    </a>
+
+
+    <div class="menu-group-label">
+      REPRESENTATION
+    </div>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U4">
+      <strong>U.4</strong>
+      <span>Represent &amp; compare</span>
+    </a>
+
+
+    <div class="menu-group-label">
+      CONNECTIONS
+    </div>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U5">
+      <strong>U.5</strong>
+      <span>Connect within mathematics</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U6">
+      <strong>U.6</strong>
+      <span>Connect mathematics &amp; the real world</span>
+    </a>
+
+
+    <div class="menu-group-label">
+      PROBLEM SOLVING
+    </div>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U7">
+      <strong>U.7</strong>
+      <span>Make sense &amp; mathematise</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U8">
+      <strong>U.8</strong>
+      <span>Apply knowledge &amp; solve</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U9">
+      <strong>U.9</strong>
+      <span>Interpret the solution</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U10">
+      <strong>U.10</strong>
+      <span>Evaluate possible solutions</span>
+    </a>
+
+
+    <div class="menu-group-label">
+      GENERALISATION &amp; PROOF
+    </div>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U11">
+      <strong>U.11</strong>
+      <span>Generate conjectures</span>
+    </a>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U12">
+      <strong>U.12</strong>
+      <span>Arguments &amp; proofs</span>
+    </a>
+
+
+    <div class="menu-group-label">
+      COMMUNICATION
+    </div>
+
+    <a class="unifying-outcome-link"
+       href="unifying.html#U13">
+      <strong>U.13</strong>
+      <span>Communicate mathematics</span>
+    </a>
+
+  </div>
+
+</details>
+
+  <a class="nav-coming nav-live"
+     href="number.html">
+    Number
+  </a>
+
+  <details class="menu">
+
+    <summary>Geometry &amp; Trig</summary>
+
+    <div class="menu-panel">
+
+      <a href="#GT1">
+        GT.1 Measurement
+      </a>
+
+      <a href="#GT2">
+        GT.2 2D &amp; 3D
+      </a>
+
+      <a href="#GT3">
+        GT.3 Geometry &amp; proof
+      </a>
+
+      <a href="#GT4">
+        GT.4 Trigonometry
+      </a>
+
+      <a href="#GT5">
+        GT.5 Coordinate geometry
+      </a>
+
+      <a href="#GT6">
+        GT.6 Transformations
+      </a>
+
+    </div>
+
+  </details>
+
+
+  <a class="nav-coming nav-live"
+     href="algebra-functions.html">
+    Algebra &amp; Functions
+  </a>
+
+
+  <!-- SP MENU START -->
+<details class="menu sp-menu">
+
+  <summary data-overview="statistics-probability.html#statistics-overview">
+    Statistics &amp; Probability
+  </summary>
+
+  <div class="menu-panel sp-menu-panel">
+
+    <a class="menu-overview-link"
+       href="statistics-probability.html#statistics-overview">
+      Statistics &amp; Probability overview
+    </a>
+
+
+    <!-- ==================================================
+         SP.1
+         ================================================== -->
+
+    <details class="sp-submenu">
+
+      <summary>
+        <strong>SP.1</strong>
+        <span>Experiments &amp; counting</span>
+      </summary>
+
+      <div class="sp-submenu-panel">
+
+        <a href="statistics-probability.html#SP1">
+          <strong>SP.1</strong> Overview
+        </a>
+
+
+        <details class="sp-submenu sp-submenu-nested">
+
+          <summary>
+            <strong>SP.1a</strong>
+            <span>Generate a sample space</span>
+          </summary>
+
+          <div class="sp-submenu-panel">
+
+            <a href="statistics-probability.html#SP1-a">
+              <strong>SP.1a</strong> Learning outcome
+            </a>
+
+            <div class="sp-support-label">
+              REPRESENTATIONS
+            </div>
+
+            <a class="sp-support-link"
+               href="statistics-probability.html#SP1-tree">
+              Tree diagrams
+            </a>
+
+            <a class="sp-support-link"
+               href="statistics-probability.html#SP1-table">
+              Two-way tables
+            </a>
+
+          </div>
+
+        </details>
+
+
+        <a href="statistics-probability.html#SP1-b">
+          <strong>SP.1b</strong> Fundamental principle of counting
+        </a>
+
+      </div>
+
+    </details>
+
+
+
+    <!-- ==================================================
+         SP.2
+         ================================================== -->
+
+    <details class="sp-submenu">
+
+      <summary>
+        <strong>SP.2</strong>
+        <span>Probability</span>
+      </summary>
+
+      <div class="sp-submenu-panel">
+
+        <a href="statistics-probability.html#SP2">
+          <strong>SP.2</strong> Overview
+        </a>
+
+        <a href="statistics-probability.html#SP2-a">
+          <strong>SP.2a</strong> Probability scale
+        </a>
+
+        <a href="statistics-probability.html#SP2-b">
+          <strong>SP.2b</strong> Equally likely outcomes
+        </a>
+
+        <a href="statistics-probability.html#SP2-c">
+          <strong>SP.2c</strong> Relative frequency
+        </a>
+
+      </div>
+
+    </details>
+
+
+
+    <!-- ==================================================
+         SP.3
+         ================================================== -->
+
+    <details class="sp-submenu">
+
+      <summary>
+        <strong>SP.3</strong>
+        <span>Statistical investigation</span>
+      </summary>
+
+      <div class="sp-submenu-panel">
+
+        <a href="statistics-probability.html#SP3">
+          <strong>SP.3</strong> Overview
+        </a>
+
+        <a href="statistics-probability.html#SP3-a">
+          <strong>SP.3a</strong> Generate a statistical question
+        </a>
+
+        <a href="statistics-probability.html#SP3-b">
+          <strong>SP.3b</strong> Collect representative data
+        </a>
+
+        <a href="statistics-probability.html#SP3-c">
+          <strong>SP.3c</strong> Classify data
+        </a>
+
+        <a href="statistics-probability.html#SP3-d">
+          <strong>SP.3d</strong> Graphical displays
+        </a>
+
+        <a href="statistics-probability.html#SP3-e">
+          <strong>SP.3e</strong> Summary statistics
+        </a>
+
+        <a href="statistics-probability.html#SP3-f">
+          <strong>SP.3f</strong> Evaluate displays
+        </a>
+
+        <a href="statistics-probability.html#SP3-g">
+          <strong>SP.3g</strong> Misuses of statistics
+        </a>
+
+        <a href="statistics-probability.html#SP3-h">
+          <strong>SP.3h</strong> Limits of conclusions
+        </a>
+
+      </div>
+
+    </details>
+
+  </div>
+
+</details>
+<!-- SP MENU END -->
+
+
+  <!-- ASSESSMENT MENU START -->
+<details class="menu assessment-menu">
+
+  <summary data-overview="assessment-reporting.html#assessment-overview">
+    Assessment &amp; Reporting
+  </summary>
+
+  <div class="menu-panel assessment-menu-panel">
+
+    <a class="menu-overview-link"
+       href="assessment-reporting.html#assessment-overview">
+      Overview
+    </a>
+
+    <a href="assessment-reporting.html#assessment-toolkit">
+      Assessment &amp; feedback
+    </a>
+
+    <a href="assessment-reporting.html#assessment-jcpa">
+      JCPA assessment
+    </a>
+
+    <a href="assessment-reporting.html#assessment-cba-rationale">
+      Classroom-Based Assessments
+    </a>
+
+    <a href="assessment-reporting.html#assessment-cba1">
+      <strong>CBA 1</strong> Mathematical Investigation
+    </a>
+
+    <a href="assessment-reporting.html#assessment-cba2">
+      <strong>CBA 2</strong> Statistical Investigation
+    </a>
+
+    <a href="assessment-reporting.html#assessment-features">
+      Features of quality
+    </a>
+
+    <a href="assessment-reporting.html#assessment-task">
+      Assessment Task
+    </a>
+
+    <a href="assessment-reporting.html#assessment-final">
+      Final examination
+    </a>
+
+    <a href="assessment-reporting.html#assessment-inclusive">
+      Inclusive assessment
+    </a>
+
+  </div>
+
+</details>
+<!-- ASSESSMENT MENU END -->
+
+  <a class="nav-coming nav-live"
+     href="appendix-a.html">
+    Appendix A
+  </a>
+
+  <!-- APPENDIX B MENU START -->
+<details class="menu appendix-b-menu">
+
+  <summary data-overview="appendix-b.html#appendix-b-overview">
+    Appendix B
+  </summary>
+
+  <div class="menu-panel appendix-b-menu-panel">
+
+    <a class="menu-overview-link"
+       href="appendix-b.html#appendix-b-overview">
+      Appendix B overview
+    </a>
+
+    <a href="appendix-b.html#appendix-b-system">
+      Geometry system
+    </a>
+
+    <a href="appendix-b.html#appendix-b-terms">
+      Terms &amp; definitions
+    </a>
+
+    <a href="appendix-b.html#appendix-b-axioms">
+      Axioms 1–5
+    </a>
+
+    <a href="appendix-b.html#appendix-b-t1-6">
+      Theorems 1–6
+    </a>
+
+    <a href="appendix-b.html#appendix-b-t7-12">
+      Theorems 7–12
+    </a>
+
+    <a href="appendix-b.html#appendix-b-t13-18">
+      Theorems 13–18
+    </a>
+
+    <a href="appendix-b.html#appendix-b-circles">
+      Circles · Theorems 19–21
+    </a>
+
+    <a href="appendix-b.html#appendix-b-constructions-1">
+      Constructions 1–7
+    </a>
+
+    <a href="appendix-b.html#appendix-b-constructions-2">
+      Constructions 8–15
+    </a>
+
+    <a href="appendix-b.html#appendix-b-constructions-3">
+      Constructions 16–22
+    </a>
+
+    <a href="appendix-b.html#appendix-b-teaching">
+      Discovery → proof
+    </a>
+
+    <a href="appendix-b.html#appendix-b-jcol">
+      Junior Cycle · Ordinary
+    </a>
+
+    <a href="appendix-b.html#appendix-b-jchl">
+      Junior Cycle · Higher
+    </a>
+
+    <a href="appendix-b.html#appendix-b-lc">
+      Leaving Certificate continuation
+    </a>
+
+  </div>
+
+</details>
+<!-- APPENDIX B MENU END -->
+
+</nav>
+
+</header>
+
+
+<main class="slide-stage geometry-deck"
+      data-slide-deck>
+
+
+<!-- ======================================================
+     LOCAL / IN-PAGE NAVIGATION
+     ====================================================== -->
+
+<nav class="strand-local-nav"
+     aria-label="Geometry and Trigonometry sections">
+
+  <a href="#geometry-overview">Overview</a>
+  <a href="#GT1">GT.1</a>
+  <a href="#GT2">GT.2</a>
+  <a href="#GT3">GT.3</a>
+  <a href="#GT4">GT.4</a>
+  <a href="#GT5">GT.5</a>
+  <a href="#GT6">GT.6</a>
+
+</nav>
+
+
+<!-- ======================================================
+     OVERVIEW
+     ====================================================== -->
+
+<section class="slide"
+         id="geometry-overview">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · Overview</span>
+    <strong>Shape, measure &amp; position</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<div class="number-map">
+
+  <div>
+    <strong>GT.1</strong>
+    <span>Measure &amp; time</span>
+  </div>
+
+  <div>
+    <strong>GT.2</strong>
+    <span>2D shapes &amp; 3D solids</span>
+  </div>
+
+  <div>
+    <strong>GT.3</strong>
+    <span>Geometry &amp; proof</span>
+  </div>
+
+  <div>
+    <strong>GT.4</strong>
+    <span>Trigonometry</span>
+  </div>
+
+  <div>
+    <strong>GT.5</strong>
+    <span>Coordinate geometry</span>
+  </div>
+
+  <div>
+    <strong>GT.6</strong>
+    <span>Transformations &amp; symmetry</span>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     GT.1
+     ====================================================== -->
+
+<section class="slide"
+         id="GT1">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.1</span>
+    <strong>Measure &amp; time</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Calculate, interpret, and apply units of measure and time.
+</p>
+
+
+<div class="topic-grid">
+
+  <div>Length</div>
+  <div>Area</div>
+  <div>Volume</div>
+  <div>Mass</div>
+  <div>Time</div>
+  <div>Compound units</div>
+
+</div>
+
+
+<div class="example-strip">
+
+<strong>Always attach meaning to the unit</strong>
+
+<span>
+\(5\text{ m}\),
+\(20\text{ m}^2\),
+\(12\text{ m}^3\)
+are different kinds of quantity.
+</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     GT.2
+     ====================================================== -->
+
+<section class="slide"
+         id="GT2">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.2</span>
+    <strong>2D shapes &amp; 3D solids</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Investigate 2D shapes and 3D solids.
+</p>
+
+
+<div class="pattern-steps">
+
+  <span>SEE</span>
+  <span>DRAW</span>
+  <span>MEASURE</span>
+  <span>MODEL</span>
+  <span>CALCULATE</span>
+  <span>CHECK</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.2a -->
+
+<section class="slide"
+         id="GT2-a">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.2a</span>
+    <strong>Scaled diagrams</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Draw and interpret scaled diagrams.
+</p>
+
+
+<div class="scale-model">
+
+  <div class="scale-small">
+    <span>Drawing</span>
+    <strong>4 cm</strong>
+  </div>
+
+  <div class="scale-arrow">
+    × 50
+  </div>
+
+  <div class="scale-large">
+    <span>Actual</span>
+    <strong>200 cm</strong>
+  </div>
+
+</div>
+
+
+<div class="example-strip">
+
+<strong>Scale 1 : 50</strong>
+
+<span>
+1 cm on the drawing represents 50 cm in reality.
+</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.2b -->
+
+<section class="slide"
+         id="GT2-b">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.2b</span>
+    <strong>Nets of solids</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Draw and interpret nets of rectangular solids,
+prisms with polygonal bases, and cylinders.
+</p>
+
+
+<div class="net-demo">
+
+  <div class="net-grid">
+
+    <span></span>
+    <span class="net-face"></span>
+    <span></span>
+
+    <span class="net-face"></span>
+    <span class="net-face main"></span>
+    <span class="net-face"></span>
+
+    <span></span>
+    <span class="net-face"></span>
+    <span></span>
+
+    <span></span>
+    <span class="net-face"></span>
+    <span></span>
+
+  </div>
+
+  <div class="net-arrow">
+    →
+  </div>
+
+  <div class="solid-cube">
+    <span>3D solid</span>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.2c -->
+
+<section class="slide"
+         id="GT2-c">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.2c</span>
+    <strong>Perimeter &amp; area</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Find the perimeter and area of plane figures made from
+combinations of discs, triangles, and rectangles,
+including relevant operations involving \(\pi\).
+</p>
+
+
+<div class="formula-grid">
+
+  <div>
+    <strong>Rectangle</strong>
+    \[
+    A=lw
+    \]
+  </div>
+
+  <div>
+    <strong>Triangle</strong>
+    \[
+    A=\frac12 bh
+    \]
+  </div>
+
+  <div>
+    <strong>Disc</strong>
+    \[
+    A=\pi r^2
+    \]
+  </div>
+
+  <div>
+    <strong>Circle</strong>
+    \[
+    C=2\pi r
+    \]
+  </div>
+
+</div>
+
+
+<div class="example-strip">
+
+<strong>Composite figure</strong>
+
+<span>
+split → calculate → combine.
+</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.2d -->
+
+<section class="slide"
+         id="GT2-d">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.2d</span>
+    <strong>Volume</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Find the volume of rectangular solids, cylinders,
+triangular-based prisms, spheres, and combinations of
+these, including relevant operations involving \(\pi\).
+</p>
+
+
+<div class="formula-grid">
+
+  <div>
+    <strong>Prism</strong>
+    \[
+    V=A_{\text{cross-section}}L
+    \]
+  </div>
+
+  <div>
+    <strong>Cylinder</strong>
+    \[
+    V=\pi r^2h
+    \]
+  </div>
+
+  <div>
+    <strong>Sphere</strong>
+    \[
+    V=\frac43\pi r^3
+    \]
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.2e -->
+
+<section class="slide"
+         id="GT2-e">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.2e</span>
+    <strong>Surface area</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Find the surface area and curved surface area,
+as appropriate, of rectangular solids, cylinders,
+triangular-based prisms, spheres, and combinations
+of these.
+</p>
+
+
+<div class="three-card">
+
+  <article>
+    <strong>Whole surface</strong>
+    <p>
+      Add the areas of every exposed face.
+    </p>
+  </article>
+
+  <article>
+    <strong>Curved surface</strong>
+    <p>
+      Distinguish the curved part from the bases.
+    </p>
+  </article>
+
+  <article>
+    <strong>Composite solid</strong>
+    <p>
+      Do not count hidden joining surfaces.
+    </p>
+  </article>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     GT.3
+     ====================================================== -->
+
+<section class="slide"
+         id="GT3">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3</span>
+    <strong>Geometry &amp; proof</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Investigate the concept of proof through engagement
+with geometry.
+</p>
+
+
+<div class="representation-flow">
+
+  <div>
+    <strong>Observe</strong>
+    <span>What seems true?</span>
+  </div>
+
+  <b>→</b>
+
+  <div>
+    <strong>Conjecture</strong>
+    <span>State it precisely.</span>
+  </div>
+
+  <b>→</b>
+
+  <div>
+    <strong>Justify</strong>
+    <span>Why must it be true?</span>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3a -->
+
+<section class="slide"
+         id="GT3-a">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3a</span>
+    <strong>Constructions 1–15</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Perform constructions 1 to 15 in
+Geometry for Post-primary School Mathematics.
+</p>
+
+
+<div class="important-box">
+
+<strong>Higher Level only:</strong>
+constructions 3 and 7.
+
+</div>
+
+
+<p>
+The construction should be reproducible using the
+prescribed geometrical tools and should preserve the
+required geometric properties.
+</p>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3b -->
+
+<section class="slide"
+         id="GT3-b">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3b</span>
+    <strong>GT.3b · Geometry results</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Recall and use the concepts, axioms, theorems,
+corollaries and converses specified in
+Geometry for Post-primary School Mathematics.
+</p>
+
+
+<div class="pattern-steps">
+
+  <span>GT.3b(i) · AXIOMS</span>
+  <span>GT.3b(ii) · THEOREMS</span>
+  <span>GT.3b(iii) · COROLLARIES</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3b(i) -->
+
+<section class="slide"
+         id="GT3-b-i">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3b(i)</span>
+    <strong>GT.3b(i) · Axioms</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL SUB-OUTCOME
+</p>
+
+<p>
+Recall and use axioms 1, 2, 3, 4 and 5.
+</p>
+
+
+<div class="example-strip">
+
+<a href="appendix-b.html">
+Open Appendix B geometry reference →
+</a>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3b(ii) -->
+
+<section class="slide"
+         id="GT3-b-ii">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3b(ii)</span>
+    <strong>GT.3b(ii) · Theorems</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL SUB-OUTCOME
+</p>
+
+<p>
+Recall and use theorems 1, 2, 3, 4, 5, 6, 9, 10,
+13, 14, 15, 11, 12 and 19, and appropriate converses,
+including relevant operations involving square roots.
+</p>
+
+
+<div class="example-strip">
+
+<a href="appendix-b.html">
+Open Appendix B geometry reference →
+</a>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3b(iii) -->
+
+<section class="slide"
+         id="GT3-b-iii">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3b(iii)</span>
+    <strong>GT.3b(iii) · Corollaries</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL SUB-OUTCOME
+</p>
+
+<p>
+Recall and use corollaries 3, 4, 1, 2 and 5,
+and appropriate converses.
+</p>
+
+
+<div class="example-strip">
+
+<a href="appendix-b.html">
+Open Appendix B geometry reference →
+</a>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3c -->
+
+<section class="slide"
+         id="GT3-c">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3c</span>
+    <strong>Language of proof</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Use and explain the terms:
+</p>
+
+
+<div class="topic-grid">
+
+  <div>Theorem</div>
+  <div>Proof</div>
+  <div>Axiom</div>
+  <div>Corollary</div>
+  <div>Converse</div>
+  <div>Implies</div>
+
+</div>
+
+
+<div class="example-strip">
+
+\[
+P\Rightarrow Q
+\]
+
+<strong>means:</strong>
+<span>
+if \(P\) is true, then \(Q\) follows.
+</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3d -->
+
+<section class="slide"
+         id="GT3-d">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3d</span>
+    <strong>GT.3d · Create &amp; evaluate proofs</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Create and evaluate proofs of geometrical propositions.
+</p>
+
+
+<div class="proof-chain">
+
+  <div>
+    <strong>Given</strong>
+    <span>known information</span>
+  </div>
+
+  <div>→</div>
+
+  <div>
+    <strong>Reason</strong>
+    <span>axiom / theorem / definition</span>
+  </div>
+
+  <div>→</div>
+
+  <div>
+    <strong>Deduce</strong>
+    <span>new fact</span>
+  </div>
+
+  <div>→</div>
+
+  <div>
+    <strong>Conclude</strong>
+    <span>required result</span>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.3e -->
+
+<section class="slide"
+         id="GT3-e">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.3e</span>
+    <strong>GT.3e · Understand the proofs</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Display understanding of the proofs of the specified
+theorems and corollaries.
+</p>
+
+
+<div class="important-box">
+
+Full formal proofs are not examinable.
+
+</div>
+
+
+<div class="example-strip">
+
+<a href="appendix-b.html">
+Open Appendix B geometry reference →
+</a>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     GT.4
+     ====================================================== -->
+
+<section class="slide"
+         id="GT4">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.4</span>
+    <strong>Right-triangle trigonometry</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Evaluate and use the trigonometric ratios
+\(\sin\), \(\cos\), and \(\tan\), defined in terms of
+right-angled triangles, and their inverses.
+</p>
+
+
+<div class="trig-layout">
+
+<div class="right-triangle">
+
+  <div class="tri-vertical">
+    opposite
+  </div>
+
+  <div class="tri-horizontal">
+    adjacent
+  </div>
+
+  <div class="tri-hypotenuse">
+    hypotenuse
+  </div>
+
+  <div class="tri-angle">
+    \(\theta\)
+  </div>
+
+</div>
+
+
+<div class="trig-ratios">
+
+\[
+\sin\theta=
+\frac{\text{opposite}}
+     {\text{hypotenuse}}
+\]
+
+\[
+\cos\theta=
+\frac{\text{adjacent}}
+     {\text{hypotenuse}}
+\]
+
+\[
+\tan\theta=
+\frac{\text{opposite}}
+     {\text{adjacent}}
+\]
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.4 inverse -->
+
+<section class="slide"
+         id="GT4-inverse">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.4</span>
+    <strong>Find an angle</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<div class="representation-flow">
+
+  <div>
+    <strong>Ratio</strong>
+    <span>
+      \[
+      \sin\theta=0.6
+      \]
+    </span>
+  </div>
+
+  <b>→</b>
+
+  <div>
+    <strong>Inverse</strong>
+    <span>
+      \[
+      \theta=\sin^{-1}(0.6)
+      \]
+    </span>
+  </div>
+
+  <b>→</b>
+
+  <div>
+    <strong>Angle</strong>
+    <span>
+      \[
+      \theta\approx36.9^\circ
+      \]
+    </span>
+  </div>
+
+</div>
+
+
+<p>
+The specification includes angles between
+\(0^\circ\) and \(90^\circ\), at integer values and
+in decimal form.
+</p>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     GT.5
+     ====================================================== -->
+
+<section class="slide"
+         id="GT5">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.5</span>
+    <strong>Coordinate geometry</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Investigate properties of points, lines and line segments
+in the coordinate plane.
+</p>
+
+
+<div class="pattern-steps">
+
+  <span>POINTS</span>
+  <span>DISTANCE</span>
+  <span>MIDPOINT</span>
+  <span>SLOPE</span>
+  <span>LINES</span>
+  <span>INTERSECTION</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.5a -->
+
+<section class="slide"
+         id="GT5-a">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.5a</span>
+    <strong>Points &amp; lines</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Find and interpret distance, midpoint, slope,
+point of intersection, and slopes of parallel and
+perpendicular lines.
+</p>
+
+
+<div class="formula-grid">
+
+  <div>
+    <strong>Distance</strong>
+
+    \[
+    d=
+    \sqrt{
+      (x_2-x_1)^2+
+      (y_2-y_1)^2
+    }
+    \]
+
+  </div>
+
+  <div>
+    <strong>Midpoint</strong>
+
+    \[
+    M=
+    \left(
+    \frac{x_1+x_2}{2},
+    \frac{y_1+y_2}{2}
+    \right)
+    \]
+
+  </div>
+
+  <div>
+    <strong>Slope</strong>
+
+    \[
+    m=
+    \frac{y_2-y_1}
+         {x_2-x_1}
+    \]
+
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<section class="slide"
+         id="GT5-parallel">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.5a</span>
+    <strong>Parallel &amp; perpendicular</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<div class="two-relationship-grid">
+
+  <article>
+
+    <strong>Parallel lines</strong>
+
+    <p>
+      Same slope.
+    </p>
+
+    \[
+    m_1=m_2
+    \]
+
+  </article>
+
+
+  <article>
+
+    <strong>Perpendicular lines</strong>
+
+    <p>
+      Their slopes are negative reciprocals
+      where both slopes are defined.
+    </p>
+
+    \[
+    m_1m_2=-1
+    \]
+
+  </article>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.5b -->
+
+<section class="slide"
+         id="GT5-b">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.5b</span>
+    <strong>Graphs in context</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Draw graphs of line segments and interpret such graphs
+in context, including discussing the rate of change
+and the \(y\)-intercept.
+</p>
+
+
+<div class="graph-meaning">
+
+  <div>
+    <strong>Slope</strong>
+    <span>rate of change</span>
+  </div>
+
+  <div>
+    <strong>\(y\)-intercept</strong>
+    <span>starting value when \(x=0\)</span>
+  </div>
+
+</div>
+
+
+<div class="example-strip">
+
+\[
+y=3x+10
+\]
+
+<span>
+starts at 10 and increases by 3 for each unit of \(x\).
+</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.5c -->
+
+<section class="slide"
+         id="GT5-c">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.5c</span>
+    <strong>Equation of a line</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Find and interpret the equation of a line in the forms:
+</p>
+
+
+<div class="formula-grid">
+
+  <div>
+
+    \[
+    y=mx+c
+    \]
+
+  </div>
+
+  <div>
+
+    \[
+    y-y_1=m(x-x_1)
+    \]
+
+  </div>
+
+  <div>
+
+    \[
+    ax+by+c=0
+    \]
+
+  </div>
+
+</div>
+
+
+<p>
+This includes finding the slope, the \(y\)-intercept,
+and other points on the line.
+</p>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     GT.6
+     ====================================================== -->
+
+<section class="slide"
+         id="GT6">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.6</span>
+    <strong>Transformations</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p class="official-label">
+OFFICIAL LEARNING OUTCOME
+</p>
+
+<p>
+Investigate transformations of simple objects.
+</p>
+
+
+<div class="transform-grid">
+
+  <div>
+    <strong>Translation</strong>
+    <span>slide</span>
+  </div>
+
+  <div>
+    <strong>Central symmetry</strong>
+    <span>half-turn about a centre</span>
+  </div>
+
+  <div>
+    <strong>Axial symmetry</strong>
+    <span>reflection in a line</span>
+  </div>
+
+  <div>
+    <strong>Rotation</strong>
+    <span>turn about a point</span>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.6a -->
+
+<section class="slide"
+         id="GT6-a">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.6a</span>
+    <strong>Image of an object</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Recognise and draw the image of points and objects
+under translation, central symmetry, axial symmetry,
+and rotation.
+</p>
+
+
+<div class="coordinate-demo">
+
+  <div class="shape original">
+    A
+  </div>
+
+  <div class="transform-arrow">
+    →
+  </div>
+
+  <div class="shape image">
+    A′
+  </div>
+
+</div>
+
+
+<div class="example-strip">
+
+<strong>Track</strong>
+
+<span>
+position · distance · orientation · angle.
+</span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- GT.6b -->
+
+<section class="slide"
+         id="GT6-b">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · GT.6b</span>
+    <strong>Axes of symmetry</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+<p>
+Draw the axes of symmetry in shapes.
+</p>
+
+
+<div class="symmetry-demo">
+
+  <div class="symmetry-shape">
+
+    <div class="symmetry-axis"></div>
+
+  </div>
+
+  <p>
+    Reflect one half across the axis:
+    does it coincide exactly with the other half?
+  </p>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     FORMATIVE CHECK
+     ====================================================== -->
+
+<section class="slide"
+         id="GT-check">
+
+<header class="slide-header">
+
+  <div>
+    <span>Geometry &amp; Trigonometry · Check</span>
+    <strong>Check your understanding</strong>
+  </div>
+
+  <div class="slide-number"></div>
+
+</header>
+
+
+<div class="slide-content">
+<div class="spec-text">
+
+
+<!-- QUESTION 1 -->
+
+<div class="live-question"
+     data-question-type="choice"
+     data-answer="0.6">
+
+  <div class="check-heading">
+
+    <strong>QUESTION 1</strong>
+    <span>Trigonometry</span>
+
+  </div>
+
+
+  <p class="quiz-prompt">
+
+    A right-angled triangle has an opposite side of
+    \(6\) and a hypotenuse of \(10\).
+
+    What is \(\sin\theta\)?
+
+  </p>
+
+
+  <div class="quiz-options">
+
+    <button type="button"
+            class="quiz-option"
+            data-value="0.4">
+      0.4
+    </button>
+
+    <button type="button"
+            class="quiz-option"
+            data-value="0.6">
+      0.6
+    </button>
+
+    <button type="button"
+            class="quiz-option"
+            data-value="1.6">
+      1.6
+    </button>
+
+    <button type="button"
+            class="quiz-option"
+            data-value="1.67">
+      1.67
+    </button>
+
+  </div>
+
+
+  <div class="quiz-feedback"
+       aria-live="polite">
+  </div>
+
+</div>
+
+
+<!-- QUESTION 2 -->
+
+<div class="live-question"
+     data-question-type="number"
+     data-answer="2">
+
+  <div class="check-heading">
+
+    <strong>QUESTION 2</strong>
+    <span>Coordinate geometry</span>
+
+  </div>
+
+
+  <p class="quiz-prompt">
+
+    Find the slope of the line through
+    \((2,3)\) and \((6,11)\).
+
+  </p>
+
+
+  <div class="quiz-entry-row">
+
+    <label>
+      <span>Your answer</span>
+
+      <input
+        type="text"
+        class="quiz-number-input"
+        inputmode="decimal"
+        autocomplete="off"
+        aria-label="Enter the slope">
+    </label>
+
+    <button type="button"
+            class="quiz-check">
+      Check
+    </button>
+
+  </div>
+
+
+  <div class="quiz-feedback"
+       aria-live="polite">
+  </div>
+
+</div>
+
+
+</div>
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     DECK CONTROLS
+     ====================================================== -->
+
+<nav class="deck-controls"
+     aria-label="Slide navigation">
+
+<button type="button"
+        class="deck-prev">
+← Previous
+</button>
+
+
+<div class="deck-progress">
+
+<span class="deck-count"></span>
+
+<div class="deck-dots"></div>
+
+</div>
+
+
+<button type="button"
+        class="deck-next">
+Next →
+</button>
+
+</nav>
+
+
+<div class="deck-tools">
+
+<button type="button"
+        class="show-all">
+Show all text
+</button>
+
+</div>
+
+
+</main>
+
+
+<script src="../js/app.js?v=20260729-appendices-fix"></script>
+
+</body>
+</html>
+

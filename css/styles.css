@@ -1,0 +1,6368 @@
+:root {
+  --ink: #172235;
+  --muted: #687689;
+  --accent: #285f8c;
+  --accent-dark: #1c4567;
+  --accent-soft: #edf4f9;
+
+  --paper: #ffffff;
+  --page: #eaf0f5;
+  --line: #d4dee7;
+
+  --shadow:
+    0 14px 44px rgba(19, 36, 54, .10);
+
+  --header-space: 70px;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+
+  background: var(--page);
+  color: var(--ink);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  line-height: 1.5;
+
+  overflow-x: hidden;
+}
+
+
+body.reader-header-hidden {
+  --header-space: 0px;
+}
+
+
+button,
+summary {
+  font: inherit;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+img,
+svg,
+canvas,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+
+mjx-container {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+
+/* =========================================================
+   SITE HEADER
+   ========================================================= */
+
+.site-header {
+  position: fixed;
+  z-index: 4000;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+
+  padding:
+    8px
+    max(20px, calc((100vw - 1380px) / 2));
+
+  border-bottom: 1px solid var(--line);
+
+  background: rgba(255, 255, 255, .97);
+
+  backdrop-filter: blur(12px);
+
+  transform: translateY(0);
+
+  transition:
+    transform .22s ease,
+    opacity .18s ease;
+
+  box-shadow:
+    0 4px 14px rgba(20, 35, 50, .035);
+}
+
+
+body.reader-header-hidden .site-header {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Invisible strip that reveals the menu with the mouse. */
+
+.header-reveal-zone {
+  position: fixed;
+  z-index: 5000;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 13px;
+
+  background: transparent;
+}
+
+
+.brand {
+  flex: 0 0 auto;
+
+  text-decoration: none;
+
+  line-height: 1.03;
+}
+
+
+.brand span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: var(--accent);
+
+  font-size: .62rem;
+  font-weight: 850;
+
+  letter-spacing: .10em;
+
+  text-transform: uppercase;
+}
+
+
+.brand strong {
+  display: block;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 1.25rem;
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home {
+  min-height: 100svh;
+
+  display: grid;
+  place-items: center;
+
+  padding:
+    calc(70px + 28px)
+    20px
+    28px;
+}
+
+
+.home-slide {
+  width: min(1100px, 100%);
+
+  padding:
+    clamp(36px, 7vw, 92px);
+
+  border: 1px solid var(--line);
+  border-radius: 16px;
+
+  background: var(--paper);
+
+  box-shadow: var(--shadow);
+}
+
+
+.slide-kicker {
+  margin: 0 0 12px;
+
+  color: var(--accent);
+
+  font-size: .75rem;
+  font-weight: 850;
+
+  letter-spacing: .1em;
+
+  text-transform: uppercase;
+}
+
+
+.home h1 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(3.5rem, 8vw, 6.6rem);
+
+  line-height: .94;
+
+  letter-spacing: -.045em;
+}
+
+
+.beamer-rule {
+  width: 100%;
+  height: 4px;
+
+  margin: 24px 0 30px;
+
+  border-radius: 999px;
+
+  background: var(--accent);
+}
+
+
+.home-lead {
+  max-width: 36ch;
+
+  margin: 0 0 30px;
+
+  color: #465467;
+
+  font-size:
+    clamp(1.2rem, 2.5vw, 1.7rem);
+}
+
+
+.primary-button {
+  display: inline-block;
+
+  padding: 12px 18px;
+
+  border-radius: 8px;
+
+  background: var(--accent);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   READER / SLIDE STAGE
+   ========================================================= */
+
+.slide-stage {
+  width: calc(100% - 18px);
+
+  max-width: none;
+
+  margin: 0 auto 24px;
+
+  padding-top:
+    calc(var(--header-space) + 8px);
+
+  transition:
+    padding-top .22s ease;
+}
+
+
+/* =========================================================
+   CONTROLS — ABOVE THE SLIDE
+   ========================================================= */
+
+.deck-controls {
+  display: grid;
+
+  grid-template-columns:
+    minmax(130px, 1fr)
+    auto
+    minmax(130px, 1fr);
+
+  align-items: center;
+
+  gap: 14px;
+
+  min-height: 52px;
+
+  margin: 0 6px 7px;
+}
+
+
+.deck-controls button,
+.deck-tools button {
+  min-height: 42px;
+
+  padding: 8px 15px;
+
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,.97);
+
+  color: var(--ink);
+
+  cursor: pointer;
+
+  font-weight: 780;
+}
+
+
+.deck-controls button:first-child {
+  justify-self: start;
+}
+
+
+.deck-controls button:last-child {
+  justify-self: end;
+}
+
+
+.deck-controls button:hover,
+.deck-controls button:focus-visible,
+.deck-tools button:hover,
+.deck-tools button:focus-visible {
+  border-color: var(--accent);
+
+  color: var(--accent);
+
+  outline: none;
+}
+
+
+.deck-controls button:disabled {
+  opacity: .28;
+
+  cursor: default;
+}
+
+
+.deck-progress {
+  text-align: center;
+}
+
+
+.deck-count {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--muted);
+
+  font-size: .7rem;
+  font-weight: 800;
+
+  letter-spacing: .04em;
+}
+
+
+.deck-dots {
+  display: flex;
+  justify-content: center;
+
+  gap: 5px;
+}
+
+
+.deck-dot {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #bbc7d2;
+
+  cursor: pointer;
+}
+
+
+.deck-dot.current {
+  width: 19px;
+
+  background: var(--accent);
+}
+
+
+/* =========================================================
+   ACTUAL BEAMER-LIKE SLIDE
+   ========================================================= */
+
+.slide {
+  position: relative;
+
+  width: 100%;
+
+  min-height:
+    calc(
+      100svh
+      - var(--header-space)
+      - 67px
+    );
+
+  padding:
+    clamp(30px, 4vw, 62px)
+    clamp(34px, 5vw, 84px);
+
+  border: 1px solid var(--line);
+  border-radius: 11px;
+
+  background: var(--paper);
+
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+}
+
+
+.slide[hidden] {
+  display: none;
+}
+
+
+/* =========================================================
+   TITLE WRAPS INTO THE PARAGRAPH
+
+   The slide-content wrapper is removed from layout.
+   This lets the paragraph wrap around the floated title.
+   ========================================================= */
+
+.slide-content {
+  display: contents;
+}
+
+
+.slide-header {
+  float: left;
+
+  display: block;
+
+  width:
+    clamp(
+      300px,
+      31vw,
+      490px
+    );
+
+  margin:
+    0
+    clamp(32px, 4vw, 64px)
+    20px
+    0;
+}
+
+
+.slide-header > div:first-child {
+  min-width: 0;
+}
+
+
+.slide-header span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--accent);
+
+  font-size: .72rem;
+  font-weight: 850;
+
+  letter-spacing: .105em;
+
+  text-transform: uppercase;
+}
+
+
+.slide-header strong {
+  display: block;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(2.8rem, 4.3vw, 4.8rem);
+
+  line-height: .96;
+
+  letter-spacing: -.04em;
+}
+
+
+/* Accent line belongs to title rather than taking a whole row. */
+
+.slide-header::after {
+  content: "";
+
+  display: block;
+
+  width: 100%;
+  height: 4px;
+
+  margin-top: 18px;
+
+  border-radius: 999px;
+
+  background: var(--accent);
+}
+
+
+.slide-rule {
+  display: none;
+}
+
+
+.slide-number {
+  position: absolute;
+
+  top:
+    clamp(30px, 4vw, 62px);
+
+  right:
+    clamp(34px, 5vw, 84px);
+
+  color: var(--muted);
+
+  font-size: .8rem;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   SPECIFICATION PARAGRAPH
+
+   Starts beside title.
+   Once below title, uses the whole slide width.
+   ========================================================= */
+
+.spec-text {
+  width: auto !important;
+  max-width: none !important;
+
+  margin: 0;
+
+  padding-top: 8px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  color: var(--ink);
+
+  text-align: left;
+
+  text-wrap: pretty;
+
+  letter-spacing: -.012em;
+}
+
+
+/* Shorter paragraphs get the biggest type. */
+
+.copy-large {
+  font-size:
+    clamp(2rem, 2.75vw, 3rem);
+
+  line-height: 1.34;
+}
+
+
+/* Medium paragraphs. */
+
+.copy-medium {
+  font-size:
+    clamp(1.55rem, 2.05vw, 2.25rem);
+
+  line-height: 1.39;
+}
+
+
+/* Long paragraph — e.g. final Rationale paragraph. */
+
+.copy-small {
+  font-size:
+    clamp(1.15rem, 1.47vw, 1.6rem);
+
+  line-height: 1.43;
+}
+
+
+/* Older/basic slides without copy-* class. */
+
+.spec-text:not(.copy-large):not(.copy-medium):not(.copy-small) {
+  font-size:
+    clamp(1.55rem, 2.15vw, 2.4rem);
+
+  line-height: 1.4;
+}
+
+
+.slide::after {
+  content: "";
+
+  display: block;
+
+  clear: both;
+}
+
+
+/* =========================================================
+   TOOLS
+   ========================================================= */
+
+.deck-tools {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 8px;
+}
+
+
+.source-note {
+  margin: 18px 0 0;
+
+  color: var(--muted);
+
+  font-size: .75rem;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   SHOW ALL
+   ========================================================= */
+
+.slide-stage.show-all .slide {
+  display: block;
+
+  min-height: 0;
+
+  margin-bottom: 18px;
+}
+
+
+.slide-stage.show-all .deck-controls {
+  display: none;
+}
+
+
+.slide-stage.show-all .slide-header {
+  float: none;
+
+  width: 100%;
+
+  margin-bottom: 22px;
+}
+
+
+.slide-stage.show-all .slide-content {
+  display: block;
+}
+
+
+/* =========================================================
+   HIGH ZOOM / NARROW WINDOW
+
+   Browser zoom reduces CSS viewport width.
+   At this point abandon title wrapping and stack cleanly.
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  :root {
+    --header-space: 102px;
+  }
+
+
+  body.reader-header-hidden {
+    --header-space: 0px;
+  }
+
+
+  .site-header {
+    height: 102px;
+
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding: 9px 14px;
+  }
+
+
+  .top-nav {
+    width: 100%;
+  }
+
+
+  .slide-stage {
+    width: calc(100% - 8px);
+  }
+
+
+  .slide {
+    min-height: 0;
+
+    padding:
+      24px 19px;
+
+    overflow: visible;
+  }
+
+
+  .slide-header {
+    float: none;
+
+    width: 100%;
+
+    margin:
+      0 0 26px;
+  }
+
+
+  .slide-header strong {
+    font-size:
+      clamp(2.25rem, 10vw, 3.6rem);
+  }
+
+
+  .slide-header::after {
+    width: 100%;
+  }
+
+
+  .slide-number {
+    position: static;
+
+    margin-top: 10px;
+  }
+
+
+  .slide-content {
+    display: block;
+  }
+
+
+  .spec-text,
+  .copy-large,
+  .copy-medium,
+  .copy-small,
+  .spec-text:not(.copy-large):not(.copy-medium):not(.copy-small) {
+    width: 100% !important;
+
+    padding-top: 0;
+
+    font-size:
+      clamp(1.28rem, 5.7vw, 2rem);
+
+    line-height: 1.52;
+  }
+
+
+  .deck-controls {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+
+  .deck-progress {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+
+  .deck-prev {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+
+  .deck-next {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+}
+
+
+/* Short screens: never clip content to a slide height. */
+
+@media (max-height: 680px) {
+
+  .slide {
+    min-height: 0;
+  }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+
+  .site-header,
+  .slide-stage {
+    transition: none;
+  }
+
+}
+
+/* ===== FULL SPEC CONTENT ===== */
+
+/*
+   ONE body type scale throughout the reader.
+   Rationale 5 is NOT made smaller.
+*/
+
+.spec-text,
+.copy-large,
+.copy-medium,
+.copy-small,
+.spec-text:not(.copy-large):not(.copy-medium):not(.copy-small) {
+  font-size:
+    clamp(1.55rem, 2.05vw, 2.25rem) !important;
+
+  line-height: 1.39 !important;
+}
+
+
+.spec-text p {
+  margin:
+    0
+    0
+    .72em;
+}
+
+
+.spec-text p:last-child {
+  margin-bottom: 0;
+}
+
+
+.minor-label {
+  margin:
+    .6em
+    0
+    .16em !important;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .5em;
+
+  font-weight: 850;
+
+  letter-spacing: .1em;
+
+  text-transform: uppercase;
+}
+
+
+.slide-list {
+  margin:
+    .1em
+    0
+    0
+    1.05em;
+
+  padding: 0;
+}
+
+
+.slide-list li {
+  margin-bottom: .38em;
+}
+
+
+.top-nav a.nav-coming {
+  text-decoration: none;
+}
+
+
+.nav-live {
+  color: var(--accent) !important;
+
+  cursor: pointer;
+}
+
+
+.deck-dots {
+  max-width: 52vw;
+
+  overflow-x: auto;
+
+  padding:
+    5px
+    2px;
+
+  scrollbar-width: thin;
+}
+
+
+/*
+   Long official paragraphs should grow naturally.
+   Never reduce the font merely to force them into 16:9.
+*/
+
+.slide {
+  height: auto;
+
+  overflow: visible;
+}
+
+
+@media (max-width: 900px) {
+
+  .spec-text,
+  .copy-large,
+  .copy-medium,
+  .copy-small,
+  .spec-text:not(.copy-large):not(.copy-medium):not(.copy-small) {
+
+    font-size:
+      clamp(1.28rem, 5.7vw, 2rem) !important;
+
+    line-height: 1.5 !important;
+  }
+
+
+  .deck-dots {
+    max-width: 72vw;
+  }
+
+}
+
+/* ===== END FULL SPEC CONTENT ===== */
+
+/* ===== NUMBER STRAND ===== */
+
+.official-label {
+  margin-bottom: .45em !important;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .42em;
+
+  font-weight: 900;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+}
+
+
+.number-map {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(170px, 1fr)
+    );
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+
+.number-map > div {
+  padding: 18px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: var(--accent-soft);
+}
+
+
+.number-map strong,
+.number-map span {
+  display: block;
+}
+
+
+.number-map strong {
+  margin-bottom: 5px;
+
+  color: var(--accent);
+}
+
+
+.three-card {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 16px;
+
+  margin-top: 28px;
+}
+
+
+.three-card article {
+  padding: 20px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+
+.three-card strong {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: var(--accent);
+}
+
+
+.number-line-demo {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 20px;
+
+  padding-top: 7px;
+
+  border-top: 4px solid var(--accent);
+}
+
+
+.math-table {
+  width: 100%;
+
+  margin-top: 24px;
+
+  border-collapse: collapse;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .72em;
+}
+
+
+.math-table th,
+.math-table td {
+  padding: 13px 15px;
+
+  border: 1px solid var(--line);
+
+  text-align: left;
+}
+
+
+.math-table th {
+  background: var(--accent-soft);
+
+  color: var(--accent);
+}
+
+
+.math-table.centred td,
+.math-table.centred th {
+  text-align: center;
+}
+
+
+.formula-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+
+  gap: 15px;
+
+  margin:
+    12px
+    0
+    24px;
+}
+
+
+.formula-grid > div {
+  display: grid;
+  place-items: center;
+
+  min-height: 110px;
+
+  padding: 14px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+
+.example-strip,
+.money-example {
+  margin-top: 24px;
+
+  padding: 18px 20px;
+
+  border-left: 5px solid var(--accent);
+
+  background: var(--accent-soft);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+
+.example-strip span {
+  margin-left: 20px;
+}
+
+
+.equivalence-chain,
+.sequence-chain {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: clamp(14px, 3vw, 40px);
+
+  margin:
+    28px
+    0;
+
+  font-size:
+    clamp(1.5rem, 3vw, 3rem);
+
+  font-weight: 800;
+}
+
+
+.topic-grid,
+.notation-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(145px, 1fr)
+    );
+
+  gap: 10px;
+}
+
+
+.topic-grid > div,
+.notation-grid > div {
+  padding: 14px;
+
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  background: #f8fafc;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  text-align: center;
+}
+
+
+.notation-grid strong,
+.notation-grid span {
+  display: block;
+}
+
+
+.notation-grid strong {
+  margin-bottom: 5px;
+
+  color: var(--accent);
+
+  font-size: 1.25em;
+}
+
+
+.pattern-steps {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 34px;
+}
+
+
+.pattern-steps span {
+  padding: 10px 15px;
+
+  border-radius: 999px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .55em;
+
+  font-weight: 850;
+
+  letter-spacing: .08em;
+}
+
+
+.difference-row {
+  display: flex;
+  justify-content: space-around;
+
+  margin: 13px 8% 18px;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 900;
+}
+
+
+.compare-strip {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+
+.compare-strip div {
+  padding: 14px;
+
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  text-align: center;
+}
+
+
+.compare-strip strong,
+.compare-strip span {
+  display: block;
+}
+
+
+.compare-strip span {
+  margin-top: 5px;
+
+  font-size: .7em;
+}
+
+
+.set-example {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+
+.set-example p {
+  margin: 0;
+
+  padding: 13px;
+
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  background: #f8fafc;
+}
+
+
+.venn {
+  position: relative;
+
+  width: min(620px, 90%);
+  height: 320px;
+
+  margin:
+    28px
+    auto
+    15px;
+}
+
+
+.venn-circle {
+  position: absolute;
+
+  top: 20px;
+
+  width: 280px;
+  height: 280px;
+
+  border: 5px solid var(--accent);
+  border-radius: 50%;
+
+  background: rgba(40,95,140,.07);
+}
+
+
+.venn-circle span {
+  position: absolute;
+
+  top: 28px;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 900;
+}
+
+
+.venn-a {
+  left: 55px;
+}
+
+
+.venn-b {
+  right: 55px;
+}
+
+
+.venn-a span {
+  left: 45px;
+}
+
+
+.venn-b span {
+  right: 45px;
+}
+
+
+.venn-intersection {
+  position: absolute;
+
+  z-index: 3;
+
+  left: 50%;
+  top: 48%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 900;
+}
+
+
+.venn-caption {
+  text-align: center;
+}
+
+
+.law-box {
+  margin-bottom: 15px;
+
+  padding: 13px 20px;
+
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  background: #f8fafc;
+}
+
+
+.check-heading {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+
+.check-card {
+  margin-bottom: 15px;
+
+  padding: 18px 22px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+
+@media (max-width: 900px) {
+
+  .three-card,
+  .compare-strip {
+    grid-template-columns: 1fr;
+  }
+
+
+  .equivalence-chain,
+  .sequence-chain {
+    flex-wrap: wrap;
+  }
+
+
+  .venn {
+    transform-origin: top left;
+
+    transform: scale(.72);
+
+    margin-bottom: -65px;
+  }
+
+}
+
+/* ===== END NUMBER STRAND ===== */
+
+/* ===== ALGEBRA FUNCTIONS ===== */
+
+
+/* Local / in-page strand controls */
+
+.strand-local-nav {
+  display: flex;
+
+  gap: 6px;
+
+  margin:
+    0
+    6px
+    8px;
+
+  padding:
+    6px;
+
+  overflow-x: auto;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: rgba(255,255,255,.94);
+
+  scrollbar-width: thin;
+}
+
+
+.strand-local-nav a {
+  flex: 0 0 auto;
+
+  padding:
+    7px
+    12px;
+
+  border-radius: 7px;
+
+  text-decoration: none;
+
+  color: var(--muted);
+
+  font-size: .76rem;
+
+  font-weight: 800;
+}
+
+
+.strand-local-nav a:hover,
+.strand-local-nav a:focus-visible {
+  color: var(--accent);
+
+  background: var(--accent-soft);
+
+  outline: none;
+}
+
+
+/* Flow among multiple representations */
+
+.representation-flow {
+  display: flex;
+
+  align-items: stretch;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-top: 28px;
+}
+
+
+.representation-flow > div {
+  flex: 1 1 0;
+
+  display: grid;
+  place-items: center;
+
+  min-height: 120px;
+
+  padding: 18px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+
+.representation-flow strong,
+.representation-flow span {
+  display: block;
+}
+
+
+.representation-flow strong {
+  margin-bottom: 8px;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .65em;
+}
+
+
+.representation-flow b {
+  align-self: center;
+
+  color: var(--accent);
+}
+
+
+/* Expansion area model */
+
+.algebra-area-model {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  width:
+    min(
+      100%,
+      630px
+    );
+
+  margin:
+    28px
+    auto;
+
+  border:
+    4px solid
+    var(--accent);
+}
+
+
+.algebra-area-model > div {
+  display: grid;
+  place-items: center;
+
+  min-height: 110px;
+
+  padding: 16px;
+
+  border:
+    1px solid
+    var(--accent);
+
+  background:
+    var(--accent-soft);
+
+  font-size: 1.15em;
+}
+
+
+/* Inequality number line */
+
+.inequality-line {
+  position: relative;
+
+  width: min(760px, 90%);
+
+  height: 100px;
+
+  margin:
+    35px
+    auto
+    0;
+}
+
+
+.inequality-line::before {
+  content: "";
+
+  position: absolute;
+
+  top: 48px;
+  left: 7%;
+  right: 7%;
+
+  height: 4px;
+
+  background: var(--ink);
+}
+
+
+.open-point {
+  position: absolute;
+
+  z-index: 2;
+
+  top: 25px;
+  left: 68%;
+
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    5px solid
+    var(--accent);
+
+  border-radius: 50%;
+
+  background: white;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .7em;
+
+  font-weight: 900;
+}
+
+
+.inequality-ray {
+  position: absolute;
+
+  top: 27px;
+
+  left: 9%;
+  right: 30%;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 2.2rem;
+
+  font-weight: 900;
+
+  text-align: left;
+}
+
+
+/* Function machine */
+
+.function-machine {
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 22px;
+
+  width:
+    min(
+      720px,
+      100%
+    );
+
+  margin:
+    35px
+    auto;
+}
+
+
+.function-input,
+.function-output {
+  padding: 20px;
+
+  border:
+    2px solid
+    var(--line);
+
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+
+.function-box {
+  min-width: 140px;
+
+  padding: 30px;
+
+  border-radius: 14px;
+
+  background: var(--accent);
+
+  color: white;
+
+  text-align: center;
+
+  font-size: 1.4em;
+
+  font-weight: 900;
+}
+
+
+/* Graph-story illustration */
+
+.graph-story {
+  position: relative;
+
+  width:
+    min(
+      850px,
+      100%
+    );
+
+  min-height: 300px;
+
+  margin:
+    24px
+    auto
+    0;
+
+  padding:
+    10px
+    20px
+    20px
+    45px;
+
+  color: var(--accent);
+}
+
+
+.graph-story svg {
+  width: 100%;
+  height: 260px;
+
+  overflow: visible;
+}
+
+
+.graph-axis-y,
+.graph-axis-x {
+  position: absolute;
+
+  background: var(--ink);
+}
+
+
+.graph-axis-y {
+  top: 10px;
+  bottom: 28px;
+  left: 42px;
+
+  width: 3px;
+}
+
+
+.graph-axis-x {
+  left: 42px;
+  right: 12px;
+  bottom: 28px;
+
+  height: 3px;
+}
+
+
+.graph-label {
+  position: absolute;
+
+  padding:
+    5px
+    9px;
+
+  border-radius: 6px;
+
+  background: var(--accent-soft);
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .55em;
+
+  font-weight: 800;
+}
+
+
+.graph-max {
+  top: 30px;
+  left: 34%;
+}
+
+
+.graph-min {
+  right: 22%;
+  bottom: 28px;
+}
+
+
+@media (max-width: 900px) {
+
+  .representation-flow {
+    flex-direction: column;
+  }
+
+
+  .representation-flow b {
+    transform: rotate(90deg);
+  }
+
+
+  .function-machine {
+    grid-template-columns: 1fr;
+  }
+
+
+  .strand-local-nav {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+}
+
+
+/* ===== END ALGEBRA FUNCTIONS ===== */
+
+/* ===== MATH ZOOM ===== */
+
+/* Make rendered mathematics visibly clickable */
+
+mjx-container {
+  cursor: zoom-in;
+}
+
+
+mjx-container:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+
+  border-radius: 6px;
+}
+
+
+/* Full-screen backdrop */
+
+.math-zoom-overlay {
+  position: fixed;
+
+  z-index: 10000;
+
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: clamp(20px, 5vw, 70px);
+
+  background:
+    rgba(15, 25, 38, .82);
+
+  backdrop-filter: blur(7px);
+}
+
+
+/* Large white mathematics panel */
+
+.math-zoom-panel {
+  position: relative;
+
+  width: min(94vw, 1200px);
+
+  max-height: 90vh;
+
+  overflow: auto;
+
+  padding:
+    clamp(32px, 6vw, 80px);
+
+  border-radius: 16px;
+
+  background: white;
+
+  color: var(--ink);
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.34);
+
+  text-align: center;
+}
+
+
+/* The actual enlarged MathJax */
+
+.math-zoom-panel mjx-container {
+  margin: 0 !important;
+
+  font-size:
+    clamp(
+      2.2rem,
+      5vw,
+      5rem
+    ) !important;
+
+  cursor: default;
+
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+
+/* Small close control */
+
+.math-zoom-close {
+  position: absolute;
+
+  top: 12px;
+  right: 14px;
+
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: white;
+
+  color: var(--ink);
+
+  cursor: pointer;
+
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+
+.math-zoom-close:hover,
+.math-zoom-close:focus-visible {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  outline: none;
+}
+
+
+/* Do not animate for reduced-motion users */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .math-zoom-panel {
+    animation:
+      mathZoomIn .15s ease-out;
+  }
+
+
+  @keyframes mathZoomIn {
+
+    from {
+      transform: scale(.94);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+  }
+
+}
+
+/* ===== END MATH ZOOM ===== */
+
+/* ===== GEOMETRY TRIG ===== */
+
+
+.scale-model {
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 25px;
+
+  margin-top: 35px;
+}
+
+
+.scale-small,
+.scale-large {
+  display: grid;
+  place-items: center;
+
+  min-height: 160px;
+
+  padding: 25px;
+
+  border: 3px solid var(--accent);
+  border-radius: 12px;
+
+  background: var(--accent-soft);
+
+  text-align: center;
+}
+
+
+.scale-small span,
+.scale-large span,
+.scale-small strong,
+.scale-large strong {
+  display: block;
+}
+
+
+.scale-small strong,
+.scale-large strong {
+  margin-top: 10px;
+
+  font-size: 1.5em;
+}
+
+
+.scale-arrow {
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 900;
+}
+
+
+/* NET */
+
+.net-demo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 50px;
+
+  margin-top: 28px;
+}
+
+
+.net-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 75px);
+
+  grid-template-rows:
+    repeat(4, 75px);
+
+  gap: 2px;
+}
+
+
+.net-face {
+  border: 3px solid var(--accent);
+
+  background: var(--accent-soft);
+}
+
+
+.net-face.main {
+  background: rgba(40,95,140,.20);
+}
+
+
+.net-arrow {
+  color: var(--accent);
+
+  font-size: 3rem;
+
+  font-weight: 900;
+}
+
+
+.solid-cube {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 180px;
+  height: 180px;
+
+  border: 4px solid var(--accent);
+
+  background: var(--accent-soft);
+}
+
+
+.solid-cube::before {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border:
+    4px solid
+    var(--accent);
+
+  transform:
+    translate(
+      24px,
+      -24px
+    );
+}
+
+
+.solid-cube span {
+  z-index: 2;
+}
+
+
+/* GEOMETRY REFERENCES */
+
+.important-box {
+  margin:
+    22px
+    0;
+
+  padding:
+    18px
+    20px;
+
+  border-left:
+    5px solid
+    var(--accent);
+
+  background:
+    var(--accent-soft);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+
+.geometry-reference-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+
+  gap: 14px;
+
+  margin-top: 25px;
+}
+
+
+.geometry-reference-grid > div {
+  padding: 18px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+
+.geometry-reference-grid strong,
+.geometry-reference-grid span {
+  display: block;
+}
+
+
+.geometry-reference-grid strong {
+  margin-bottom: 8px;
+
+  color: var(--accent);
+}
+
+
+/* PROOF */
+
+.proof-chain {
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr auto 1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 32px;
+}
+
+
+.proof-chain > div:nth-child(odd) {
+  padding: 18px 12px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+
+.proof-chain strong,
+.proof-chain span {
+  display: block;
+}
+
+
+.proof-chain strong {
+  color: var(--accent);
+}
+
+
+/* TRIG */
+
+.trig-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(340px, 1fr)
+    minmax(340px, 1fr);
+
+  align-items: center;
+
+  gap: 50px;
+
+  margin-top: 22px;
+}
+
+
+.right-triangle {
+  position: relative;
+
+  width: 380px;
+  height: 270px;
+
+  margin: auto;
+
+  border-left:
+    7px solid
+    var(--accent);
+
+  border-bottom:
+    7px solid
+    var(--accent);
+}
+
+
+.right-triangle::after {
+  content: "";
+
+  position: absolute;
+
+  left: -2px;
+  bottom: -4px;
+
+  width: 465px;
+  height: 7px;
+
+  background: var(--accent);
+
+  transform:
+    rotate(-34deg);
+
+  transform-origin:
+    left centre;
+}
+
+
+.tri-vertical,
+.tri-horizontal,
+.tri-hypotenuse,
+.tri-angle {
+  position: absolute;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .65em;
+
+  font-weight: 800;
+}
+
+
+.tri-vertical {
+  left: -115px;
+  top: 105px;
+}
+
+
+.tri-horizontal {
+  left: 135px;
+  bottom: -48px;
+}
+
+
+.tri-hypotenuse {
+  top: 80px;
+  left: 155px;
+
+  transform: rotate(-34deg);
+}
+
+
+.tri-angle {
+  right: 15px;
+  bottom: 12px;
+
+  color: var(--accent);
+}
+
+
+.trig-ratios {
+  text-align: center;
+}
+
+
+/* RELATIONSHIPS */
+
+.two-relationship-grid {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 20px;
+
+  margin-top: 30px;
+}
+
+
+.two-relationship-grid article {
+  padding: 25px;
+
+  border: 1px solid var(--line);
+  border-radius: 11px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+
+.two-relationship-grid strong {
+  display: block;
+
+  color: var(--accent);
+}
+
+
+/* GRAPH MEANING */
+
+.graph-meaning {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 16px;
+
+  margin-top: 28px;
+}
+
+
+.graph-meaning > div {
+  padding: 22px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: var(--accent-soft);
+
+  text-align: center;
+}
+
+
+.graph-meaning strong,
+.graph-meaning span {
+  display: block;
+}
+
+
+.graph-meaning strong {
+  margin-bottom: 7px;
+
+  color: var(--accent);
+}
+
+
+/* TRANSFORMATIONS */
+
+.transform-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(220px, 1fr)
+    );
+
+  gap: 16px;
+
+  margin-top: 30px;
+}
+
+
+.transform-grid > div {
+  padding: 24px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: #f8fafc;
+
+  text-align: center;
+}
+
+
+.transform-grid strong,
+.transform-grid span {
+  display: block;
+}
+
+
+.transform-grid strong {
+  color: var(--accent);
+}
+
+
+.coordinate-demo {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 70px;
+
+  margin-top: 35px;
+}
+
+
+.coordinate-demo .shape {
+  width: 130px;
+  height: 130px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    5px solid
+    var(--accent);
+
+  clip-path:
+    polygon(
+      50% 0,
+      100% 100%,
+      0 100%
+    );
+
+  background:
+    var(--accent-soft);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 900;
+}
+
+
+.transform-arrow {
+  color: var(--accent);
+
+  font-size: 3rem;
+
+  font-weight: 900;
+}
+
+
+.symmetry-demo {
+  text-align: center;
+}
+
+
+.symmetry-shape {
+  position: relative;
+
+  width: 280px;
+  height: 220px;
+
+  margin:
+    25px
+    auto;
+
+  border:
+    6px solid
+    var(--accent);
+
+  border-radius:
+    48% 48% 15% 15%;
+
+  background:
+    var(--accent-soft);
+}
+
+
+.symmetry-axis {
+  position: absolute;
+
+  top: -20px;
+  bottom: -20px;
+
+  left: 50%;
+
+  border-left:
+    4px dashed
+    var(--ink);
+}
+
+
+/* NARROW */
+
+@media (max-width: 900px) {
+
+  .scale-model,
+  .trig-layout,
+  .two-relationship-grid,
+  .graph-meaning {
+    grid-template-columns: 1fr;
+  }
+
+
+  .proof-chain {
+    grid-template-columns: 1fr;
+  }
+
+
+  .proof-chain > div:nth-child(even) {
+    transform: rotate(90deg);
+
+    text-align: center;
+  }
+
+
+  .net-demo {
+    flex-direction: column;
+
+    gap: 25px;
+  }
+
+
+  .net-arrow {
+    transform: rotate(90deg);
+  }
+
+
+  .right-triangle {
+    transform:
+      scale(.75);
+
+    transform-origin:
+      centre;
+  }
+
+
+  .transform-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* ===== END GEOMETRY TRIG ===== */
+
+/* ===== STATISTICS PROBABILITY ===== */
+
+
+/* TREE DIAGRAM */
+
+.tree-diagram {
+  display: grid;
+
+  gap: 24px;
+
+  width: min(820px, 100%);
+
+  margin: 28px auto;
+}
+
+
+.tree-start {
+  justify-self: center;
+
+  padding: 10px 20px;
+
+  border-radius: 8px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 850;
+}
+
+
+.tree-level {
+  display: grid;
+
+  gap: 14px;
+}
+
+
+.tree-level-one {
+  grid-template-columns:
+    repeat(2, 1fr);
+}
+
+
+.tree-level-two {
+  grid-template-columns:
+    repeat(4, 1fr);
+}
+
+
+.tree-level > div {
+  padding: 14px;
+
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  background: var(--accent-soft);
+
+  text-align: center;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 800;
+}
+
+
+/* PROBABILITY SCALE */
+
+.probability-scale {
+  position: relative;
+
+  width: min(900px, 90%);
+
+  height: 180px;
+
+  margin:
+    45px
+    auto
+    0;
+}
+
+
+.probability-track {
+  position: absolute;
+
+  top: 72px;
+  left: 5%;
+  right: 5%;
+
+  height: 8px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dce5ec,
+      var(--accent)
+    );
+}
+
+
+.probability-mark {
+  position: absolute;
+
+  top: 45px;
+
+  display: grid;
+
+  justify-items: center;
+
+  transform: translateX(-50%);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+
+.probability-mark::before {
+  content: "";
+
+  width: 22px;
+  height: 22px;
+
+  margin-bottom: 9px;
+
+  border: 5px solid var(--accent);
+  border-radius: 50%;
+
+  background: white;
+}
+
+
+.probability-mark strong,
+.probability-mark span {
+  display: block;
+}
+
+
+.probability-mark strong {
+  color: var(--accent);
+
+  font-size: 1.15em;
+}
+
+
+.probability-mark span {
+  font-size: .55em;
+}
+
+
+.p-zero {
+  left: 5%;
+}
+
+
+.p-half {
+  left: 50%;
+}
+
+
+.p-one {
+  left: 95%;
+}
+
+
+/* REPEATED TRIALS */
+
+.trial-bars {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 16px;
+
+  align-items: end;
+
+  margin-top: 28px;
+}
+
+
+.trial-bars > div {
+  display: grid;
+  align-content: end;
+
+  min-height: 170px;
+
+  padding: 20px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      to top,
+      var(--accent-soft),
+      white
+    );
+
+  text-align: center;
+}
+
+
+.trial-bars strong,
+.trial-bars span {
+  display: block;
+}
+
+
+.trial-bars strong {
+  color: var(--accent);
+}
+
+
+.trial-bars span {
+  margin-top: 8px;
+
+  font-size: .7em;
+}
+
+
+/* STATISTICAL ENQUIRY CYCLE */
+
+.stats-cycle {
+  display: flex;
+
+  align-items: stretch;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 32px;
+}
+
+
+.stats-cycle > div {
+  flex: 1 1 0;
+
+  padding: 18px 10px;
+
+  border: 1px solid var(--line);
+  border-radius: 10px;
+
+  background: var(--accent-soft);
+
+  text-align: center;
+}
+
+
+.stats-cycle strong,
+.stats-cycle span {
+  display: block;
+}
+
+
+.stats-cycle strong {
+  color: var(--accent);
+
+  font-size: 1.2em;
+}
+
+
+.stats-cycle span {
+  font-size: .68em;
+}
+
+
+.stats-cycle b {
+  align-self: center;
+
+  color: var(--accent);
+}
+
+
+/* BAR CHART */
+
+.bar-chart-demo {
+  height: 350px;
+
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  gap: 38px;
+
+  margin:
+    25px auto;
+
+  padding:
+    25px 40px
+    0;
+
+  border-left: 4px solid var(--ink);
+  border-bottom: 4px solid var(--ink);
+}
+
+
+.bar-column {
+  width: 90px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  height: 100%;
+
+  text-align: center;
+}
+
+
+.bar {
+  width: 100%;
+
+  border-radius: 5px 5px 0 0;
+
+  background: var(--accent);
+}
+
+
+.bar-column span {
+  padding-top: 8px;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-weight: 800;
+}
+
+
+.h40 { height: 40%; }
+.h55 { height: 55%; }
+.h75 { height: 75%; }
+.h90 { height: 90%; }
+
+
+/* HISTOGRAM */
+
+.histogram-demo {
+  height: 350px;
+
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  width: min(800px, 95%);
+
+  margin:
+    28px auto;
+
+  padding-top: 20px;
+
+  border-left: 4px solid var(--ink);
+  border-bottom: 4px solid var(--ink);
+}
+
+
+.hist-bar {
+  width: 17%;
+
+  border: 1px solid white;
+
+  background: var(--accent);
+}
+
+
+.hh25 { height: 25%; }
+.hh35 { height: 35%; }
+.hh65 { height: 65%; }
+.hh70 { height: 70%; }
+.hh100 { height: 100%; }
+
+
+/* COMPLETE CYCLE */
+
+.stats-cycle-large {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 16px;
+
+  margin-top: 25px;
+}
+
+
+.stats-cycle-large > div {
+  min-height: 135px;
+
+  display: grid;
+  align-content: center;
+
+  padding: 20px;
+
+  border: 1px solid var(--line);
+  border-radius: 12px;
+
+  background: var(--accent-soft);
+
+  text-align: center;
+}
+
+
+.stats-cycle-large strong,
+.stats-cycle-large span {
+  display: block;
+}
+
+
+.stats-cycle-large strong {
+  margin-bottom: 8px;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .65em;
+
+  letter-spacing: .08em;
+}
+
+
+.stats-cycle-large span {
+  font-size: .78em;
+}
+
+
+/* MOBILE / HIGH ZOOM */
+
+@media (max-width: 900px) {
+
+  .trial-bars,
+  .stats-cycle-large {
+    grid-template-columns: 1fr;
+  }
+
+
+  .stats-cycle {
+    flex-direction: column;
+  }
+
+
+  .stats-cycle b {
+    transform: rotate(90deg);
+  }
+
+
+  .tree-level-two {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .bar-chart-demo {
+    gap: 14px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+
+  .bar-column {
+    width: 58px;
+  }
+
+}
+
+/* ===== END STATISTICS PROBABILITY ===== */
+
+/* ===== HOME PAGE ===== */
+
+
+.home-page {
+  min-height: 100vh;
+}
+
+
+.home-main {
+  width: min(1500px, calc(100% - 32px));
+
+  margin: 0 auto;
+
+  padding:
+    calc(var(--header-space) + 35px)
+    0
+    70px;
+}
+
+
+.home-hero {
+  max-width: 1100px;
+
+  margin:
+    0
+    0
+    clamp(35px, 5vw, 65px);
+}
+
+
+.home-kicker {
+  margin: 0 0 10px;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(.85rem, 1.2vw, 1.05rem);
+
+  font-weight: 850;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+}
+
+
+.home-hero h1 {
+  margin: 0;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(3.2rem, 7vw, 7rem);
+
+  line-height: .95;
+
+  letter-spacing: -.055em;
+}
+
+
+.home-intro {
+  max-width: 900px;
+
+  margin:
+    28px
+    0
+    0;
+
+  font-size:
+    clamp(1.45rem, 2.35vw, 2.45rem);
+
+  line-height: 1.32;
+}
+
+
+.home-principle {
+  margin:
+    25px
+    0
+    0;
+
+  color: var(--accent);
+
+  font-size:
+    clamp(1.05rem, 1.6vw, 1.45rem);
+
+  line-height: 1.4;
+}
+
+
+.home-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 16px;
+}
+
+
+.home-card {
+  position: relative;
+
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    clamp(22px, 3vw, 36px);
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius: 16px;
+
+  background: white;
+
+  color: var(--ink);
+
+  text-decoration: none;
+
+  transition:
+    transform .14s ease,
+    border-color .14s ease,
+    box-shadow .14s ease;
+}
+
+
+.home-card:hover,
+.home-card:focus-visible {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    var(--accent);
+
+  box-shadow:
+    0 18px 48px
+    rgba(0,0,0,.09);
+
+  outline: none;
+}
+
+
+.home-card > span {
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .9rem;
+
+  font-weight: 900;
+
+  letter-spacing: .09em;
+}
+
+
+.home-card h2 {
+  margin:
+    18px
+    0
+    12px;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(1.55rem, 2.1vw, 2.25rem);
+
+  line-height: 1.05;
+
+  letter-spacing: -.03em;
+}
+
+
+.home-card p {
+  margin: 0;
+
+  font-size:
+    clamp(1rem, 1.25vw, 1.2rem);
+
+  line-height: 1.48;
+}
+
+
+.home-card > strong {
+  margin-top: auto;
+
+  padding-top: 24px;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .95rem;
+}
+
+
+.home-front {
+  background:
+    var(--accent-soft);
+}
+
+
+.home-reference {
+  background: #f8fafc;
+}
+
+
+@media (max-width: 1050px) {
+
+  .home-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+}
+
+
+@media (max-width: 680px) {
+
+  .home-main {
+    width:
+      calc(100% - 20px);
+  }
+
+
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .home-card {
+    min-height: 245px;
+  }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .home-card {
+    transition: none;
+  }
+
+
+  .home-card:hover,
+  .home-card:focus-visible {
+    transform: none;
+  }
+
+}
+
+/* ===== END HOME PAGE ===== */
+
+
+
+/* ===== LIVE QUIZ ===== */
+
+.live-question {
+  margin-bottom: 30px;
+
+  padding: 24px;
+
+  border: 1px solid var(--line);
+  border-radius: 14px;
+
+  background: #f8fafc;
+}
+
+
+.quiz-prompt {
+  margin-bottom: 20px !important;
+}
+
+
+.quiz-options {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 14px;
+
+  margin-top: 18px;
+}
+
+
+.quiz-option,
+.quiz-check {
+  min-height: 58px;
+
+  padding: 12px 18px;
+
+  border: 2px solid var(--line);
+  border-radius: 10px;
+
+  background: white;
+
+  color: var(--ink);
+
+  cursor: pointer;
+
+  font: inherit;
+  font-weight: 850;
+
+  transition:
+    border-color .12s ease,
+    background .12s ease,
+    color .12s ease;
+}
+
+
+.quiz-option:hover,
+.quiz-option:focus-visible,
+.quiz-check:hover,
+.quiz-check:focus-visible {
+  border-color: var(--accent);
+
+  outline: none;
+}
+
+
+.quiz-option.quiz-correct {
+  border-color: #18864b;
+
+  background: #e7f7ee;
+
+  color: #126b3c;
+}
+
+
+.quiz-option.quiz-wrong {
+  border-color: #c63c3c;
+
+  background: #fdeaea;
+
+  color: #9f2929;
+}
+
+
+.quiz-entry-row {
+  display: flex;
+
+  align-items: end;
+
+  gap: 14px;
+
+  margin-top: 18px;
+}
+
+
+.quiz-entry-row label {
+  flex: 1 1 auto;
+}
+
+
+.quiz-entry-row label span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--muted);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .55em;
+
+  font-weight: 850;
+
+  letter-spacing: .06em;
+
+  text-transform: uppercase;
+}
+
+
+.quiz-number-input {
+  width: 100%;
+
+  min-height: 58px;
+
+  padding: 10px 15px;
+
+  border: 2px solid var(--line);
+  border-radius: 10px;
+
+  background: white;
+
+  color: var(--ink);
+
+  font: inherit;
+  font-weight: 800;
+
+  outline: none;
+}
+
+
+.quiz-number-input:focus {
+  border-color: var(--accent);
+}
+
+
+.quiz-number-input.quiz-correct {
+  border-color: #18864b;
+
+  background: #e7f7ee;
+}
+
+
+.quiz-number-input.quiz-wrong {
+  border-color: #c63c3c;
+
+  background: #fdeaea;
+}
+
+
+.quiz-feedback {
+  min-height: 1.4em;
+
+  margin-top: 12px;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .62em;
+
+  font-weight: 850;
+}
+
+
+.quiz-feedback.correct {
+  color: #126b3c;
+}
+
+
+.quiz-feedback.wrong {
+  color: #a52e2e;
+}
+
+
+@media (max-width: 700px) {
+
+  .quiz-options {
+    grid-template-columns: 1fr;
+  }
+
+
+  .quiz-entry-row {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+}
+
+/* ===== END LIVE QUIZ ===== */
+
+/* ===== FULL FRAME READER DECKS ===== */
+
+/*
+   Shared full-screen slide behaviour:
+
+   - Unifying
+   - Front Matter
+
+   One slide at a time.
+*/
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+):not(.deck-ready) .slide {
+
+  display: none !important;
+
+}
+
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+):not(.deck-ready) .slide:first-of-type {
+
+  display: flex !important;
+
+}
+
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+).deck-ready .slide[hidden] {
+
+  display: none !important;
+
+}
+
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+).deck-ready .slide:not([hidden]) {
+
+  display: flex !important;
+
+}
+
+
+/* ---------------------------------------------------------
+   SLIDE FRAME
+   --------------------------------------------------------- */
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .slide {
+
+  flex-direction: column;
+
+  height:
+    calc(
+      100svh
+      - var(--header-space)
+      - 67px
+    );
+
+  min-height:
+    calc(
+      100svh
+      - var(--header-space)
+      - 67px
+    );
+
+  overflow: hidden;
+
+}
+
+
+/* ---------------------------------------------------------
+   TITLE
+   --------------------------------------------------------- */
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .slide-header {
+
+  float: none;
+
+  flex:
+    0
+    0
+    auto;
+
+  width: 100%;
+
+  margin:
+    0
+    0
+    18px;
+
+  padding-right: 110px;
+
+}
+
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .slide-header strong {
+
+  font-size:
+    clamp(
+      2.7rem,
+      4.6vw,
+      5rem
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   CONTENT USES ALL REMAINING SPACE
+   --------------------------------------------------------- */
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .slide-content {
+
+  display: flex;
+
+  flex:
+    1
+    1
+    auto;
+
+  width: 100%;
+
+  min-height: 0;
+
+}
+
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .spec-text {
+
+  display: flex;
+
+  flex:
+    1
+    1
+    auto;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  width: 100% !important;
+
+  max-width: none !important;
+
+  min-height: 0;
+
+  padding-top: 0;
+
+  line-height:
+    1.08 !important;
+
+}
+
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .spec-text p {
+
+  line-height:
+    inherit !important;
+
+}
+
+
+/*
+   Keep labels such as
+   STATEMENT OF LEARNING / MATHEMATICS
+   visually subordinate to the main text.
+*/
+
+.front-matter-deck .minor-label {
+
+  font-size:
+    .42em !important;
+
+  line-height:
+    1.15 !important;
+
+}
+
+
+/* ---------------------------------------------------------
+   NO LONG WEBPAGE / SHOW-ALL VIEW
+   --------------------------------------------------------- */
+
+:is(
+  .unifying-deck,
+  .front-matter-deck
+) .deck-tools {
+
+  display: none !important;
+
+}
+
+
+/* ---------------------------------------------------------
+   HIGH ZOOM / NARROW VIEW
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  :is(
+    .unifying-deck,
+    .front-matter-deck
+  ) .slide {
+
+    height: auto;
+
+    min-height:
+      calc(
+        100svh
+        - var(--header-space)
+        - 120px
+      );
+
+    overflow: visible;
+
+  }
+
+
+  :is(
+    .unifying-deck,
+    .front-matter-deck
+  ) .slide-header {
+
+    padding-right: 0;
+
+  }
+
+
+  :is(
+    .unifying-deck,
+    .front-matter-deck
+  ) .slide-content {
+
+    display: block;
+
+  }
+
+
+  :is(
+    .unifying-deck,
+    .front-matter-deck
+  ) .spec-text {
+
+    display: block;
+
+    font-size:
+      clamp(
+        1.3rem,
+        5.7vw,
+        2rem
+      ) !important;
+
+    line-height:
+      1.45 !important;
+
+  }
+
+}
+
+/* ===== END FULL FRAME READER DECKS ===== */
+
+/* ===== FRONT MATTER AUTOFIT GUARANTEE ===== */
+
+
+/*
+   FRONT MATTER IS A SLIDE DECK.
+
+   One slide occupies the available viewport.
+   The text area receives all remaining vertical space.
+   JavaScript then finds the largest font that fits.
+*/
+
+
+.front-matter-deck .slide {
+
+  display: flex;
+
+  flex-direction: column;
+
+  height:
+    calc(
+      100svh
+      - var(--header-space)
+      - 67px
+    );
+
+  min-height:
+    calc(
+      100svh
+      - var(--header-space)
+      - 67px
+    );
+
+  overflow: hidden;
+
+}
+
+
+.front-matter-deck .slide[hidden] {
+
+  display: none !important;
+
+}
+
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+.front-matter-deck .slide-header {
+
+  float: none;
+
+  flex:
+    0
+    0
+    auto;
+
+  width: 100%;
+
+  margin:
+    0
+    0
+    18px;
+
+  padding-right: 110px;
+
+}
+
+
+.front-matter-deck .slide-header strong {
+
+  font-size:
+    clamp(
+      2.7rem,
+      4.6vw,
+      5rem
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   CONTENT AREA
+   --------------------------------------------------------- */
+
+.front-matter-deck .slide-content {
+
+  display: flex !important;
+
+  flex:
+    1
+    1
+    auto;
+
+  width: 100%;
+
+  min-height: 0;
+
+}
+
+
+.front-matter-deck .spec-text {
+
+  display: flex;
+
+  flex:
+    1
+    1
+    auto;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  width: 100% !important;
+
+  max-width: none !important;
+
+  min-height: 0;
+
+  padding-top: 0;
+
+  margin: 0;
+
+}
+
+
+/*
+   All ordinary paragraphs inherit the automatically
+   calculated font size.
+*/
+
+.front-matter-deck .spec-text p {
+
+  line-height:
+    1.13 !important;
+
+}
+
+
+/*
+   Labels remain subordinate.
+*/
+
+.front-matter-deck .minor-label {
+
+  font-size:
+    .42em !important;
+
+  line-height:
+    1.15 !important;
+
+}
+
+
+/*
+   Front Matter is for quick specification access.
+   Do not turn it into a long Show All webpage.
+*/
+
+.front-matter-deck .deck-tools {
+
+  display: none !important;
+
+}
+
+
+/* ---------------------------------------------------------
+   NARROW / HIGH-ZOOM SAFETY
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .front-matter-deck .slide {
+
+    height:
+      calc(
+        100svh
+        - var(--header-space)
+        - 110px
+      );
+
+    min-height:
+      calc(
+        100svh
+        - var(--header-space)
+        - 110px
+      );
+
+  }
+
+
+  .front-matter-deck .slide-header {
+
+    padding-right: 0;
+
+  }
+
+}
+
+
+/* ===== END FRONT MATTER AUTOFIT GUARANTEE ===== */
+
+/* ===== TEMPORARY SLIDE CONTROLS ===== */
+
+/* =========================================================
+   TEMPORARY SLIDE CONTROLS
+
+   They appear when needed, then collapse completely.
+   ========================================================= */
+
+.deck-controls {
+
+  max-height: 70px;
+
+  overflow: hidden;
+
+  transform-origin: top center;
+
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scaleY(1);
+
+  transition:
+    max-height .20s ease,
+    min-height .20s ease,
+    margin .20s ease,
+    opacity .16s ease,
+    transform .20s ease;
+
+}
+
+
+body.reader-controls-hidden .deck-controls {
+
+  max-height: 0;
+
+  min-height: 0;
+
+  margin-top: 0;
+  margin-bottom: 0;
+
+  opacity: 0;
+
+  transform:
+    translateY(-8px)
+    scaleY(.72);
+
+  pointer-events: none;
+
+}
+
+
+/*
+   Invisible mouse target.
+
+   When the controls have collapsed, hovering immediately
+   beneath the header brings them back.
+*/
+
+.deck-controls-reveal-zone {
+
+  position: fixed;
+
+  z-index: 3900;
+
+  top:
+    calc(
+      var(--header-space)
+      + 10px
+    );
+
+  left: 0;
+  right: 0;
+
+  height: 24px;
+
+  background: transparent;
+
+}
+
+
+/*
+   When controls are visible, hovering them keeps them visible.
+*/
+
+.deck-controls:hover,
+.deck-controls:focus-within {
+
+  opacity: 1;
+
+}
+
+
+/* No distracting animation for users requesting reduced motion. */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .deck-controls {
+
+    transition: none;
+
+  }
+
+}
+
+/* ===== END TEMPORARY SLIDE CONTROLS ===== */
+
+/* ===== JCMS DESKTOP NAV + COMPACT DOTS ===== */
+
+
+/* =========================================================
+   TOP NAVIGATION
+   Inspired by the cleaner CNN project navigation.
+   ========================================================= */
+
+.top-nav {
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  min-width: 0;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  scrollbar-width: thin;
+
+}
+
+
+/*
+   Top-level headings are the visual controls.
+
+   No separate triangle.
+*/
+
+.top-nav > a.nav-live,
+.menu summary {
+
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+
+  padding:
+    8px
+    11px;
+
+  border-radius: 9px;
+
+  color: var(--muted) !important;
+
+  font-size: .82rem;
+  font-weight: 780;
+
+  line-height: 1.2;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+}
+
+
+.menu summary::after {
+
+  content: none !important;
+
+}
+
+
+.menu summary::-webkit-details-marker {
+
+  display: none !important;
+
+}
+
+
+/*
+   Hover and active section treatment.
+*/
+
+.top-nav > a.nav-live:hover,
+.top-nav > a.nav-live:focus-visible,
+.menu summary:hover,
+.menu summary:focus-visible,
+.menu[open] summary,
+.menu.menu-current summary,
+.top-nav > a.nav-current {
+
+  color: var(--accent) !important;
+
+  background: var(--accent-soft);
+
+  outline: none;
+
+}
+
+
+/* =========================================================
+   DROPDOWN PANEL
+   ========================================================= */
+
+.menu {
+
+  position: relative;
+
+  flex:
+    0
+    0
+    auto;
+
+}
+
+
+.menu-panel {
+
+  position: fixed;
+
+  z-index: 5200;
+
+  top: 63px;
+
+  display: grid;
+
+  gap: 4px;
+
+  width:
+    min(
+      350px,
+      calc(100vw - 24px)
+    );
+
+  max-height:
+    min(
+      72vh,
+      620px
+    );
+
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  padding: 10px;
+
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
+  border-radius: 13px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .985
+    );
+
+  box-shadow:
+    0
+    18px
+    45px
+    rgba(
+      19,
+      36,
+      54,
+      .15
+    );
+
+}
+
+
+.menu-panel a,
+.menu-panel span {
+
+  display: block;
+
+  padding:
+    11px
+    13px;
+
+  border-radius: 8px;
+
+  color: var(--ink);
+
+  font-size: .9rem;
+
+  line-height: 1.25;
+
+  text-decoration: none;
+
+}
+
+
+.menu-panel a:hover,
+.menu-panel a:focus-visible {
+
+  background: var(--accent-soft);
+
+  color: var(--accent);
+
+  outline: none;
+
+}
+
+
+.menu-panel span {
+
+  color: #99a3af;
+
+}
+
+
+/* =========================================================
+   SLIDE PROGRESS
+
+   38 slides should not look like 38 large buttons.
+
+   Buttons retain a reasonable pointer target,
+   but the VISIBLE dots are tiny.
+   ========================================================= */
+
+.deck-progress {
+
+  width: auto;
+
+  max-width:
+    min(
+      450px,
+      48vw
+    );
+
+  margin:
+    0
+    auto;
+
+  text-align: center;
+
+}
+
+
+.deck-count {
+
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: var(--muted);
+
+  font-size: .64rem;
+
+  font-weight: 800;
+
+  letter-spacing: .035em;
+
+  font-variant-numeric:
+    tabular-nums;
+
+}
+
+
+.deck-dots {
+
+  display: flex !important;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap:
+    1px
+    1px;
+
+  width: auto;
+
+  max-width: 430px !important;
+
+  margin:
+    0
+    auto;
+
+  padding:
+    1px
+    0 !important;
+
+  overflow: visible !important;
+
+  scrollbar-width: none;
+
+}
+
+
+.deck-dots::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+
+/*
+   10px click area,
+   4px visible dot.
+*/
+
+.deck-dot {
+
+  position: relative;
+
+  flex:
+    0
+    0
+    10px;
+
+  width: 10px !important;
+  height: 9px !important;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  border-radius: 0;
+
+  background: transparent !important;
+
+  cursor: pointer;
+
+}
+
+
+.deck-dot::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: #b9c5d0;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  transition:
+    width .12s ease,
+    background .12s ease,
+    opacity .12s ease;
+
+}
+
+
+/*
+   Current slide remains easy to see,
+   but it no longer becomes a huge pill.
+*/
+
+.deck-dot.current {
+
+  width: 13px !important;
+
+  flex-basis: 13px;
+
+}
+
+
+.deck-dot.current::before {
+
+  width: 10px;
+  height: 4px;
+
+  background: var(--accent);
+
+}
+
+
+.deck-dot:hover::before,
+.deck-dot:focus-visible::before {
+
+  background: var(--accent);
+
+}
+
+
+.deck-dot:focus-visible {
+
+  outline:
+    2px solid
+    rgba(
+      40,
+      95,
+      140,
+      .22
+    );
+
+  outline-offset: 0;
+
+  border-radius: 5px;
+
+}
+
+
+/* =========================================================
+   CONTROLS
+
+   Keep them visually quiet when present.
+   Existing JS still hides them during keyboard use.
+   ========================================================= */
+
+.deck-controls {
+
+  gap: 9px;
+
+  min-height: 46px;
+
+}
+
+
+.deck-controls > button {
+
+  min-height: 36px;
+
+  padding:
+    6px
+    12px;
+
+  font-size: .78rem;
+
+}
+
+
+/* =========================================================
+   SMALLER SCREENS
+
+   Let the dots naturally become two rows.
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  .deck-progress {
+
+    max-width:
+      min(
+        310px,
+        55vw
+      );
+
+  }
+
+
+  .deck-dots {
+
+    max-width: 300px !important;
+
+  }
+
+
+  .menu-panel {
+
+    width:
+      min(
+        340px,
+        calc(100vw - 18px)
+      );
+
+  }
+
+}
+
+
+@media (max-width: 520px) {
+
+  .deck-progress {
+
+    max-width: 220px;
+
+  }
+
+
+  .deck-dots {
+
+    max-width: 215px !important;
+
+  }
+
+}
+
+
+/* ===== END JCMS DESKTOP NAV + COMPACT DOTS ===== */
+
+/* ===== UNIFYING MENU AND HOLLOW DOTS ===== */
+
+
+/* =========================================================
+   UNIFYING DROPDOWN
+   ========================================================= */
+
+.unifying-menu-panel {
+
+  width:
+    min(
+      390px,
+      calc(100vw - 24px)
+    );
+
+  gap: 2px;
+
+}
+
+
+.menu-overview-link {
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--line);
+  color: var(--accent) !important;
+  font-weight: 850;
+}
+
+
+.menu-group-label {
+
+  margin:
+    9px
+    9px
+    3px;
+
+  padding-top: 6px;
+
+  border-top:
+    1px solid
+    var(--line);
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .61rem;
+
+  font-weight: 900;
+
+  letter-spacing: .10em;
+
+}
+
+
+.menu-group-label:first-child {
+
+  margin-top: 1px;
+
+  padding-top: 1px;
+
+  border-top: 0;
+
+}
+
+
+.unifying-outcome-link {
+
+  display: grid !important;
+
+  grid-template-columns:
+    58px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding:
+    8px
+    11px !important;
+
+}
+
+
+.unifying-outcome-link strong {
+
+  display: block;
+
+  color: var(--accent);
+
+  font-size: 1.05rem;
+
+  font-weight: 900;
+
+  letter-spacing: -.02em;
+
+}
+
+
+.unifying-outcome-link span {
+
+  display: block !important;
+
+  padding: 0 !important;
+
+  color: var(--ink) !important;
+
+  font-size: .82rem !important;
+
+  font-weight: 720;
+
+  line-height: 1.16;
+
+}
+
+
+.unifying-outcome-link:hover strong,
+.unifying-outcome-link:focus-visible strong {
+
+  color: var(--accent);
+
+}
+
+
+/* =========================================================
+   SINGAPORE-STYLE HOLLOW PROGRESS CIRCLES
+
+   Normal decks stay on one row.
+
+   Very long decks (29+ slides) automatically narrow
+   so Front Matter's 38 slides become roughly two rows.
+   ========================================================= */
+
+.deck-dots {
+
+  display: flex !important;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap:
+    2px
+    2px;
+
+  max-width: 430px !important;
+
+  margin:
+    0
+    auto;
+
+  overflow: visible !important;
+
+}
+
+
+/*
+   29 or more slides:
+   around 19 dots per row.
+   38 slides therefore becomes two balanced rows.
+*/
+
+.deck-dots:has(.deck-dot:nth-child(29)) {
+
+  max-width: 250px !important;
+
+}
+
+
+.deck-dot {
+
+  position: relative;
+
+  flex:
+    0
+    0
+    11px !important;
+
+  width: 11px !important;
+  height: 10px !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  cursor: pointer;
+
+}
+
+
+.deck-dot::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 6px;
+  height: 6px;
+
+  border:
+    1.3px solid
+    #93a2b0;
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  transition:
+    background .12s ease,
+    border-color .12s ease,
+    transform .12s ease;
+
+}
+
+
+/*
+   Current slide:
+   same circle, filled.
+*/
+
+.deck-dot.current::before {
+
+  width: 7px;
+  height: 7px;
+
+  border-color: var(--accent);
+
+  background: var(--accent);
+
+}
+
+
+.deck-dot:hover::before {
+
+  border-color: var(--accent);
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(1.18);
+
+}
+
+
+.deck-dot:focus-visible {
+
+  outline: none;
+
+}
+
+
+.deck-dot:focus-visible::before {
+
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      40,
+      95,
+      140,
+      .12
+    );
+
+}
+
+
+/* ===== END UNIFYING MENU AND HOLLOW DOTS ===== */
+
+/* ===== UNIFY MENU VIEWPORT FIX ===== */
+
+.unifying-menu-panel {
+  max-height: calc(100vh - 5rem);
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 760px) {
+
+  .unifying-menu-panel {
+    max-height: calc(100vh - 4rem);
+    max-height: calc(100dvh - 4rem);
+  }
+
+}
+
+/* ===== END UNIFY MENU VIEWPORT FIX ===== */
+
+
+/* ===== JCMS MOBILE NAV CURRENT ===== */
+
+.mobile-menu-button,
+.mobile-menu-backdrop {
+  display: none;
+}
+
+
+@media (max-width: 820px) {
+
+  :root,
+  body.reader-header-hidden {
+    --header-space: 64px;
+  }
+
+  /*
+     On a phone the header is one fixed 64px bar.
+     This explicitly overrides the older 102px high-zoom header.
+  */
+
+  .site-header,
+  body.reader-header-hidden .site-header {
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transform: none !important;
+
+    height: 64px !important;
+    max-height: 64px !important;
+    min-height: 64px !important;
+
+    overflow: visible !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    position: fixed;
+
+    top: 0;
+
+    z-index: 5000;
+
+    display: grid !important;
+
+    grid-template-columns:
+      48px minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+      max(7px, env(safe-area-inset-top))
+      10px
+      7px
+      8px !important;
+  }
+
+
+  .header-reveal-zone {
+    display: none !important;
+  }
+
+
+  /*
+     BURGER — LEFT
+  */
+
+  .mobile-menu-button {
+
+    display: flex;
+
+    width: 44px;
+    height: 44px;
+
+    border: 0;
+
+    padding: 10px;
+
+    background: transparent;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    cursor: pointer;
+
+    z-index: 5300;
+  }
+
+
+  .mobile-menu-button span {
+
+    width: 24px;
+    height: 2px;
+
+    display: block;
+
+    background: currentColor;
+
+    border-radius: 999px;
+  }
+
+
+  /*
+     LEFT DRAWER
+  */
+
+  body.mobile-nav-ready .top-nav {
+
+    position: fixed !important;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    z-index: 5200;
+
+    width: min(88vw, 380px) !important;
+
+    box-sizing: border-box;
+
+    padding:
+      calc(64px + env(safe-area-inset-top))
+      15px
+      calc(24px + env(safe-area-inset-bottom));
+
+    display: flex !important;
+
+    flex-direction: column;
+
+    align-items: stretch !important;
+
+    gap: 3px;
+
+    overflow-y: auto;
+
+    background: #fff;
+
+    box-shadow:
+      12px 0 30px rgba(0,0,0,.22);
+
+    transform:
+      translateX(-105%);
+
+    visibility: hidden;
+
+    transition:
+      transform .2s ease,
+      visibility .2s ease;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  body.mobile-menu-open .top-nav {
+
+    transform:
+      translateX(0);
+
+    visibility: visible;
+  }
+
+
+  .mobile-menu-backdrop {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5100;
+
+    background:
+      rgba(0,0,0,.35);
+  }
+
+
+  body.mobile-menu-open
+  .mobile-menu-backdrop {
+
+    display: block;
+  }
+
+
+  body.mobile-menu-open {
+
+    overflow: hidden;
+  }
+
+
+  /*
+     FINGER-SIZED MENU TARGETS
+  */
+
+  .top-nav > a,
+  .top-nav > details > summary {
+
+    box-sizing: border-box;
+
+    width: 100%;
+
+    min-height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 10px 8px;
+  }
+
+
+  .top-nav details {
+    width: 100%;
+  }
+
+
+  /*
+     DROPDOWNS LIVE INSIDE THE DRAWER.
+     U.12 and U.13 therefore remain reachable.
+  */
+
+  .top-nav .menu-panel,
+  .top-nav .unifying-menu-panel {
+
+    position: static !important;
+
+    width: 100% !important;
+
+    max-width: none !important;
+
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-shadow: none !important;
+
+    margin-bottom: 8px !important;
+  }
+
+
+  .unifying-outcome-link {
+    min-height: 44px;
+  }
+
+
+  /*
+     PHONE-SAFE CONTENT
+  */
+
+  .slide-stage {
+
+    max-width: 100% !important;
+
+    overflow-x: hidden;
+  }
+
+
+  .slide {
+
+    box-sizing: border-box;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    height: auto !important;
+
+    min-height:
+      calc(100svh - 72px);
+  }
+
+
+  .slide-content,
+  .spec-text {
+
+    min-width: 0;
+
+    max-width: 100%;
+  }
+
+
+  img,
+  video {
+
+    max-width: 100%;
+
+    height: auto;
+  }
+
+
+  mjx-container[display="true"] {
+
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+  }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  body.mobile-nav-ready .top-nav {
+    transition: none;
+  }
+
+}
+
+/* ===== END JCMS MOBILE NAV CURRENT ===== */
+
+
+/* ===== IPHONE TAP NAV FIX ===== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+
+/*
+   A slide is an interactive presentation surface.
+
+   "manipulation" prevents the browser interpreting quick
+   taps as its own double-tap zoom gesture while normal
+   page movement and pinch zoom remain available.
+*/
+
+body,
+.slide-stage,
+.slide {
+  touch-action: manipulation;
+}
+
+
+/*
+   On a coarse/touch pointer, screen-half navigation wins.
+   Maths remains clickable/enlargeable with a mouse on desktop.
+*/
+
+@media (pointer: coarse) {
+
+  mjx-container {
+    cursor: default !important;
+  }
+
+}
+
+/* ===== END IPHONE TAP NAV FIX ===== */
+
+
+/* ===== DEEP NUMBER MENU START ===== */
+
+.number-menu-panel {
+  width: min(440px, calc(100vw - 24px));
+  gap: 3px;
+}
+
+.number-submenu {
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.number-submenu:first-of-type {
+  border-top: 0;
+}
+
+.number-submenu > summary {
+  display: grid !important;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  min-height: 45px;
+
+  padding: 9px 10px !important;
+
+  border-radius: 8px;
+
+  color: var(--ink) !important;
+  cursor: pointer;
+  list-style: none;
+}
+
+.number-submenu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.number-submenu > summary strong {
+  color: var(--accent);
+  font-size: .94rem;
+  font-weight: 900;
+}
+
+.number-submenu > summary span {
+  display: block !important;
+
+  padding: 0 !important;
+
+  color: var(--ink) !important;
+
+  font-size: .82rem !important;
+  font-weight: 750;
+  line-height: 1.18;
+}
+
+.menu .number-submenu > summary::after {
+  content: "+" !important;
+
+  display: block !important;
+
+  color: var(--accent);
+
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.menu .number-submenu[open] > summary::after {
+  content: "−" !important;
+}
+
+.number-submenu > summary:hover,
+.number-submenu > summary:focus-visible,
+.number-submenu[open] > summary {
+  background: var(--accent-soft);
+  color: var(--accent) !important;
+}
+
+.number-submenu-panel {
+  display: grid;
+  gap: 2px;
+
+  padding:
+    2px
+    0
+    7px
+    14px;
+}
+
+.number-submenu-panel a {
+  padding: 8px 10px !important;
+
+  font-size: .81rem !important;
+  line-height: 1.2;
+}
+
+.number-submenu-panel a strong {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.number-submenu-nested {
+  margin-left: 7px;
+
+  border-left:
+    2px solid
+    var(--accent-soft);
+}
+
+.number-example-label {
+  margin:
+    6px
+    9px
+    1px;
+
+  color: var(--muted);
+
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.number-example-link {
+  color: var(--muted) !important;
+  font-style: italic;
+}
+
+
+/*
+   PHONE:
+   Number hierarchy lives naturally inside the burger drawer.
+*/
+@media (max-width: 820px) {
+
+  .number-menu-panel {
+    width: 100% !important;
+  }
+
+  .number-submenu > summary {
+    min-height: 48px;
+  }
+
+  .number-submenu-panel {
+    padding-left: 11px;
+  }
+
+  .number-submenu-nested {
+    margin-left: 5px;
+  }
+
+}
+
+
+/*
+   PHONE MATH ZOOM:
+   tapping rendered MathJax turns it into a full-screen view.
+*/
+@media (max-width: 820px) {
+
+  .math-zoom-overlay {
+    padding: 0 !important;
+
+    place-items: stretch !important;
+
+    background:
+      rgba(15, 25, 38, .94);
+  }
+
+  .math-zoom-panel {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    display: grid;
+    place-items: center;
+
+    padding:
+      64px
+      16px
+      24px !important;
+
+    border-radius: 0 !important;
+
+    overflow: auto;
+  }
+
+  .math-zoom-content {
+    width: 100%;
+
+    display: grid;
+    place-items: center;
+  }
+
+  .math-zoom-panel mjx-container {
+    max-width: 100%;
+
+    font-size:
+      clamp(
+        2.5rem,
+        12vw,
+        6rem
+      ) !important;
+
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .math-zoom-close {
+    position: fixed;
+
+    top:
+      max(
+        10px,
+        env(safe-area-inset-top)
+      );
+
+    right: 10px;
+
+    z-index: 10001;
+  }
+
+}
+
+/* ===== DEEP NUMBER MENU END ===== */
+
+
+/* ===== MOBILE BURGER POINTER FIX ===== */
+@media (max-width: 820px) {
+
+  .site-header,
+  body.reader-header-hidden .site-header {
+    pointer-events: auto !important;
+  }
+
+  .mobile-menu-button {
+    pointer-events: auto !important;
+  }
+
+}
+/* ===== END MOBILE BURGER POINTER FIX ===== */
+
+
+/* ===== MOBILE DRAWER STACK FIX ===== */
+
+/*
+   Backdrop must sit BELOW the complete header stacking context.
+   Otherwise it darkens the drawer and intercepts its taps.
+*/
+.mobile-menu-backdrop {
+  z-index: 4900 !important;
+}
+
+.site-header,
+body.reader-header-hidden .site-header {
+  z-index: 5000 !important;
+}
+
+.mobile-menu-button {
+  pointer-events: auto !important;
+}
+
+/* ===== END MOBILE DRAWER STACK FIX ===== */
+
+
+/* ===== MOBILE NAV DEFINITIVE FIX ===== */
+
+@media (max-width: 820px) {
+
+  /*
+     Keep the entire navigation layer interactive.
+  */
+  .site-header,
+  body.reader-header-hidden .site-header,
+  body.mobile-menu-open .site-header {
+    z-index: 20000 !important;
+    pointer-events: auto !important;
+  }
+
+
+  body.mobile-nav-ready .top-nav,
+  body.mobile-menu-open .top-nav {
+    z-index: 20020 !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+
+
+  .mobile-menu-button {
+    z-index: 20030 !important;
+    pointer-events: auto !important;
+  }
+
+
+  /*
+     IMPORTANT:
+
+     The dark backdrop begins ONLY AFTER the drawer.
+
+     It therefore cannot possibly sit over a menu item
+     and steal its touch/click.
+  */
+  body.mobile-menu-open .mobile-menu-backdrop {
+    display: block !important;
+
+    position: fixed !important;
+
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    left: min(88vw, 380px) !important;
+
+    z-index: 19990 !important;
+
+    pointer-events: auto !important;
+
+    background: rgba(0, 0, 0, .35) !important;
+  }
+
+
+  /*
+     Every control inside the white drawer accepts touch.
+  */
+  .top-nav a,
+  .top-nav summary,
+  .top-nav details,
+  .top-nav .menu-panel,
+  .top-nav .number-submenu-panel {
+    pointer-events: auto !important;
+  }
+
+
+  .top-nav summary,
+  .top-nav a {
+    touch-action: manipulation;
+  }
+
+
+  /*
+     Make it absolutely clear which headings expand.
+  */
+  .top-nav > details.menu > summary::after {
+    content: "+" !important;
+    display: block !important;
+    margin-left: auto;
+    padding-left: 12px;
+    color: var(--accent);
+    font-weight: 900;
+  }
+
+
+  .top-nav > details.menu[open] > summary::after {
+    content: "−" !important;
+  }
+
+}
+
+/* ===== END MOBILE NAV DEFINITIVE FIX ===== */
+
+
+/* ===== MATH ZOOM FIT TO VIEWPORT ===== */
+
+.math-zoom-panel {
+  box-sizing: border-box !important;
+  max-width: calc(100vw - 16px) !important;
+  min-width: 0 !important;
+}
+
+.math-zoom-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.math-zoom-panel mjx-container {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 820px) {
+
+  .math-zoom-panel {
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+
+}
+
+/* ===== END MATH ZOOM FIT TO VIEWPORT ===== */
+
+/* ===== DEEP SP MENU START ===== */
+
+.sp-menu-panel {
+  width: min(450px, calc(100vw - 24px));
+  gap: 3px;
+}
+
+
+.sp-submenu {
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+
+.sp-submenu:first-of-type {
+  border-top: 0;
+}
+
+
+.sp-submenu > summary {
+  display: grid !important;
+
+  grid-template-columns:
+    68px
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 8px;
+
+  width: 100%;
+  min-height: 45px;
+
+  padding:
+    9px
+    10px !important;
+
+  border-radius: 8px;
+
+  color: var(--ink) !important;
+
+  cursor: pointer;
+  list-style: none;
+}
+
+
+.sp-submenu > summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.sp-submenu > summary strong {
+  color: var(--accent);
+
+  font-size: .94rem;
+  font-weight: 900;
+}
+
+
+.sp-submenu > summary span {
+  display: block !important;
+
+  padding: 0 !important;
+
+  color: var(--ink) !important;
+
+  font-size: .82rem !important;
+  font-weight: 750;
+
+  line-height: 1.18;
+}
+
+
+.menu .sp-submenu > summary::after {
+  content: "+" !important;
+
+  display: block !important;
+
+  color: var(--accent);
+
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+
+.menu .sp-submenu[open] > summary::after {
+  content: "−" !important;
+}
+
+
+.sp-menu[open] .sp-submenu > summary {
+  background: transparent;
+  color: var(--ink) !important;
+}
+
+
+.sp-menu[open] .sp-submenu > summary:hover,
+.sp-menu[open] .sp-submenu > summary:focus-visible,
+.sp-menu[open] .sp-submenu[open] > summary {
+  background: var(--accent-soft);
+
+  color: var(--accent) !important;
+}
+
+
+.sp-submenu-panel {
+  display: grid;
+
+  gap: 2px;
+
+  padding:
+    2px
+    0
+    7px
+    14px;
+}
+
+
+.sp-submenu-panel a {
+  padding:
+    8px
+    10px !important;
+
+  font-size: .81rem !important;
+  line-height: 1.2;
+}
+
+
+.sp-submenu-panel a strong {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+
+.sp-submenu-nested {
+  margin-left: 7px;
+
+  border-left:
+    2px solid
+    var(--accent-soft);
+}
+
+
+.sp-support-label {
+  margin:
+    6px
+    9px
+    1px;
+
+  color: var(--muted);
+
+  font-size: .58rem;
+  font-weight: 900;
+
+  letter-spacing: .1em;
+}
+
+
+.sp-support-link {
+  color: var(--muted) !important;
+  font-style: italic;
+}
+
+
+
+@media (max-width: 820px) {
+
+  .sp-menu-panel {
+    width: 100% !important;
+  }
+
+
+  .sp-submenu > summary {
+    min-height: 48px;
+  }
+
+
+  .sp-submenu-panel {
+    padding-left: 11px;
+  }
+
+
+  .sp-submenu-nested {
+    margin-left: 4px;
+  }
+
+}
+
+/* ===== DEEP SP MENU END ===== */
+
+/* ===== MATH ZOOM CLOSE CONTROL START ===== */
+
+.math-zoom-overlay {
+  z-index: 30000 !important;
+}
+
+
+.math-zoom-panel {
+  position: relative !important;
+}
+
+
+.math-zoom-close {
+  display: grid !important;
+  place-items: center !important;
+
+  position: fixed !important;
+
+  top:
+    max(
+      12px,
+      env(safe-area-inset-top)
+    ) !important;
+
+  right:
+    max(
+      12px,
+      env(safe-area-inset-right)
+    ) !important;
+
+  z-index: 30020 !important;
+
+  width: 48px !important;
+  height: 48px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border:
+    1px solid
+    #d4dee7 !important;
+
+  border-radius: 50% !important;
+
+  background: #ffffff !important;
+  color: #172235 !important;
+
+  box-shadow:
+    0 5px 18px
+    rgba(0,0,0,.22) !important;
+
+  font-family:
+    Arial,
+    sans-serif !important;
+
+  font-size: 32px !important;
+  font-weight: 400 !important;
+
+  line-height: 1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  pointer-events: auto !important;
+  cursor: pointer !important;
+
+  touch-action: manipulation;
+}
+
+
+.math-zoom-close:hover,
+.math-zoom-close:focus-visible {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  outline: none !important;
+}
+
+
+.math-zoom-content,
+.math-zoom-content mjx-container {
+  cursor: zoom-out !important;
+}
+
+
+/* ===== MATH ZOOM CLOSE CONTROL END ===== */
+
+/* ===== ASSESSMENT MENU START ===== */
+
+.assessment-menu-panel {
+  width:
+    min(
+      410px,
+      calc(100vw - 24px)
+    );
+}
+
+
+.assessment-menu-panel a {
+  line-height: 1.2;
+}
+
+
+.assessment-menu-panel a strong {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+
+@media (max-width: 820px) {
+
+  .assessment-menu-panel {
+    width: 100% !important;
+  }
+
+}
+
+/* ===== ASSESSMENT MENU END ===== */
+
+/* ===== APPENDIX B REFERENCE START ===== */
+
+.appendix-b-menu-panel {
+  width:
+    min(
+      430px,
+      calc(100vw - 24px)
+    );
+}
+
+
+.appendix-result-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+
+  gap: 12px;
+
+  margin-top: 12px;
+}
+
+
+.appendix-result {
+  padding: 15px 17px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+
+.appendix-result strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .72em;
+}
+
+
+.appendix-result p {
+  margin: 0 !important;
+
+  font-size: .72em;
+
+  line-height: 1.3 !important;
+}
+
+
+.appendix-construction-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(300px, 1fr)
+    );
+
+  gap: 9px;
+}
+
+
+.appendix-construction-list > div {
+  display: grid;
+
+  grid-template-columns:
+    42px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius: 9px;
+
+  background: #f8fafc;
+}
+
+
+.appendix-construction-list strong {
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .8em;
+
+  font-weight: 900;
+}
+
+
+.appendix-construction-list span {
+  font-size: .66em;
+
+  line-height: 1.25;
+}
+
+
+.appendix-number-row {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin:
+    10px
+    0
+    24px;
+}
+
+
+.appendix-number-row span {
+  display: grid;
+
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border:
+    2px solid
+    var(--accent);
+
+  border-radius: 50%;
+
+  color: var(--accent);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: .65em;
+
+  font-weight: 900;
+}
+
+
+@media (max-width: 820px) {
+
+  .appendix-b-menu-panel {
+    width: 100% !important;
+  }
+
+
+  .appendix-result-grid,
+  .appendix-construction-list {
+    grid-template-columns: 1fr;
+  }
+
+
+  .appendix-result p,
+  .appendix-construction-list span {
+    font-size: .8em;
+  }
+
+}
+
+/* ===== APPENDIX B REFERENCE END ===== */
+

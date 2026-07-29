@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appendix B Explorer | JC Maths Spec</title>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+:root{--ab-ink:#17212b;--ab-paper:#fff;--ab-soft:#f5f7f9;--ab-line:#d8e0e7;--ab-accent:#245c8a;--ab-def:#46606f;--ab-axiom:#7b4f1d;--ab-prop:#5c4b78;--ab-theorem:#1f6a55;--ab-term:#5a6670}
+body.appendix-b-explorer{background:#eef2f5;color:var(--ab-ink)}
+.ab-shell{max-width:1500px;margin:0 auto;padding:clamp(14px,2vw,28px)}
+.ab-top{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin:8px 0 18px}
+.ab-top h1{margin:0;font-size:clamp(1.8rem,4vw,3.2rem)}
+.ab-top p{max-width:760px;margin:.4rem 0 0;color:#52606c;font-size:1rem}
+.ab-back{display:inline-flex;align-items:center;gap:.4rem;padding:.7rem .95rem;border:1px solid var(--ab-line);border-radius:999px;background:#fff;text-decoration:none;color:var(--ab-ink);font-weight:700}
+.ab-filterbar{position:sticky;top:0;z-index:20;display:flex;gap:8px;flex-wrap:wrap;padding:10px;margin:0 0 18px;border:1px solid var(--ab-line);border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 10px 30px rgba(31,48,64,.08);backdrop-filter:blur(10px)}
+.ab-filter{appearance:none;border:1px solid var(--ab-line);background:#fff;color:#273746;border-radius:999px;padding:.62rem .85rem;font:inherit;font-weight:800;cursor:pointer}
+.ab-filter[aria-pressed="true"]{background:#17212b;color:#fff;border-color:#17212b}
+.ab-status{margin:.35rem 0 1rem;color:#64727e;font-weight:700}
+.ab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;align-items:stretch}
+.ab-card{position:relative;overflow:hidden;min-height:280px;background:#fff;border:1px solid var(--ab-line);border-radius:22px;box-shadow:0 10px 30px rgba(28,43,58,.07);display:flex;flex-direction:column}
+.ab-card::before{content:"";height:7px;background:var(--env,var(--ab-accent));display:block}
+.ab-card[data-category="definition"]{--env:var(--ab-def)}
+.ab-card[data-category="axiom"]{--env:var(--ab-axiom)}
+.ab-card[data-category="proposition"]{--env:var(--ab-prop)}
+.ab-card[data-category="theorem"]{--env:var(--ab-theorem)}
+.ab-card[data-category="undefined-term"],.ab-card[data-category="defined-term"]{--env:var(--ab-term)}
+.ab-head{display:flex;justify-content:space-between;gap:12px;padding:18px 20px 0;align-items:flex-start}
+.ab-kind{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--env,var(--ab-accent))}
+.ab-order{font-variant-numeric:tabular-nums;color:#81909b;font-weight:800}
+.ab-card h2{font-size:clamp(1.35rem,2.2vw,2rem);line-height:1.08;margin:.35rem 20px .65rem}
+.ab-statement{font-size:clamp(1rem,1.45vw,1.22rem);line-height:1.45;margin:0;padding:0 20px 18px}
+.ab-visual{margin:auto 16px 16px;border:1px solid #d9e1e7;border-radius:16px;background:#fbfcfd;min-height:150px;display:grid;place-items:center;overflow:hidden}
+.ab-visual img{max-width:100%;max-height:260px;object-fit:contain;display:block}
+.ab-term-card{min-height:175px}
+.ab-term-card .ab-visual{display:none}
+.ab-source-link{margin:auto 20px 18px;color:var(--env,var(--ab-accent));font-weight:800;text-decoration:none}
+.ab-source-link:hover{text-decoration:underline}
+.ab-empty{padding:36px;border:1px dashed #aab7c1;border-radius:18px;text-align:center;background:#fff;color:#65737e}
+.ab-circle-svg{width:min(100%,420px);height:auto;touch-action:none;user-select:none}
+.ab-circle-svg .shape{fill:none;stroke:#25313a;stroke-width:2.4}
+.ab-circle-svg .guide{fill:none;stroke:#7e8b95;stroke-width:1.35;stroke-dasharray:5 5}
+.ab-circle-svg .point{fill:#fff;stroke:#17212b;stroke-width:2.4;cursor:grab}
+.ab-circle-svg .point:active{cursor:grabbing}
+.ab-circle-svg text{font:700 16px system-ui,sans-serif;fill:#17212b}
+.ab-live-note{font-size:.82rem;font-weight:800;color:#5f6d77;text-align:center;padding:0 12px 12px}
+.ab-loading{padding:48px;text-align:center;font-weight:800;color:#66747e}
+@media (max-width:700px){.ab-shell{padding:10px}.ab-filterbar{top:0;border-radius:14px}.ab-card{min-height:240px}}
+</style>
+</head>
+<body class="appendix-b-explorer">
+<div class="ab-shell">
+  <div class="ab-top">
+    <div>
+      <div class="ab-kind">Appendix B · Geometry</div>
+      <h1>Visual reference explorer</h1>
+      <p>The default view follows the order already used in Appendix B. The category buttons create aggregated views without changing that underlying order.</p>
+    </div>
+    <a class="ab-back" href="appendix-b.html">← Appendix B</a>
+  </div>
+
+  <nav class="ab-filterbar" aria-label="Appendix B views">
+    <button class="ab-filter" data-filter="all" aria-pressed="true">Official order</button>
+    <button class="ab-filter" data-filter="undefined-term" aria-pressed="false">Undefined terms</button>
+    <button class="ab-filter" data-filter="defined-term" aria-pressed="false">Defined terms</button>
+    <button class="ab-filter" data-filter="definition" aria-pressed="false">Definitions</button>
+    <button class="ab-filter" data-filter="axiom" aria-pressed="false">Axioms</button>
+    <button class="ab-filter" data-filter="proposition" aria-pressed="false">Propositions</button>
+    <button class="ab-filter" data-filter="theorem" aria-pressed="false">Theorems</button>
+  </nav>
+
+  <div class="ab-status" id="abStatus">Loading Appendix B…</div>
+  <main class="ab-grid" id="abGrid" aria-live="polite">
+    <div class="ab-loading">Building the visual Appendix B view…</div>
+  </main>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const grid = document.getElementById("abGrid");
+  const status = document.getElementById("abStatus");
+  const buttons = [...document.querySelectorAll(".ab-filter")];
+  let items = [];
+
+  const clean = value => String(value || "").replace(/\s+/g, " ").trim();
+
+  function classify(label) {
+    const t = label.toLowerCase();
+    if (t.startsWith("axiom")) return "axiom";
+    if (t.startsWith("theorem")) return "theorem";
+    if (t.startsWith("proposition")) return "proposition";
+    if (t.startsWith("definition")) return "definition";
+    if (t.startsWith("corollary")) return "theorem";
+    return "definition";
+  }
+
+  function kindLabel(category) {
+    return {
+      "undefined-term": "Undefined term",
+      "defined-term": "Defined term",
+      definition: "Definition",
+      axiom: "Axiom",
+      proposition: "Proposition",
+      theorem: "Theorem"
+    }[category] || "Appendix B";
+  }
+
+  function circleExplorer(title) {
+    const wrap = document.createElement("div");
+    wrap.innerHTML = `
+      <svg class="ab-circle-svg" viewBox="0 0 440 280" role="img" aria-label="Interactive circle theorem diagram">
+        <circle class="shape" cx="220" cy="140" r="104"></circle>
+        <line class="shape chord-a" x1="130" y1="192" x2="310" y2="192"></line>
+        <line class="shape ray-1" x1="130" y1="192" x2="220" y2="36"></line>
+        <line class="shape ray-2" x1="310" y1="192" x2="220" y2="36"></line>
+        <line class="guide radius" x1="220" y1="140" x2="220" y2="36"></line>
+        <circle class="point" data-drag="circle" cx="220" cy="36" r="8" tabindex="0"></circle>
+        <text x="116" y="215">A</text>
+        <text x="316" y="215">B</text>
+        <text class="drag-label" x="228" y="30">P</text>
+        <text x="228" y="146">O</text>
+      </svg>
+      <div class="ab-live-note">Drag P around the circumference. The construction stays constrained to the circle.</div>`;
+
+    const svg = wrap.querySelector("svg");
+    const p = svg.querySelector('[data-drag="circle"]');
+    const label = svg.querySelector(".drag-label");
+    const r1 = svg.querySelector(".ray-1");
+    const r2 = svg.querySelector(".ray-2");
+    const radius = svg.querySelector(".radius");
+    const C = {x:220,y:140,r:104};
+    let dragging = false;
+
+    function setPoint(clientX, clientY) {
+      const rect = svg.getBoundingClientRect();
+      const x = (clientX - rect.left) * 440 / rect.width;
+      const y = (clientY - rect.top) * 280 / rect.height;
+      const a = Math.atan2(y - C.y, x - C.x);
+      const px = C.x + C.r * Math.cos(a);
+      const py = C.y + C.r * Math.sin(a);
+      p.setAttribute("cx", px); p.setAttribute("cy", py);
+      label.setAttribute("x", px + 8); label.setAttribute("y", py - 8);
+      r1.setAttribute("x2", px); r1.setAttribute("y2", py);
+      r2.setAttribute("x2", px); r2.setAttribute("y2", py);
+      radius.setAttribute("x2", px); radius.setAttribute("y2", py);
+    }
+
+    p.addEventListener("pointerdown", e => { dragging = true; p.setPointerCapture(e.pointerId); });
+    p.addEventListener("pointermove", e => { if (dragging) setPoint(e.clientX, e.clientY); });
+    p.addEventListener("pointerup", () => dragging = false);
+    p.addEventListener("pointercancel", () => dragging = false);
+    return wrap;
+  }
+
+  function cardFor(item, index) {
+    const article = document.createElement("article");
+    article.className = "ab-card" + (item.term ? " ab-term-card" : "");
+    article.dataset.category = item.category;
+    article.dataset.order = index;
+
+    const head = document.createElement("div");
+    head.className = "ab-head";
+    head.innerHTML = `<span class="ab-kind">${kindLabel(item.category)}</span><span class="ab-order">${String(index + 1).padStart(2,"0")}</span>`;
+    article.appendChild(head);
+
+    const h2 = document.createElement("h2");
+    h2.textContent = item.title;
+    article.appendChild(h2);
+
+    if (item.text) {
+      const p = document.createElement("p");
+      p.className = "ab-statement";
+      p.textContent = item.text;
+      article.appendChild(p);
+    }
+
+    if (!item.term) {
+      const visual = document.createElement("div");
+      visual.className = "ab-visual";
+      if (item.image) {
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.imageAlt || item.title;
+        visual.appendChild(img);
+      } else if (/theorem\s*(19|20|21)|circle|circumference|tangent/i.test(item.title + " " + item.text)) {
+        visual.appendChild(circleExplorer(item.title));
+      } else {
+        visual.innerHTML = `<svg viewBox="0 0 420 180" width="100%" height="180" aria-hidden="true"><line x1="64" y1="126" x2="356" y2="54" stroke="#26343d" stroke-width="3"/><circle cx="64" cy="126" r="6" fill="#fff" stroke="#26343d" stroke-width="3"/><circle cx="356" cy="54" r="6" fill="#fff" stroke="#26343d" stroke-width="3"/><text x="46" y="151" font-family="system-ui" font-weight="700">A</text><text x="365" y="54" font-family="system-ui" font-weight="700">B</text></svg>`;
+      }
+      article.appendChild(visual);
+    }
+
+    if (item.anchor) {
+      const link = document.createElement("a");
+      link.className = "ab-source-link";
+      link.href = `appendix-b.html#${item.anchor}`;
+      link.textContent = "Open in official-order deck →";
+      article.appendChild(link);
+    }
+    return article;
+  }
+
+  function render(filter = "all") {
+    const visible = filter === "all" ? items : items.filter(x => x.category === filter);
+    grid.innerHTML = "";
+    if (!visible.length) {
+      grid.innerHTML = `<div class="ab-empty">No ${kindLabel(filter).toLowerCase()} items are explicitly labelled in the current Appendix B page yet.</div>`;
+    } else {
+      visible.forEach(item => grid.appendChild(cardFor(item, items.indexOf(item))));
+    }
+    status.textContent = filter === "all" ? `${visible.length} items · official sequence` : `${visible.length} ${kindLabel(filter).toLowerCase()}${visible.length === 1 ? "" : "s"} · aggregated view`;
+  }
+
+  function extractTerms(doc) {
+    const termsSlide = doc.getElementById("appendix-b-terms");
+    if (!termsSlide) return [];
+    const labels = [...termsSlide.querySelectorAll(".minor-label")];
+    const out = [];
+    labels.forEach(label => {
+      const text = clean(label.textContent).toLowerCase();
+      const grid = label.nextElementSibling;
+      if (!grid || !grid.classList.contains("topic-grid")) return;
+      const category = text.includes("undefined") ? "undefined-term" : "defined-term";
+      [...grid.children].forEach(term => out.push({category,title:clean(term.textContent),text:"",term:true,anchor:"appendix-b-terms"}));
+    });
+    return out;
+  }
+
+  function extractResults(doc) {
+    const results = [];
+    const slides = [...doc.querySelectorAll("main[data-slide-deck] > section.slide")];
+    slides.forEach(slide => {
+      const anchor = slide.id || "appendix-b-overview";
+      [...slide.querySelectorAll(".appendix-result")].forEach(card => {
+        const strong = card.querySelector("strong");
+        const title = clean(strong?.textContent);
+        if (!title) return;
+        const category = classify(title);
+        const text = clean(card.querySelector("p")?.textContent || card.textContent.replace(strong.textContent,""));
+        const img = card.querySelector("img") || slide.querySelector("img");
+        results.push({category,title,text,anchor,image:img?.getAttribute("src") || "",imageAlt:img?.getAttribute("alt") || title});
+      });
+    });
+    return results;
+  }
+
+  fetch("appendix-b.html", {cache:"no-store"})
+    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
+    .then(html => {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const terms = extractTerms(doc);
+      const results = extractResults(doc);
+      items = [...terms, ...results].map((item, i) => ({...item, sourceOrder:i}));
+      render("all");
+    })
+    .catch(error => {
+      console.error(error);
+      status.textContent = "Could not load Appendix B.";
+      grid.innerHTML = `<div class="ab-empty">The explorer could not read appendix-b.html. The original Appendix B page is unchanged.</div>`;
+    });
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      buttons.forEach(b => b.setAttribute("aria-pressed", String(b === button)));
+      render(button.dataset.filter);
+    });
+  });
+})();
+</script>
+</body>
+</html>

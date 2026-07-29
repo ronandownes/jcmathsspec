@@ -1,0 +1,196 @@
+name: One-shot mobile slide tap patch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-mobile-slide-taps.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add robust tap navigation and tappable overview cards
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('js/app.js')
+          text = path.read_text(encoding='utf-8')
+          marker = '/* ===== MOBILE TAP FALLBACK + OVERVIEW LINKS ===== */'
+
+          if marker in text:
+              raise SystemExit('Patch already present')
+
+          block = r'''
+
+/* ===== MOBILE TAP FALLBACK + OVERVIEW LINKS ===== */
+(() => {
+  "use strict";
+
+  const deck = document.querySelector("[data-slide-deck]");
+  if (!deck) return;
+
+  const slides = [...deck.querySelectorAll(".slide")];
+  const previous = deck.querySelector(".deck-prev");
+  const next = deck.querySelector(".deck-next");
+
+  const isCoarsePointer = () =>
+    window.matchMedia("(pointer: coarse)").matches ||
+    window.matchMedia("(any-pointer: coarse)").matches;
+
+  const interactiveSelector = `
+    a, button, input, textarea, select, option, label,
+    summary, details, nav, mjx-container,
+    .site-header, .deck-controls, .deck-tools,
+    .mobile-menu-backdrop, .math-zoom-overlay,
+    .live-question, .quiz-option,
+    [role="button"]
+  `;
+
+  function idFromCode(code) {
+    return String(code || "")
+      .trim()
+      .replace(/\s+/g, "")
+      .replace(/\./g, "")
+      .replace(/[()]/g, "-")
+      .replace(/-+$/g, "");
+  }
+
+  function targetForOverviewCard(card) {
+    const code = card.querySelector("strong")?.textContent?.trim();
+    if (!code) return null;
+
+    const direct = idFromCode(code);
+    let target = document.getElementById(direct);
+    if (target) return target;
+
+    const expanded = String(code)
+      .trim()
+      .replace(/\s+/g, "")
+      .replace(/^([A-Za-z]+)\.(\d+)([a-z]?)(?:\(([ivx]+)\))?$/i,
+        (_, strand, number, letter, roman) =>
+          [strand.toUpperCase() + number, letter || "", roman || ""]
+            .filter(Boolean)
+            .join("-"));
+
+    target = document.getElementById(expanded);
+    return target || null;
+  }
+
+  deck.querySelectorAll(".number-map > div").forEach(card => {
+    const target = targetForOverviewCard(card);
+    if (!target || target === card.closest(".slide")) return;
+
+    card.classList.add("overview-jump-card");
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `Open ${card.querySelector("strong")?.textContent?.trim() || "section"}`);
+
+    const open = event => {
+      event.preventDefault();
+      event.stopPropagation();
+      location.hash = target.id;
+    };
+
+    card.addEventListener("click", open);
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") open(event);
+    });
+  });
+
+  if (!document.getElementById("overview-jump-card-style")) {
+    const style = document.createElement("style");
+    style.id = "overview-jump-card-style";
+    style.textContent = `
+      .overview-jump-card {
+        cursor: pointer;
+        transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+      }
+      .overview-jump-card:active {
+        transform: scale(.985);
+      }
+      .overview-jump-card:focus-visible {
+        outline: 3px solid var(--accent, #285f8c);
+        outline-offset: 3px;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  let gesture = null;
+  let suppressTapUntil = 0;
+
+  document.addEventListener("pointerdown", event => {
+    if (!event.isPrimary || !isCoarsePointer()) return;
+    const slide = event.target.closest(".slide");
+    if (!slide || slide.hidden) return;
+
+    gesture = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      time: performance.now()
+    };
+  }, { passive: true, capture: true });
+
+  document.addEventListener("pointerup", event => {
+    if (!gesture || gesture.id !== event.pointerId) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    const elapsed = performance.now() - gesture.time;
+    gesture = null;
+
+    if (Math.abs(dx) > 18 || Math.abs(dy) > 18 || elapsed > 700) {
+      suppressTapUntil = performance.now() + 450;
+    }
+  }, { passive: true, capture: true });
+
+  document.addEventListener("pointercancel", () => {
+    gesture = null;
+    suppressTapUntil = performance.now() + 250;
+  }, { passive: true, capture: true });
+
+  document.addEventListener("click", event => {
+    if (!isCoarsePointer()) return;
+    if (performance.now() < suppressTapUntil) return;
+    if (document.body.classList.contains("mobile-menu-open")) return;
+    if (document.querySelector(".math-zoom-overlay")) return;
+
+    if (event.target.closest(".overview-jump-card")) return;
+    if (event.target.closest(interactiveSelector)) return;
+
+    const slide = event.target.closest(".slide");
+    if (!slide || slide.hidden) return;
+    if (window.getSelection()?.toString().trim()) return;
+
+    event.preventDefault();
+
+    if (event.clientX < window.innerWidth / 2) {
+      if (previous && !previous.disabled) previous.click();
+    } else {
+      if (next && !next.disabled) next.click();
+    }
+  }, true);
+})();
+/* ===== END MOBILE TAP FALLBACK + OVERVIEW LINKS ===== */
+'''
+
+          path.write_text(text.rstrip() + block + '\n', encoding='utf-8')
+
+      - name: Remove one-shot workflow
+        run: rm .github/workflows/patch-mobile-slide-taps.yml
+
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add js/app.js .github/workflows/patch-mobile-slide-taps.yml
+          git commit -m "Restore iPhone slide taps and tappable overview cards"
+          git push
+
+# trigger
