@@ -22,11 +22,7 @@ svg{width:100%;height:min(62dvh,520px);min-height:330px;display:block;border:2px
 .discovery{display:none;margin-top:10px;padding:14px;border:2px solid #27313e;border-radius:12px;text-align:center;animation:reveal .3s ease-out}
 .discovery.visible{display:block}
 .discovery h2{margin:0 0 7px;font-size:1.15rem}.discovery p{margin:0;font-size:1rem;line-height:1.45;font-weight:750}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-button,.next-link{width:100%;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:800;text-align:center;text-decoration:none}
-button{background:#e8edf4;color:var(--ink)}
-.next-link{display:none;background:var(--blue);color:#fff}
-.next-link.visible{display:block}
+button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:800}
 @keyframes reveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-height:700px){svg{height:54dvh;min-height:280px}.discovery{padding:10px}}
 </style>
@@ -47,10 +43,7 @@ button{background:#e8edf4;color:var(--ink)}
 <h2>You have discovered the Two-Point Axiom</h2>
 <p>Through any two distinct points, there is exactly one straight line.</p>
 </section>
-<div class="actions">
 <button id="reset" type="button">Start again</button>
-<a id="nextLink" class="next-link" href="../axiom-two/">Next: Discover Axiom 2</a>
-</div>
 </section>
 </main>
 <script>
@@ -62,7 +55,6 @@ const labelA=document.getElementById('labelA');
 const labelB=document.getElementById('labelB');
 const instruction=document.getElementById('instruction');
 const discovery=document.getElementById('discovery');
-const nextLink=document.getElementById('nextLink');
 const WIDTH=900,HEIGHT=520,MARGIN=32,MINIMUM_DISTANCE=90;
 let stage=0,A=null,B=null;
 const clamp=(value,minimum,maximum)=>Math.max(minimum,Math.min(maximum,value));
@@ -70,8 +62,8 @@ function pointerPosition(event){const rect=board.getBoundingClientRect();return{
 const distance=(first,second)=>Math.hypot(second.x-first.x,second.y-first.y);
 function showPoint(circle,label,point){circle.setAttribute('cx',point.x);circle.setAttribute('cy',point.y);circle.setAttribute('visibility','visible');label.setAttribute('x',point.x+18);label.setAttribute('y',point.y-17);label.setAttribute('visibility','visible')}
 function drawInfiniteLine(){const dx=B.x-A.x,dy=B.y-A.y,length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length,extension=2000;mainLine.setAttribute('x1',A.x-ux*extension);mainLine.setAttribute('y1',A.y-uy*extension);mainLine.setAttribute('x2',A.x+ux*extension);mainLine.setAttribute('y2',A.y+uy*extension);mainLine.setAttribute('visibility','visible')}
-board.addEventListener('pointerdown',event=>{const point=pointerPosition(event);if(stage===0){A=point;showPoint(pointA,labelA,A);stage=1;instruction.textContent='Tap a different location to place point B.';return}if(stage===1){if(distance(A,point)<MINIMUM_DISTANCE){instruction.textContent='A and B must be distinct. Tap farther away from A.';return}B=point;showPoint(pointB,labelB,B);drawInfiniteLine();stage=2;instruction.textContent='The unique straight line through A and B has formed.';discovery.classList.add('visible');nextLink.classList.add('visible')}});
-document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;[pointA,pointB,labelA,labelB,mainLine].forEach(element=>element.setAttribute('visibility','hidden'));discovery.classList.remove('visible');nextLink.classList.remove('visible');instruction.textContent='Tap anywhere in the frame to place point A.'});
+board.addEventListener('pointerdown',event=>{const point=pointerPosition(event);if(stage===0){A=point;showPoint(pointA,labelA,A);stage=1;instruction.textContent='Tap a different location to place point B.';return}if(stage===1){if(distance(A,point)<MINIMUM_DISTANCE){instruction.textContent='A and B must be distinct. Tap farther away from A.';return}B=point;showPoint(pointB,labelB,B);drawInfiniteLine();stage=2;instruction.textContent='The unique straight line through A and B has formed.';discovery.classList.add('visible')}});
+document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;[pointA,pointB,labelA,labelB,mainLine].forEach(element=>element.setAttribute('visibility','hidden'));discovery.classList.remove('visible');instruction.textContent='Tap anywhere in the frame to place point A.'});
 </script>
 </body>
 </html>
