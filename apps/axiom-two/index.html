@@ -8,22 +8,21 @@
 :root{--blue:#1565c0;--red:#d32f2f;--green:#2e9d50;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--border:#cbd4df}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
-body{overscroll-behavior:none}
-.app{max-width:760px;margin:auto;padding:8px;min-height:100dvh}
-h1{font-size:clamp(1.35rem,6vw,2rem);line-height:1.08;margin:3px 0 4px;text-align:center}
-.subtitle{margin:0 0 8px;color:var(--muted);font-size:.94rem;line-height:1.35;text-align:center}
+body{overscroll-behavior:none}.app{max-width:760px;margin:auto;padding:8px;min-height:100dvh}
+h1{font-size:clamp(1.35rem,6vw,2rem);line-height:1.08;margin:3px 0 4px;text-align:center}.subtitle{margin:0 0 8px;color:var(--muted);font-size:.94rem;line-height:1.35;text-align:center}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 8px 22px rgba(25,38,58,.08)}
 svg{width:100%;height:min(49dvh,430px);min-height:300px;display:block;border:2px solid #9aa7b7;border-radius:10px;touch-action:none;user-select:none;background:#fff;overflow:hidden}
 .segment{stroke:#26313d;stroke-width:5;stroke-linecap:round}.part-a{stroke:var(--blue);stroke-width:7;stroke-linecap:round}.part-b{stroke:var(--red);stroke-width:7;stroke-linecap:round}
 .point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22))}.a{fill:var(--blue)}.b{fill:var(--red)}.c{fill:var(--green)}
 .label{font-size:28px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}.la{fill:var(--blue)}.lb{fill:var(--red)}.lc{fill:var(--green)}
+.flash{animation:flash 1s ease-in-out 2}@keyframes flash{50%{filter:drop-shadow(0 0 16px #f5b700);stroke:#f5b700;stroke-width:8}}
 .instruction{margin-top:8px;padding:10px;border-radius:10px;background:#f3f6f9;border-left:5px solid var(--blue);font-size:.95rem;line-height:1.35;font-weight:700}
-.readout{display:none;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}.readout.visible{display:grid}
-.measure{padding:8px 4px;border:1px solid var(--border);border-radius:9px;text-align:center;background:#fff}.measure strong{display:block;font-size:1rem}.measure span{font-size:.76rem;color:var(--muted)}
+.readout{display:none;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}.readout.visible{display:grid}.measure{padding:8px 4px;border:1px solid var(--border);border-radius:9px;text-align:center;background:#fff}.measure strong{display:block;font-size:1rem}.measure span{font-size:.76rem;color:var(--muted)}
 .question{display:none;margin-top:8px;padding:10px;border-radius:10px;background:#fff8dc;border:1px solid #e6cf72;font-size:.94rem;line-height:1.35;font-weight:700}.question.visible{display:block}
 button{width:100%;margin-top:8px;border:0;border-radius:9px;padding:11px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:780}button:disabled{opacity:.45}
 .discovery{display:none;margin-top:8px;padding:12px;border:2px solid #27313e;border-radius:10px;background:#fff}.discovery.visible{display:block}.discovery h2{font-size:1.05rem;margin:0 0 6px}.discovery p{margin:5px 0;line-height:1.4}
-.keywords{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.keyword{padding:5px 8px;border-radius:999px;background:#eef2f6;border:1px solid var(--border);font-size:.78rem;font-weight:750}
+.keyword-focus,.remember{margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff}.keyword-focus h2,.remember h2{font-size:1.05rem;margin:0 0 8px}.keyword-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.keyword-buttons button{margin:0;padding:9px 5px;font-size:.86rem}.keyword-text{min-height:5.6em;margin-top:8px;padding:10px;border-radius:9px;background:#f3f6f9;line-height:1.4}.remember{background:#eef6ff;border-left:5px solid var(--blue)}.remember p{margin:6px 0;line-height:1.42}.remember strong{color:#123f73}
+@media(max-width:470px){.keyword-buttons{grid-template-columns:1fr}.readout{grid-template-columns:1fr 1fr}.measure:first-child{grid-column:1/-1}}
 @media(max-height:700px){svg{height:43dvh;min-height:260px}.instruction,.question,.discovery{padding:8px;font-size:.88rem}}
 </style>
 </head>
@@ -41,14 +40,30 @@ button{width:100%;margin-top:8px;border:0;border-radius:9px;padding:11px;backgro
 <div id="readout" class="readout"><div class="measure"><strong id="ab">|AB| = —</strong><span>whole distance</span></div><div class="measure"><strong id="ac">|AC| = —</strong><span>first part</span></div><div class="measure"><strong id="cb">|CB| = —</strong><span>second part</span></div></div>
 <div id="question" class="question"></div>
 <button id="action" type="button" disabled>Reverse the endpoints</button>
-<div id="discovery" class="discovery"><h2>What you discovered</h2><p>Reversing the endpoints conserves distance: <strong>|AB| = |BA|</strong>.</p><p>The smallest possible distance is <strong>0</strong>, so distance is <strong>non-negative</strong>.</p><p>If C partitions segment AB, the sum of the aligned parts is conserved: <strong>|AC| + |CB| = |AB|</strong>.</p><div class="keywords"><span class="keyword">distance</span><span class="keyword">endpoint</span><span class="keyword">non-negative</span><span class="keyword">intermediate point</span><span class="keyword">partition</span><span class="keyword">conserved</span></div></div>
+<div id="discovery" class="discovery"><h2>What you discovered</h2><p>Reversing the endpoints conserves distance: <strong>|AB| = |BA|</strong>.</p><p>The smallest possible distance is <strong>0</strong>, so distance is <strong>non-negative</strong>.</p><p>If C partitions segment AB, the sum of the aligned parts is conserved: <strong>|AC| + |CB| = |AB|</strong>.</p></div>
 <button id="reset" type="button">Start again</button>
+
+<section class="keyword-focus" aria-labelledby="keywordTitle">
+<h2 id="keywordTitle">Keyword focus</h2>
+<div class="keyword-buttons">
+<button type="button" data-keyword="endpoints">Endpoints</button>
+<button type="button" data-keyword="distance">Distance</button>
+<button type="button" data-keyword="partitioning">Partitioning</button>
+</div>
+<div id="keywordText" class="keyword-text">Tap a keyword to see what it means and where it appears in the diagram.</div>
+</section>
+
+<section class="remember">
+<h2>Remember</h2>
+<p><strong>Point, line and plane</strong> are treated as undefined terms in geometry. We understand them from how they behave and how they are used.</p>
+<p><strong>Endpoint, line segment, distance and partition</strong> are defined terms built from those basic ideas.</p>
+<p>You will not normally be asked to reproduce formal definitions of every term. The important thing is to recognise the ideas, use the words correctly and deepen your understanding through the diagram.</p>
+</section>
 </section>
 </main>
 <script>
-const svg=document.getElementById('board'),whole=document.getElementById('whole'),leftPart=document.getElementById('leftPart'),rightPart=document.getElementById('rightPart'),Ael=document.getElementById('A'),Bel=document.getElementById('B'),Cel=document.getElementById('C'),labelA=document.getElementById('labelA'),labelB=document.getElementById('labelB'),labelC=document.getElementById('labelC'),instruction=document.getElementById('instruction'),question=document.getElementById('question'),readout=document.getElementById('readout'),action=document.getElementById('action'),discovery=document.getElementById('discovery');
-const W=900,H=500,M=36,MIN_INITIAL=110,SCALE=10;
-let stage=0,A=null,B=null,C=null,draggingC=false,originalA=null,originalB=null,animation=null;
+const svg=document.getElementById('board'),whole=document.getElementById('whole'),leftPart=document.getElementById('leftPart'),rightPart=document.getElementById('rightPart'),Ael=document.getElementById('A'),Bel=document.getElementById('B'),Cel=document.getElementById('C'),labelA=document.getElementById('labelA'),labelB=document.getElementById('labelB'),labelC=document.getElementById('labelC'),instruction=document.getElementById('instruction'),question=document.getElementById('question'),readout=document.getElementById('readout'),action=document.getElementById('action'),discovery=document.getElementById('discovery'),keywordText=document.getElementById('keywordText');
+const W=900,H=500,M=36,MIN_INITIAL=110,SCALE=10;let stage=0,A=null,B=null,C=null,draggingC=false,originalA=null,originalB=null,animation=null;
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v)),dist=(p,q)=>Math.hypot(q.x-p.x,q.y-p.y),value=n=>(n/SCALE).toFixed(1);
 function pointer(e){const r=svg.getBoundingClientRect();return{x:clamp((e.clientX-r.left)*W/r.width,M,W-M),y:clamp((e.clientY-r.top)*H/r.height,M,H-M)}}
 function show(el,yes=true){el.setAttribute('visibility',yes?'visible':'hidden')}
@@ -57,11 +72,12 @@ function setLine(el,p,q){el.setAttribute('x1',p.x);el.setAttribute('y1',p.y);el.
 function project(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,len2=dx*dx+dy*dy;if(len2===0)return{x:a.x,y:a.y,t:0};const t=clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/len2,0,1);return{x:a.x+t*dx,y:a.y+t*dy,t}}
 function update(){if(!A)return;setPoint(Ael,labelA,A);if(!B)return;setPoint(Bel,labelB,B);setLine(whole,A,B);const dAB=dist(A,B);document.getElementById('ab').textContent=`|AB| = ${value(dAB)}`;readout.classList.add('visible');if(C){C=project(C,A,B);setPoint(Cel,labelC,C);setLine(leftPart,A,C);setLine(rightPart,C,B);const dAC=dist(A,C),dCB=dist(C,B);document.getElementById('ac').textContent=`|AC| = ${value(dAC)}`;document.getElementById('cb').textContent=`|CB| = ${value(dCB)}`;question.innerHTML=`Move C. The aligned parts satisfy <strong>${value(dAC)} + ${value(dCB)} = ${value(dAB)}</strong>.`;question.classList.add('visible')}else{show(Cel,false);show(labelC,false);show(leftPart,false);show(rightPart,false);document.getElementById('ac').textContent='|AC| = —';document.getElementById('cb').textContent='|CB| = —'}}
 function animateShrink(){const start={...B},startTime=performance.now(),duration=1500;action.disabled=true;question.classList.remove('visible');instruction.textContent='Watch endpoint B move towards A. The distance is shrinking in real time.';function frame(now){const t=Math.min((now-startTime)/duration,1),ease=1-Math.pow(1-t,3);B={x:start.x+(A.x-start.x)*ease,y:start.y+(A.y-start.y)*ease};update();if(t<1){animation=requestAnimationFrame(frame)}else{B={...A};update();instruction.innerHTML='The endpoints coincide and <strong>|AB| = 0</strong>. This is the smallest possible distance.';question.innerHTML='A distance is always zero or positive. The mathematical word is <strong>non-negative</strong>.';question.classList.add('visible');action.textContent='Continue to partitioning';action.disabled=false;stage=4}}animation=requestAnimationFrame(frame)}
-svg.addEventListener('pointerdown',e=>{const p=pointer(e);if(stage===0){A=p;stage=1;instruction.textContent='Endpoint A is placed. Tap a different point to place endpoint B.';update();return}if(stage===1){if(dist(A,p)<MIN_INITIAL){instruction.textContent='A and B must be distinct. Tap farther from A.';return}B=p;originalA={...A};originalB={...B};stage=2;instruction.textContent='Distance |AB| is shown. Reverse the endpoints and see whether the distance changes.';action.disabled=false;update();return}if(stage===5&&C){if(dist(p,C)<60){draggingC=true;svg.setPointerCapture(e.pointerId)}return}});
-svg.addEventListener('pointermove',e=>{if(!draggingC)return;C=project(pointer(e),A,B);update()});
-function stop(e){if(draggingC){draggingC=false;try{svg.releasePointerCapture(e.pointerId)}catch{}}}svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
+svg.addEventListener('pointerdown',e=>{const p=pointer(e);if(stage===0){A=p;stage=1;instruction.textContent='Endpoint A is placed. Tap a different point to place endpoint B.';update();return}if(stage===1){if(dist(A,p)<MIN_INITIAL){instruction.textContent='A and B must be distinct. Tap farther away from A.';return}B=p;originalA={...A};originalB={...B};stage=2;instruction.textContent='Distance |AB| is shown. Reverse the endpoints and see whether the distance changes.';action.disabled=false;update();return}if(stage===5&&C&&dist(p,C)<60){draggingC=true;svg.setPointerCapture(e.pointerId)}});
+svg.addEventListener('pointermove',e=>{if(!draggingC)return;C=project(pointer(e),A,B);update()});function stop(e){if(draggingC){draggingC=false;try{svg.releasePointerCapture(e.pointerId)}catch{}}}svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
 action.addEventListener('click',()=>{if(stage===2){const before=value(dist(A,B));const temp=A;A=B;B=temp;update();instruction.innerHTML=`The endpoints are reversed. The distance is still <strong>${before}</strong>.`;question.innerHTML='Distance is conserved when the endpoints are reversed.';question.classList.add('visible');action.textContent='Shrink B to A';stage=3;return}if(stage===3){animateShrink();return}if(stage===4){A={...originalA};B={...originalB};C={x:(A.x+B.x)/2,y:(A.y+B.y)/2,t:.5};stage=5;action.style.display='none';instruction.textContent='Green point C partitions segment AB. Drag C to different positions.';question.classList.add('visible');update();setTimeout(()=>discovery.classList.add('visible'),1200)}});
-document.getElementById('reset').addEventListener('click',()=>{if(animation)cancelAnimationFrame(animation);stage=0;A=B=C=originalA=originalB=null;draggingC=false;[Ael,Bel,Cel,labelA,labelB,labelC,whole,leftPart,rightPart].forEach(el=>show(el,false));readout.classList.remove('visible');question.classList.remove('visible');discovery.classList.remove('visible');action.style.display='block';action.textContent='Reverse the endpoints';action.disabled=true;instruction.textContent='Tap any two distinct points to place endpoints A and B.'});
+function flash(elements){elements.forEach(el=>{el.classList.remove('flash');void el.getBBox();el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),2100)})}
+document.querySelectorAll('[data-keyword]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.keyword;if(key==='endpoints'){keywordText.innerHTML='<strong>Endpoints</strong> are the two points at the ends of a line segment. Here they are A and B.';flash([Ael,Bel,labelA,labelB])}if(key==='distance'){keywordText.innerHTML='<strong>Distance</strong> is the non-negative length between two points. Here it is written |AB|.';flash([whole])}if(key==='partitioning'){keywordText.innerHTML='<strong>Partitioning</strong> means dividing a whole into parts. Point C divides segment AB into AC and CB, while |AC| + |CB| stays equal to |AB|.';if(!C&&A&&B){C={x:(A.x+B.x)/2,y:(A.y+B.y)/2,t:.5};update()}flash([Cel,leftPart,rightPart])}}));
+document.getElementById('reset').addEventListener('click',()=>{if(animation)cancelAnimationFrame(animation);stage=0;A=B=C=originalA=originalB=null;draggingC=false;[Ael,Bel,Cel,labelA,labelB,labelC,whole,leftPart,rightPart].forEach(el=>show(el,false));readout.classList.remove('visible');question.classList.remove('visible');discovery.classList.remove('visible');action.style.display='block';action.textContent='Reverse the endpoints';action.disabled=true;instruction.textContent='Tap any two distinct points to place endpoints A and B.';keywordText.textContent='Tap a keyword to see what it means and where it appears in the diagram.'});
 </script>
 </body>
 </html>
