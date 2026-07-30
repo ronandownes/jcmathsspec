@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Discover Axiom 3 · Protractor</title>
+<style>
+:root{--blue:#1565c0;--red:#d32f2f;--green:#2e9d50;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--border:#cbd4df;--gold:#e49b00}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.app{max-width:760px;margin:auto;padding:8px}.card{background:white;border:1px solid var(--border);border-radius:14px;padding:10px;box-shadow:0 8px 22px rgba(25,38,58,.08)}h1{text-align:center;font-size:clamp(1.35rem,6vw,2rem);margin:4px}.sub{text-align:center;color:var(--muted);margin:0 0 9px}.prompt,.result,.note{padding:10px;border-radius:10px;margin:8px 0;line-height:1.4}.prompt{background:#fff8dc;border:1px solid #e3cd6d;font-weight:800}.result{background:#eef6ff;border-left:5px solid var(--blue)}.note{background:#f3f6f9}.hidden{display:none}svg{width:100%;height:min(53dvh,440px);min-height:310px;border:2px solid #9aa7b7;border-radius:10px;background:#fff;display:block;touch-action:none}.ray{stroke-width:7;stroke-linecap:round}.base{stroke:var(--blue)}.moving{stroke:var(--red)}.divider{stroke:var(--green)}.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px #999)}.label{font-size:27px;font-weight:850;paint-order:stroke;stroke:white;stroke-width:4px;pointer-events:none}.arc{fill:none;stroke:var(--gold);stroke-width:5}.part{fill:none;stroke:var(--green);stroke-width:5}.readout{text-align:center;font-size:1.25rem;font-weight:900;padding:8px}.sense{text-align:center;color:var(--muted);font-weight:750}.equation{text-align:center;font-size:1.15rem;font-weight:850;padding:9px;border:1px solid var(--border);border-radius:9px;margin-top:8px}button{width:100%;border:0;border-radius:9px;padding:11px;margin-top:8px;font:inherit;font-weight:850;background:#e8edf4}.primary{background:#202936;color:white}.keywords{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.keywords button{width:auto;flex:1;min-width:100px;margin:0}.keywordText{padding:9px;margin-top:6px;background:#f3f6f9;border-radius:9px}.final{border:2px solid #27313e;padding:10px;border-radius:10px;margin-top:9px}.final h2{margin:0 0 5px;font-size:1.15rem}@media(max-width:470px){svg{min-height:300px}.app{padding:5px}.card{padding:7px}}
+</style>
+</head>
+<body><main class="app"><h1>Discover Axiom 3 · Protractor</h1><p class="sub">Discover how angle measure behaves.</p><section class="card">
+<div id="prompt" class="prompt">What is the biggest angle you can show? Drag the red point C around A and find out.</div>
+<svg id="board" viewBox="0 0 900 520" aria-label="Angle discovery">
+<path id="arc" class="arc"></path><path id="part1" class="part" visibility="hidden"></path><path id="part2" class="arc" visibility="hidden"></path>
+<line id="AB" class="ray base"></line><line id="AC" class="ray moving"></line><line id="AD" class="ray divider" visibility="hidden"></line>
+<circle id="A" class="point" fill="#202936" r="20"></circle><circle id="B" class="point" fill="#1565c0" r="20"></circle><circle id="C" class="point" fill="#d32f2f" r="22"></circle><circle id="D" class="point" fill="#2e9d50" r="20" visibility="hidden"></circle>
+<text id="la" class="label" fill="#202936">A</text><text id="lb" class="label" fill="#1565c0">B</text><text id="lc" class="label" fill="#d32f2f">C</text><text id="ld" class="label" fill="#2e9d50" visibility="hidden">D</text>
+</svg>
+<div id="readout" class="readout">|∠BAC| = 60°</div><div id="sense" class="sense">anticlockwise from AB</div>
+<div id="discover1" class="result hidden"><strong>Discovery:</strong> the greatest angle measure is <strong>360°</strong>, one complete turn. Continue around and the measure begins again at 1°, 2°, 3° … rather than 361°, 362°, 363°.</div>
+<button id="senseBtn" class="primary hidden">Explore the two senses</button>
+<div id="discover2" class="result hidden"><strong>Two senses:</strong> the same pair of rays can be approached clockwise or anticlockwise. The two measures complete one full turn.</div>
+<button id="ordinaryBtn" class="primary hidden">Use the ordinary angle convention</button>
+<div id="ordinary" class="result hidden"><strong>Convention:</strong> unless a <em>reflex angle</em> is explicitly requested, we use the <strong>ordinary angle</strong> between the rays. Its measure is less than 180°. A straight angle is 180°.</div>
+<button id="partitionBtn" class="primary hidden">Partition the angle</button>
+<div id="partitionInfo" class="prompt hidden">Green D is inside ∠BAC. Drag D. What stays the same as the two parts change?</div>
+<div id="equation" class="equation hidden"></div>
+<div id="final" class="final hidden"><h2>What you discovered</h2><p>Angle measure lies between 0° and 360°. A straight angle has measure 180°. Unless reflex is stated, we use the ordinary angle.</p><p><strong>Conservation under partitioning:</strong><br>|∠BAC| = |∠BAD| + |∠DAC|.</p></div>
+<div class="keywords"><button data-k="angle">Angle measure</button><button data-k="ordinary">Ordinary</button><button data-k="partition">Partition</button></div><div id="keywordText" class="keywordText">Tap a keyword for a quick reminder.</div>
+<button id="reset">Start again</button>
+</section></main>
+<script>
+const $=x=>document.getElementById(x),svg=$('board'),O={x:450,y:260},R=205;let angle=60,divider=30,drag=null,stage=0,lastRaw=60,turnOffset=0,sawFull=false;
+const rad=d=>d*Math.PI/180,clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+function pt(d,r=R){return{x:O.x+r*Math.cos(rad(d)),y:O.y-r*Math.sin(rad(d))}}
+function point(id,l,p){$(id).setAttribute('cx',p.x);$(id).setAttribute('cy',p.y);$(l).setAttribute('x',p.x+15);$(l).setAttribute('y',p.y-14)}
+function line(id,p,q){$(id).setAttribute('x1',p.x);$(id).setAttribute('y1',p.y);$(id).setAttribute('x2',q.x);$(id).setAttribute('y2',q.y)}
+function arcPath(s,e,r){let a=pt(s,r),b=pt(e,r),span=e-s,large=span>180?1:0;return`M ${a.x} ${a.y} A ${r} ${r} 0 ${large} 0 ${b.x} ${b.y}`}
+function show(id,on=true){$(id).classList.toggle('hidden',!on)}
+function render(){let B=pt(0),C=pt(angle);point('A','la',O);point('B','lb',B);point('C','lc',C);line('AB',O,B);line('AC',O,C);$('arc').setAttribute('d',angle>359.5?arcPath(0,180,82)+' '+arcPath(180,360,82):arcPath(0,angle,82));$('readout').textContent=`|∠BAC| = ${Math.round(angle)}°`;
+if(stage>=3){let ordinary=Math.min(angle,360-angle);if(Math.abs(angle-180)<1)ordinary=180;$('readout').textContent=`ordinary |∠BAC| = ${Math.round(ordinary)}°`;}
+if(stage===4){let whole=Math.min(angle,360-angle);if(whole>179)whole=120;if(angle>180)angle=whole;divider=clamp(divider,1,whole-1);let D=pt(divider);point('D','ld',D);line('AD',O,D);['D','ld','AD','part1','part2'].forEach(x=>$(x).setAttribute('visibility','visible'));$('part1').setAttribute('d',arcPath(0,divider,112));$('part2').setAttribute('d',arcPath(divider,whole,112));$('equation').textContent=`${Math.round(divider)}° + ${Math.round(whole-divider)}° = ${Math.round(whole)}°`;}
+}
+function pos(e){let r=svg.getBoundingClientRect();return{x:(e.clientX-r.left)*900/r.width,y:(e.clientY-r.top)*520/r.height}}
+function raw(p){let d=Math.atan2(O.y-p.y,p.x-O.x)*180/Math.PI;return d<0?d+360:d}
+svg.addEventListener('pointerdown',e=>{let p=pos(e);if(stage<4&&Math.hypot(p.x-pt(angle).x,p.y-pt(angle).y)<80)drag='C';if(stage===4&&Math.hypot(p.x-pt(divider).x,p.y-pt(divider).y)<80)drag='D';if(drag)svg.setPointerCapture(e.pointerId)});
+svg.addEventListener('pointermove',e=>{if(!drag)return;let a=raw(pos(e));if(drag==='C'){if(lastRaw>300&&a<60){sawFull=true;show('discover1');show('senseBtn');}lastRaw=a;angle=a;if(sawFull&&angle<0.5)angle=360;$('sense').textContent=a<=180?'anticlockwise from AB':'anticlockwise from AB · reflex side';}else{let whole=Math.min(angle,360-angle);divider=clamp(a,1,whole-1)}render()});
+function stop(e){drag=null;try{svg.releasePointerCapture(e.pointerId)}catch{}}svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
+$('senseBtn').onclick=()=>{stage=2;show('discover2');show('ordinaryBtn');$('prompt').textContent='Try moving C to the same final position from either side. Clockwise and anticlockwise are the two senses of rotation.';$('senseBtn').classList.add('hidden')};
+$('ordinaryBtn').onclick=()=>{stage=3;show('ordinary');show('partitionBtn');$('prompt').textContent='Now use the geometry convention: angle means the ordinary angle unless reflex is explicitly stated.';$('ordinaryBtn').classList.add('hidden');render()};
+$('partitionBtn').onclick=()=>{stage=4;angle=120;divider=40;show('partitionInfo');show('equation');show('final');$('partitionBtn').classList.add('hidden');$('prompt').textContent='Partition an ordinary angle.';render()};
+$('reset').onclick=()=>{stage=0;angle=60;divider=30;drag=null;lastRaw=60;sawFull=false;['discover1','senseBtn','discover2','ordinaryBtn','ordinary','partitionBtn','partitionInfo','equation','final'].forEach(x=>show(x,false));['D','ld','AD','part1','part2'].forEach(x=>$(x).setAttribute('visibility','hidden'));$('prompt').textContent='What is the biggest angle you can show? Drag the red point C around A and find out.';$('sense').textContent='anticlockwise from AB';render()};
+document.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{$('keywordText').innerHTML=b.dataset.k==='angle'?'<strong>Angle measure:</strong> the number of degrees in an angle, written using notation such as |∠BAC|.':b.dataset.k==='ordinary'?'<strong>Ordinary angle:</strong> the non-reflex angle between two rays; its measure is less than 180°.':'<strong>Partition:</strong> divide one angle into adjacent smaller angles. Their measures add to the original.'});render();
+</script></body></html>
