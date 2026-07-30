@@ -6366,3 +6366,12 @@ body.reader-header-hidden .site-header {
 
 /* ===== APPENDIX B REFERENCE END ===== */
 
+
+/* Hide slide navigation dots */
+.deck-dots {
+  display: none !important;
+}
+
+.deck-count {
+  margin-bottom: 0;
+}
