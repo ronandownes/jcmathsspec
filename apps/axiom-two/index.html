@@ -14,30 +14,19 @@ h1{font-size:clamp(1.35rem,6vw,2rem);line-height:1.08;margin:3px 0 4px}
 .subtitle{margin:0 0 8px;color:var(--muted);font-size:.94rem;line-height:1.35}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 8px 22px rgba(25,38,58,.08)}
 svg{width:100%;height:min(49dvh,430px);min-height:300px;display:block;border:2px solid #9aa7b7;border-radius:10px;touch-action:none;user-select:none;background:#fff;overflow:hidden}
-.segment{stroke:#26313d;stroke-width:5;stroke-linecap:round}
-.part-a{stroke:var(--blue);stroke-width:7;stroke-linecap:round}
-.part-b{stroke:var(--red);stroke-width:7;stroke-linecap:round}
-.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));cursor:grab}
-.point:active{cursor:grabbing}
+.segment{stroke:#26313d;stroke-width:5;stroke-linecap:round}.part-a{stroke:var(--blue);stroke-width:7;stroke-linecap:round}.part-b{stroke:var(--red);stroke-width:7;stroke-linecap:round}
+.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));cursor:grab}.point:active{cursor:grabbing}
 .a{fill:var(--blue)}.b{fill:var(--red)}.c{fill:var(--green)}
-.label{font-size:28px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
-.la{fill:var(--blue)}.lb{fill:var(--red)}.lc{fill:var(--green)}
+.label{font-size:28px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}.la{fill:var(--blue)}.lb{fill:var(--red)}.lc{fill:var(--green)}
 .instruction{margin-top:8px;padding:10px;border-radius:10px;background:#f3f6f9;border-left:5px solid var(--blue);font-size:.94rem;line-height:1.35;font-weight:650}
-.readout{display:none;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
-.readout.visible{display:grid}
-.measure{padding:8px 4px;border:1px solid var(--border);border-radius:9px;text-align:center;background:#fff}
-.measure strong{display:block;font-size:1rem}.measure span{font-size:.78rem;color:var(--muted)}
-.question{display:none;margin-top:8px;padding:10px;border-radius:10px;background:#fff8dc;border:1px solid #e6cf72;font-size:.94rem;line-height:1.35;font-weight:700}
-.question.visible{display:block}
+.readout{display:none;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}.readout.visible{display:grid}
+.measure{padding:8px 4px;border:1px solid var(--border);border-radius:9px;text-align:center;background:#fff}.measure strong{display:block;font-size:1rem}.measure span{font-size:.78rem;color:var(--muted)}
+.question{display:none;margin-top:8px;padding:10px;border-radius:10px;background:#fff8dc;border:1px solid #e6cf72;font-size:.94rem;line-height:1.35;font-weight:700}.question.visible{display:block}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
-button{border:0;border-radius:9px;padding:10px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:760}
-button:disabled{opacity:.45}
-.discovery{display:none;margin-top:8px;padding:12px;border:2px solid #27313e;border-radius:10px;background:#fff;text-align:left}
-.discovery.visible{display:block}
-.discovery h2{font-size:1.05rem;margin:0 0 6px}
-.discovery p{margin:5px 0;line-height:1.35}
-.keywords{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.keyword{padding:5px 8px;border-radius:999px;background:#eef2f6;border:1px solid var(--border);font-size:.78rem;font-weight:750}
+button,.back-link{border:0;border-radius:9px;padding:10px;font:inherit;font-weight:760;text-align:center;text-decoration:none}
+button{background:#e8edf4;color:var(--ink)}button:disabled{opacity:.45}.back-link{display:block;background:#eef2f6;color:var(--ink);border:1px solid var(--border);margin-top:8px}
+.discovery{display:none;margin-top:8px;padding:12px;border:2px solid #27313e;border-radius:10px;background:#fff;text-align:left}.discovery.visible{display:block}
+.discovery h2{font-size:1.05rem;margin:0 0 6px}.discovery p{margin:5px 0;line-height:1.35}.keywords{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.keyword{padding:5px 8px;border-radius:999px;background:#eef2f6;border:1px solid var(--border);font-size:.78rem;font-weight:750}
 @media(max-height:700px){svg{height:43dvh;min-height:260px}.instruction,.question,.discovery{padding:8px;font-size:.88rem}}
 </style>
 </head>
@@ -47,117 +36,35 @@ button:disabled{opacity:.45}
 <p class="subtitle">Explore distance, endpoints and an intermediate point.</p>
 <section class="card">
 <svg id="board" viewBox="0 0 900 500" aria-label="Explore the distance between endpoints A and B and an intermediate point C">
-<line id="whole" class="segment" visibility="hidden"></line>
-<line id="leftPart" class="part-a" visibility="hidden"></line>
-<line id="rightPart" class="part-b" visibility="hidden"></line>
-<circle id="A" class="point a" r="22" visibility="hidden"></circle>
-<circle id="B" class="point b" r="22" visibility="hidden"></circle>
-<circle id="C" class="point c" r="20" visibility="hidden"></circle>
-<text id="labelA" class="label la" visibility="hidden">A</text>
-<text id="labelB" class="label lb" visibility="hidden">B</text>
-<text id="labelC" class="label lc" visibility="hidden">C</text>
+<line id="whole" class="segment" visibility="hidden"></line><line id="leftPart" class="part-a" visibility="hidden"></line><line id="rightPart" class="part-b" visibility="hidden"></line>
+<circle id="A" class="point a" r="22" visibility="hidden"></circle><circle id="B" class="point b" r="22" visibility="hidden"></circle><circle id="C" class="point c" r="20" visibility="hidden"></circle>
+<text id="labelA" class="label la" visibility="hidden">A</text><text id="labelB" class="label lb" visibility="hidden">B</text><text id="labelC" class="label lc" visibility="hidden">C</text>
 </svg>
 <div id="instruction" class="instruction">Tap anywhere in the frame to place blue endpoint A.</div>
-<div id="readout" class="readout">
-<div class="measure"><strong id="ab">|AB| = —</strong><span>endpoint distance</span></div>
-<div class="measure"><strong id="ac">|AC| = —</strong><span>first part</span></div>
-<div class="measure"><strong id="cb">|CB| = —</strong><span>second part</span></div>
-</div>
+<div id="readout" class="readout"><div class="measure"><strong id="ab">|AB| = —</strong><span>endpoint distance</span></div><div class="measure"><strong id="ac">|AC| = —</strong><span>first part</span></div><div class="measure"><strong id="cb">|CB| = —</strong><span>second part</span></div></div>
 <div id="question" class="question"></div>
-<div class="actions">
-<button id="reverse" type="button" disabled>Reverse A and B</button>
-<button id="reveal" type="button" disabled>Reveal discoveries</button>
-<button id="reset" type="button" style="grid-column:1/-1">Start again</button>
-</div>
-<div id="discovery" class="discovery">
-<h2>What the ruler exploration shows</h2>
-<p><strong>Distance is never negative.</strong></p>
-<p>The smallest possible distance is <strong>0</strong>, when the two endpoints coincide.</p>
-<p>Reversing the endpoints does not change the distance: <strong>|AB| = |BA|</strong>.</p>
-<p>If C is an intermediate point on segment AB, then <strong>|AC| + |CB| = |AB|</strong>.</p>
-<div class="keywords" aria-label="Key words">
-<span class="keyword">distance</span><span class="keyword">endpoint</span><span class="keyword">intermediate point</span><span class="keyword">line segment</span><span class="keyword">partition</span>
-</div>
-</div>
+<div class="actions"><button id="reverse" type="button" disabled>Reverse A and B</button><button id="reveal" type="button" disabled>Reveal discoveries</button><button id="reset" type="button" style="grid-column:1/-1">Start again</button></div>
+<div id="discovery" class="discovery"><h2>What the ruler exploration shows</h2><p><strong>Distance is never negative.</strong></p><p>The smallest possible distance is <strong>0</strong>, when the two endpoints coincide.</p><p>Reversing the endpoints does not change the distance: <strong>|AB| = |BA|</strong>.</p><p>If C is an intermediate point on segment AB, then <strong>|AC| + |CB| = |AB|</strong>.</p><div class="keywords" aria-label="Key words"><span class="keyword">distance</span><span class="keyword">endpoint</span><span class="keyword">intermediate point</span><span class="keyword">line segment</span><span class="keyword">partition</span></div></div>
+<a class="back-link" href="../axiom-one/">← Back to Axiom 1</a>
 </section>
 </main>
 <script>
-const svg=document.getElementById('board');
-const whole=document.getElementById('whole');
-const leftPart=document.getElementById('leftPart');
-const rightPart=document.getElementById('rightPart');
-const Ael=document.getElementById('A');
-const Bel=document.getElementById('B');
-const Cel=document.getElementById('C');
-const labelA=document.getElementById('labelA');
-const labelB=document.getElementById('labelB');
-const labelC=document.getElementById('labelC');
-const instruction=document.getElementById('instruction');
-const question=document.getElementById('question');
-const readout=document.getElementById('readout');
-const reverseBtn=document.getElementById('reverse');
-const revealBtn=document.getElementById('reveal');
-const discovery=document.getElementById('discovery');
-const W=900,H=500,M=36,MIN_INITIAL=105,SCALE=10;
-let stage=0,A=null,B=null,C=null,dragging=null,reversed=false;
-const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
-const dist=(p,q)=>Math.hypot(q.x-p.x,q.y-p.y);
+const svg=document.getElementById('board'),whole=document.getElementById('whole'),leftPart=document.getElementById('leftPart'),rightPart=document.getElementById('rightPart'),Ael=document.getElementById('A'),Bel=document.getElementById('B'),Cel=document.getElementById('C'),labelA=document.getElementById('labelA'),labelB=document.getElementById('labelB'),labelC=document.getElementById('labelC'),instruction=document.getElementById('instruction'),question=document.getElementById('question'),readout=document.getElementById('readout'),reverseBtn=document.getElementById('reverse'),revealBtn=document.getElementById('reveal'),discovery=document.getElementById('discovery');
+const W=900,H=500,M=36,MIN_INITIAL=105,SCALE=10;let stage=0,A=null,B=null,C=null,dragging=null;
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v)),dist=(p,q)=>Math.hypot(q.x-p.x,q.y-p.y);
 function pointer(e){const r=svg.getBoundingClientRect();return{x:clamp((e.clientX-r.left)*W/r.width,M,W-M),y:clamp((e.clientY-r.top)*H/r.height,M,H-M)}}
 function show(el,yes=true){el.setAttribute('visibility',yes?'visible':'hidden')}
 function setPoint(el,label,p){el.setAttribute('cx',p.x);el.setAttribute('cy',p.y);label.setAttribute('x',p.x+20);label.setAttribute('y',p.y-18);show(el);show(label)}
 function setLine(el,p,q){el.setAttribute('x1',p.x);el.setAttribute('y1',p.y);el.setAttribute('x2',q.x);el.setAttribute('y2',q.y);show(el)}
-function projectToSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y;const len2=dx*dx+dy*dy;if(len2===0)return{x:a.x,y:a.y,t:0};const t=clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/len2,0,1);return{x:a.x+t*dx,y:a.y+t*dy,t}}
-function value(n){return (n/SCALE).toFixed(1)}
-function update(){
- if(!A)return;
- setPoint(Ael,labelA,A);
- if(!B)return;
- setPoint(Bel,labelB,B);setLine(whole,A,B);
- const dAB=dist(A,B);document.getElementById('ab').textContent=`|AB| = ${value(dAB)}`;
- readout.classList.add('visible');
- if(C){
-   C=projectToSegment(C,A,B);setPoint(Cel,labelC,C);setLine(leftPart,A,C);setLine(rightPart,C,B);
-   const dAC=dist(A,C),dCB=dist(C,B);
-   document.getElementById('ac').textContent=`|AC| = ${value(dAC)}`;
-   document.getElementById('cb').textContent=`|CB| = ${value(dCB)}`;
-   question.innerHTML=`Check the partition: <strong>${value(dAC)} + ${value(dCB)} = ${value(dAB)}</strong>. Is the sum always the same as |AB|?`;
-   question.classList.add('visible');
- }else{
-   show(Cel,false);show(labelC,false);show(leftPart,false);show(rightPart,false);
-   document.getElementById('ac').textContent='|AC| = —';document.getElementById('cb').textContent='|CB| = —';
- }
- if(dAB<1){instruction.innerHTML='<strong>The endpoints coincide.</strong> The distance is 0. Can it become negative?';}
-}
-svg.addEventListener('pointerdown',e=>{
- const p=pointer(e);
- if(stage===0){A=p;stage=1;instruction.textContent='Blue endpoint A is placed. Tap a different position for red endpoint B.';update();return}
- if(stage===1){if(dist(A,p)<MIN_INITIAL){instruction.innerHTML='<strong>Begin with distinct endpoints.</strong> Tap farther from A.';return}B=p;stage=2;reverseBtn.disabled=false;instruction.textContent='The endpoints form segment AB. Tap on the segment to place green intermediate point C.';update();return}
- if(stage===2&&!C){C=projectToSegment(p,A,B);stage=3;revealBtn.disabled=false;instruction.textContent='Drag A, B or C. Try reversing the endpoints and bringing A and B together.';update();return}
- const target=[{name:'A',p:A},{name:'B',p:B},{name:'C',p:C}].sort((u,v)=>dist(p,u.p)-dist(p,v.p))[0];
- if(target&&dist(p,target.p)<55){dragging=target.name;svg.setPointerCapture(e.pointerId)}
-});
-svg.addEventListener('pointermove',e=>{
- if(!dragging)return;const p=pointer(e);
- if(dragging==='A')A=p;
- if(dragging==='B')B=p;
- if(dragging==='C')C=projectToSegment(p,A,B);
- update();
-});
-function stop(e){if(dragging){dragging=null;try{svg.releasePointerCapture(e.pointerId)}catch{}}}
-svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
-reverseBtn.addEventListener('click',()=>{
- const temp=A;A=B;B=temp;reversed=!reversed;
- instruction.innerHTML='<strong>The endpoint order is reversed.</strong> Did |AB| become negative or change size?';
- update();
-});
+function projectToSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,len2=dx*dx+dy*dy;if(len2===0)return{x:a.x,y:a.y,t:0};const t=clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/len2,0,1);return{x:a.x+t*dx,y:a.y+t*dy,t}}
+const value=n=>(n/SCALE).toFixed(1);
+function update(){if(!A)return;setPoint(Ael,labelA,A);if(!B)return;setPoint(Bel,labelB,B);setLine(whole,A,B);const dAB=dist(A,B);document.getElementById('ab').textContent=`|AB| = ${value(dAB)}`;readout.classList.add('visible');if(C){C=projectToSegment(C,A,B);setPoint(Cel,labelC,C);setLine(leftPart,A,C);setLine(rightPart,C,B);const dAC=dist(A,C),dCB=dist(C,B);document.getElementById('ac').textContent=`|AC| = ${value(dAC)}`;document.getElementById('cb').textContent=`|CB| = ${value(dCB)}`;question.innerHTML=`Check the partition: <strong>${value(dAC)} + ${value(dCB)} = ${value(dAB)}</strong>. Is the sum always the same as |AB|?`;question.classList.add('visible')}else{show(Cel,false);show(labelC,false);show(leftPart,false);show(rightPart,false);document.getElementById('ac').textContent='|AC| = —';document.getElementById('cb').textContent='|CB| = —'}if(dAB<1)instruction.innerHTML='<strong>The endpoints coincide.</strong> The distance is 0. Can it become negative?'}
+svg.addEventListener('pointerdown',e=>{const p=pointer(e);if(stage===0){A=p;stage=1;instruction.textContent='Blue endpoint A is placed. Tap a different position for red endpoint B.';update();return}if(stage===1){if(dist(A,p)<MIN_INITIAL){instruction.innerHTML='<strong>Begin with distinct endpoints.</strong> Tap farther from A.';return}B=p;stage=2;reverseBtn.disabled=false;instruction.textContent='The endpoints form segment AB. Tap on the segment to place green intermediate point C.';update();return}if(stage===2&&!C){C=projectToSegment(p,A,B);stage=3;revealBtn.disabled=false;instruction.textContent='Drag A, B or C. Try reversing the endpoints and bringing A and B together.';update();return}const target=[{name:'A',p:A},{name:'B',p:B},{name:'C',p:C}].sort((u,v)=>dist(p,u.p)-dist(p,v.p))[0];if(target&&dist(p,target.p)<55){dragging=target.name;svg.setPointerCapture(e.pointerId)}});
+svg.addEventListener('pointermove',e=>{if(!dragging)return;const p=pointer(e);if(dragging==='A')A=p;if(dragging==='B')B=p;if(dragging==='C')C=projectToSegment(p,A,B);update()});
+function stop(e){if(dragging){dragging=null;try{svg.releasePointerCapture(e.pointerId)}catch{}}}svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
+reverseBtn.addEventListener('click',()=>{const temp=A;A=B;B=temp;instruction.innerHTML='<strong>The endpoint order is reversed.</strong> Did |AB| become negative or change size?';update()});
 revealBtn.addEventListener('click',()=>discovery.classList.toggle('visible'));
-document.getElementById('reset').addEventListener('click',()=>{
- stage=0;A=B=C=null;dragging=null;reversed=false;
- [Ael,Bel,Cel,labelA,labelB,labelC,whole,leftPart,rightPart].forEach(el=>show(el,false));
- readout.classList.remove('visible');question.classList.remove('visible');discovery.classList.remove('visible');
- reverseBtn.disabled=true;revealBtn.disabled=true;
- instruction.textContent='Tap anywhere in the frame to place blue endpoint A.';
-});
+document.getElementById('reset').addEventListener('click',()=>{stage=0;A=B=C=null;dragging=null;[Ael,Bel,Cel,labelA,labelB,labelC,whole,leftPart,rightPart].forEach(el=>show(el,false));readout.classList.remove('visible');question.classList.remove('visible');discovery.classList.remove('visible');reverseBtn.disabled=true;revealBtn.disabled=true;instruction.textContent='Tap anywhere in the frame to place blue endpoint A.'});
 </script>
 </body>
 </html>
