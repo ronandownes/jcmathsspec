@@ -85,7 +85,115 @@ if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
     </div></details>`;
   }
 
-  if (nav) nav.innerHTML = schema.map(menuMarkup).join("");
+  if (nav) {
+    const homeTarget = inSections ? "../index.html" : "index.html";
+
+    nav.setAttribute("aria-label", "Site table of contents");
+
+    nav.innerHTML = `
+      <div class="mobile-toc-title">Table of contents</div>
+      <a class="mobile-home-link" href="${homeTarget}">Home</a>
+      ${schema.map(menuMarkup).join("")}
+    `;
+
+    if (!inSections) {
+      nav.querySelector(".mobile-home-link")
+        ?.setAttribute("aria-current", "page");
+    }
+
+    const currentFile =
+      path.split("/").filter(Boolean).pop() || "index.html";
+
+    nav.querySelectorAll(":scope > details.menu")
+      .forEach(details => {
+        const summary =
+          details.querySelector(
+            ":scope > summary[data-overview]"
+          );
+
+        const targetFile =
+          summary?.dataset.overview
+            ?.split("#")[0]
+            ?.split("/")
+            ?.pop()
+            ?.toLowerCase();
+
+        if (targetFile === currentFile) {
+          details.classList.add("current-section");
+          summary.setAttribute(
+            "aria-current",
+            "page"
+          );
+        }
+      });
+
+    nav.querySelectorAll(
+      ":scope > a:not(.mobile-home-link)"
+    ).forEach(link => {
+      const targetPath =
+        new URL(link.href, location.href)
+          .pathname
+          .replace(/\\/g, "/")
+          .toLowerCase();
+
+      if (targetPath === path) {
+        link.setAttribute(
+          "aria-current",
+          "page"
+        );
+      }
+    });
+  }
+
+  /*
+    Convert strand overview boxes into real links.
+  */
+  const currentSection = schema.find(section =>
+    path.endsWith(`/sections/${section.file}`)
+  );
+
+  if (currentSection?.children?.length) {
+    const childrenByCode = new Map(
+      currentSection.children
+        .map(item =>
+          asNode(item, currentSection.file)
+        )
+        .filter(item =>
+          item.code && item.hash
+        )
+        .map(item =>
+          [item.code, item]
+        )
+    );
+
+    document
+      .querySelectorAll(".number-map > div")
+      .forEach(box => {
+        const code =
+          box.querySelector("strong")
+            ?.textContent
+            .trim();
+
+        const child = childrenByCode.get(code);
+
+        if (!child) return;
+
+        const link =
+          document.createElement("a");
+
+        link.className = "strand-map-link";
+        link.href = href(
+          child.file,
+          child.hash
+        );
+
+        while (box.firstChild) {
+          link.appendChild(box.firstChild);
+        }
+
+        box.replaceWith(link);
+      });
+  }
 
   document.querySelectorAll("a[href*='front-matter.html']").forEach(link => {
     link.href = link.href.replace("front-matter.html", "overview.html");
@@ -102,7 +210,7 @@ if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
       burger = document.createElement("button");
       burger.type = "button";
       burger.className = "mobile-menu-button";
-      burger.setAttribute("aria-label", "Open navigation");
+      burger.setAttribute("aria-label", "Open table of contents");
       burger.setAttribute("aria-controls", nav.id);
       burger.setAttribute("aria-expanded", "false");
       burger.innerHTML = "<span></span><span></span><span></span>";
@@ -117,6 +225,7 @@ if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
     const closeMobile = () => {
       document.body.classList.remove("mobile-menu-open");
       burger.setAttribute("aria-expanded", "false");
+      burger.setAttribute("aria-label", "Open table of contents");
     };
     burger.addEventListener("click", event => {
       event.preventDefault();
@@ -124,6 +233,13 @@ if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
       const opening = !document.body.classList.contains("mobile-menu-open");
       document.body.classList.toggle("mobile-menu-open", opening);
       burger.setAttribute("aria-expanded", opening ? "true" : "false");
+
+      burger.setAttribute(
+        "aria-label",
+        opening
+          ? "Close table of contents"
+          : "Open table of contents"
+      );
     });
     backdrop.addEventListener("click", closeMobile);
     nav.addEventListener("click", event => {
