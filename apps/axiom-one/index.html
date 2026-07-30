@@ -5,251 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Discover the Two-Point Axiom</title>
 <style>
-:root{
-  --blue:#1565c0;
-  --red:#d32f2f;
-  --ink:#202936;
-  --muted:#657084;
-  --bg:#f3f6fa;
-  --panel:#ffffff;
-  --border:#cbd4df;
-}
+:root{--blue:#1565c0;--red:#d32f2f;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--border:#cbd4df}
 *{box-sizing:border-box}
-html,body{
-  margin:0;
-  min-height:100%;
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
 body{overscroll-behavior:none}
-.app{
-  width:min(100%,760px);
-  min-height:100dvh;
-  margin:auto;
-  padding:10px;
-}
-h1{
-  margin:4px 0 8px;
-  font-size:clamp(1.45rem,6vw,2.2rem);
-  line-height:1.08;
-  text-align:center;
-}
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:9px;
-  box-shadow:0 8px 24px rgba(25,38,58,.08);
-}
-#instruction{
-  min-height:2.8em;
-  margin:0 0 8px;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  color:var(--muted);
-  font-size:1rem;
-  font-weight:700;
-  line-height:1.35;
-}
-svg{
-  width:100%;
-  height:min(62dvh,520px);
-  min-height:330px;
-  display:block;
-  border:2px solid #9aa7b7;
-  border-radius:12px;
-  background:#fff;
-  overflow:hidden;
-  touch-action:none;
-  user-select:none;
-}
-.line{
-  stroke:#202936;
-  stroke-width:4;
-  stroke-linecap:butt;
-}
-.point{
-  stroke:#fff;
-  stroke-width:3;
-  filter:drop-shadow(0 2px 2px rgba(0,0,0,.18));
-}
-.point-a{fill:var(--blue)}
-.point-b{fill:var(--red)}
-.label{
-  font-size:28px;
-  font-weight:850;
-  pointer-events:none;
-  paint-order:stroke;
-  stroke:#fff;
-  stroke-width:4px;
-  stroke-linejoin:round;
-}
-.label-a{fill:var(--blue)}
-.label-b{fill:var(--red)}
-.discovery{
-  display:none;
-  margin-top:10px;
-  padding:14px;
-  border:2px solid #27313e;
-  border-radius:12px;
-  text-align:center;
-  animation:reveal .3s ease-out;
-}
+.app{width:min(100%,760px);min-height:100dvh;margin:auto;padding:10px}
+h1{margin:4px 0 8px;font-size:clamp(1.45rem,6vw,2.2rem);line-height:1.08;text-align:center}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:9px;box-shadow:0 8px 24px rgba(25,38,58,.08)}
+#instruction{min-height:2.8em;margin:0 0 8px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:1rem;font-weight:700;line-height:1.35}
+svg{width:100%;height:min(62dvh,520px);min-height:330px;display:block;border:2px solid #9aa7b7;border-radius:12px;background:#fff;overflow:hidden;touch-action:none;user-select:none}
+.line{stroke:#202936;stroke-width:4;stroke-linecap:butt}
+.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.point-a{fill:var(--blue)}.point-b{fill:var(--red)}
+.label{font-size:28px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.label-a{fill:var(--blue)}.label-b{fill:var(--red)}
+.discovery{display:none;margin-top:10px;padding:14px;border:2px solid #27313e;border-radius:12px;text-align:center;animation:reveal .3s ease-out}
 .discovery.visible{display:block}
-.discovery h2{
-  margin:0 0 7px;
-  font-size:1.15rem;
-}
-.discovery p{
-  margin:0;
-  font-size:1rem;
-  line-height:1.45;
-  font-weight:750;
-}
-button{
-  width:100%;
-  margin-top:10px;
-  border:0;
-  border-radius:10px;
-  padding:12px;
-  background:#e8edf4;
-  color:var(--ink);
-  font:inherit;
-  font-weight:800;
-}
-@keyframes reveal{
-  from{opacity:0;transform:translateY(5px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@media(max-height:700px){
-  svg{height:54dvh;min-height:280px}
-  .discovery{padding:10px}
-}
+.discovery h2{margin:0 0 7px;font-size:1.15rem}.discovery p{margin:0;font-size:1rem;line-height:1.45;font-weight:750}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+button,.next-link{width:100%;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:800;text-align:center;text-decoration:none}
+button{background:#e8edf4;color:var(--ink)}
+.next-link{display:none;background:var(--blue);color:#fff}
+.next-link.visible{display:block}
+@keyframes reveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-height:700px){svg{height:54dvh;min-height:280px}.discovery{padding:10px}}
 </style>
 </head>
 <body>
 <main class="app">
-  <h1>Discover the Two-Point Axiom</h1>
-
-  <section class="card">
-    <p id="instruction">Tap anywhere in the frame to place point A.</p>
-
-    <svg id="board" viewBox="0 0 900 520" aria-label="Interactive discovery of the two-point axiom">
-      <line id="mainLine" class="line" visibility="hidden"></line>
-      <circle id="pointA" class="point point-a" r="20" visibility="hidden"></circle>
-      <circle id="pointB" class="point point-b" r="20" visibility="hidden"></circle>
-      <text id="labelA" class="label label-a" visibility="hidden">A</text>
-      <text id="labelB" class="label label-b" visibility="hidden">B</text>
-    </svg>
-
-    <section id="discovery" class="discovery" aria-live="polite">
-      <h2>You have discovered the Two-Point Axiom</h2>
-      <p>Through any two distinct points, there is exactly one straight line.</p>
-    </section>
-
-    <button id="reset" type="button">Start again</button>
-  </section>
+<h1>Discover the Two-Point Axiom</h1>
+<section class="card">
+<p id="instruction">Tap anywhere in the frame to place point A.</p>
+<svg id="board" viewBox="0 0 900 520" aria-label="Interactive discovery of the two-point axiom">
+<line id="mainLine" class="line" visibility="hidden"></line>
+<circle id="pointA" class="point point-a" r="20" visibility="hidden"></circle>
+<circle id="pointB" class="point point-b" r="20" visibility="hidden"></circle>
+<text id="labelA" class="label label-a" visibility="hidden">A</text>
+<text id="labelB" class="label label-b" visibility="hidden">B</text>
+</svg>
+<section id="discovery" class="discovery" aria-live="polite">
+<h2>You have discovered the Two-Point Axiom</h2>
+<p>Through any two distinct points, there is exactly one straight line.</p>
+</section>
+<div class="actions">
+<button id="reset" type="button">Start again</button>
+<a id="nextLink" class="next-link" href="../axiom-two/">Next: Discover Axiom 2</a>
+</div>
+</section>
 </main>
-
 <script>
-const board = document.getElementById('board');
-const mainLine = document.getElementById('mainLine');
-const pointA = document.getElementById('pointA');
-const pointB = document.getElementById('pointB');
-const labelA = document.getElementById('labelA');
-const labelB = document.getElementById('labelB');
-const instruction = document.getElementById('instruction');
-const discovery = document.getElementById('discovery');
-const resetButton = document.getElementById('reset');
-
-const WIDTH = 900;
-const HEIGHT = 520;
-const MARGIN = 32;
-const MINIMUM_DISTANCE = 90;
-
-let stage = 0;
-let A = null;
-let B = null;
-
-function clamp(value, minimum, maximum) {
-  return Math.max(minimum, Math.min(maximum, value));
-}
-
-function pointerPosition(event) {
-  const rect = board.getBoundingClientRect();
-  return {
-    x: clamp((event.clientX - rect.left) * WIDTH / rect.width, MARGIN, WIDTH - MARGIN),
-    y: clamp((event.clientY - rect.top) * HEIGHT / rect.height, MARGIN, HEIGHT - MARGIN)
-  };
-}
-
-function distance(first, second) {
-  return Math.hypot(second.x - first.x, second.y - first.y);
-}
-
-function showPoint(circle, label, point) {
-  circle.setAttribute('cx', point.x);
-  circle.setAttribute('cy', point.y);
-  circle.setAttribute('visibility', 'visible');
-
-  label.setAttribute('x', point.x + 18);
-  label.setAttribute('y', point.y - 17);
-  label.setAttribute('visibility', 'visible');
-}
-
-function drawInfiniteLine() {
-  const dx = B.x - A.x;
-  const dy = B.y - A.y;
-  const length = Math.hypot(dx, dy);
-  const ux = dx / length;
-  const uy = dy / length;
-  const extension = 2000;
-
-  mainLine.setAttribute('x1', A.x - ux * extension);
-  mainLine.setAttribute('y1', A.y - uy * extension);
-  mainLine.setAttribute('x2', A.x + ux * extension);
-  mainLine.setAttribute('y2', A.y + uy * extension);
-  mainLine.setAttribute('visibility', 'visible');
-}
-
-board.addEventListener('pointerdown', event => {
-  const point = pointerPosition(event);
-
-  if (stage === 0) {
-    A = point;
-    showPoint(pointA, labelA, A);
-    stage = 1;
-    instruction.textContent = 'Tap a different location to place point B.';
-    return;
-  }
-
-  if (stage === 1) {
-    if (distance(A, point) < MINIMUM_DISTANCE) {
-      instruction.textContent = 'A and B must be distinct. Tap farther away from A.';
-      return;
-    }
-
-    B = point;
-    showPoint(pointB, labelB, B);
-    drawInfiniteLine();
-    stage = 2;
-    instruction.textContent = 'The unique straight line through A and B has formed.';
-    discovery.classList.add('visible');
-  }
-});
-
-resetButton.addEventListener('click', () => {
-  stage = 0;
-  A = null;
-  B = null;
-  [pointA, pointB, labelA, labelB, mainLine].forEach(element => {
-    element.setAttribute('visibility', 'hidden');
-  });
-  discovery.classList.remove('visible');
-  instruction.textContent = 'Tap anywhere in the frame to place point A.';
-});
+const board=document.getElementById('board');
+const mainLine=document.getElementById('mainLine');
+const pointA=document.getElementById('pointA');
+const pointB=document.getElementById('pointB');
+const labelA=document.getElementById('labelA');
+const labelB=document.getElementById('labelB');
+const instruction=document.getElementById('instruction');
+const discovery=document.getElementById('discovery');
+const nextLink=document.getElementById('nextLink');
+const WIDTH=900,HEIGHT=520,MARGIN=32,MINIMUM_DISTANCE=90;
+let stage=0,A=null,B=null;
+const clamp=(value,minimum,maximum)=>Math.max(minimum,Math.min(maximum,value));
+function pointerPosition(event){const rect=board.getBoundingClientRect();return{x:clamp((event.clientX-rect.left)*WIDTH/rect.width,MARGIN,WIDTH-MARGIN),y:clamp((event.clientY-rect.top)*HEIGHT/rect.height,MARGIN,HEIGHT-MARGIN)}}
+const distance=(first,second)=>Math.hypot(second.x-first.x,second.y-first.y);
+function showPoint(circle,label,point){circle.setAttribute('cx',point.x);circle.setAttribute('cy',point.y);circle.setAttribute('visibility','visible');label.setAttribute('x',point.x+18);label.setAttribute('y',point.y-17);label.setAttribute('visibility','visible')}
+function drawInfiniteLine(){const dx=B.x-A.x,dy=B.y-A.y,length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length,extension=2000;mainLine.setAttribute('x1',A.x-ux*extension);mainLine.setAttribute('y1',A.y-uy*extension);mainLine.setAttribute('x2',A.x+ux*extension);mainLine.setAttribute('y2',A.y+uy*extension);mainLine.setAttribute('visibility','visible')}
+board.addEventListener('pointerdown',event=>{const point=pointerPosition(event);if(stage===0){A=point;showPoint(pointA,labelA,A);stage=1;instruction.textContent='Tap a different location to place point B.';return}if(stage===1){if(distance(A,point)<MINIMUM_DISTANCE){instruction.textContent='A and B must be distinct. Tap farther away from A.';return}B=point;showPoint(pointB,labelB,B);drawInfiniteLine();stage=2;instruction.textContent='The unique straight line through A and B has formed.';discovery.classList.add('visible');nextLink.classList.add('visible')}});
+document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;[pointA,pointB,labelA,labelB,mainLine].forEach(element=>element.setAttribute('visibility','hidden'));discovery.classList.remove('visible');nextLink.classList.remove('visible');instruction.textContent='Tap anywhere in the frame to place point A.'});
 </script>
 </body>
 </html>
