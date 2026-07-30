@@ -3,53 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Two Distinct Points Determine One Line</title>
+<title>Two Distinct Points Determine a Unique Line</title>
 <style>
-:root{--blue:#1565c0;--red:#d32f2f;--green:#2e7d32;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--grid:#e7ecf3;--border:#cbd4df}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}body{overscroll-behavior:none}.app{max-width:760px;margin:auto;padding:7px;min-height:100dvh}h1{font-size:clamp(1.3rem,6vw,2rem);line-height:1.05;margin:2px 0 4px}.instructions{margin:0 0 7px;color:var(--muted);font-size:.91rem;line-height:1.3}.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:7px;box-shadow:0 8px 22px rgba(25,38,58,.08)}svg{width:100%;height:min(60dvh,510px);min-height:335px;display:block;border-radius:10px;touch-action:none;user-select:none;background:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}.safe{fill:none;stroke:#cbd4df;stroke-width:2;stroke-dasharray:8 8}.line{stroke:#26313d;stroke-width:4;stroke-linecap:round}.trace{stroke:var(--green);stroke-width:2.5;stroke-dasharray:7 7;opacity:.55}.point{stroke:#fff;stroke-width:4;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}.a{fill:var(--blue)}.b{fill:var(--red)}.c{fill:var(--green)}.old-c{fill:#fff;stroke:var(--green);stroke-width:4;opacity:0}.old-c.visible{opacity:.75}.label{font-size:34px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}.la{fill:var(--blue)}.lb{fill:var(--red)}.lc{fill:var(--green)}.status{margin-top:7px;padding:9px 10px;border-radius:10px;background:#f3f6f9;border-left:5px solid var(--blue);font-size:.9rem;line-height:1.35;font-weight:650}.controls{display:flex;gap:7px;margin-top:7px}button{flex:1;border:0;border-radius:9px;padding:9px 8px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:760}.axiom{margin-top:7px;padding:9px;border:2px solid #27313e;border-radius:10px;text-align:center;font-size:.95rem;font-weight:820}@media(max-height:700px){svg{height:51dvh;min-height:285px}.status,.axiom{padding:7px;font-size:.84rem}}
+:root{--blue:#1565c0;--red:#d32f2f;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--grid:#e7ecf3;--border:#cbd4df}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+body{overscroll-behavior:none}
+.app{max-width:760px;margin:auto;padding:8px;min-height:100dvh}
+h1{font-size:clamp(1.3rem,6vw,2rem);line-height:1.08;margin:3px 0 5px}
+.instructions{margin:0 0 8px;color:var(--muted);font-size:.95rem;line-height:1.35}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 8px 22px rgba(25,38,58,.08)}
+svg{width:100%;height:min(62dvh,520px);min-height:340px;display:block;border:2px solid #9aa7b7;border-radius:10px;touch-action:none;user-select:none;background:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+.line{stroke:#26313d;stroke-width:4;stroke-linecap:round}
+.point{stroke:#fff;stroke-width:4;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
+.a{fill:var(--blue)}.b{fill:var(--red)}
+.label{font-size:34px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.la{fill:var(--blue)}.lb{fill:var(--red)}
+.status{margin-top:8px;padding:10px;border-radius:10px;background:#f3f6f9;border-left:5px solid var(--blue);font-size:.92rem;line-height:1.35;font-weight:650}
+button{width:100%;margin-top:8px;border:0;border-radius:9px;padding:10px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:760}
+.conclusion{display:none;margin-top:8px;padding:12px;border:2px solid #27313e;border-radius:10px;text-align:center;font-size:1rem;font-weight:850}
+.conclusion.visible{display:block}
+@media(max-height:700px){svg{height:54dvh;min-height:285px}.status,.conclusion{padding:8px;font-size:.87rem}}
 </style>
 </head>
 <body>
 <main class="app">
-<h1>Two Distinct Points Determine One Line</h1>
-<p class="instructions">Tap once for A, tap again for B, then tap anywhere on the full line for C — between A and B or beyond either point. Then drag B.</p>
+<h1>Two Distinct Points Determine a Unique Line</h1>
+<p class="instructions">Tap once to place A. Tap again to place B.</p>
 <section class="card">
-<svg id="board" viewBox="0 0 900 520" aria-label="Tap to construct a line through A and B">
-<rect class="safe" x="40" y="40" width="820" height="440" rx="18"></rect>
+<svg id="board" viewBox="0 0 900 520" aria-label="Tap to place points A and B and form their unique straight line">
 <line id="mainLine" class="line" visibility="hidden"></line>
-<line id="trace" class="trace" visibility="hidden"></line>
-<circle id="oldC" class="old-c" r="24"></circle>
 <circle id="A" class="point a" r="30" visibility="hidden"></circle>
 <circle id="B" class="point b" r="30" visibility="hidden"></circle>
-<circle id="C" class="point c" r="30" visibility="hidden"></circle>
 <text id="labelA" class="label la" visibility="hidden">A</text>
 <text id="labelB" class="label lb" visibility="hidden">B</text>
-<text id="labelC" class="label lc" visibility="hidden">C</text>
 </svg>
-<div id="status" class="status">Tap anywhere inside the boundary to place blue point A.</div>
-<div class="controls"><button id="reset" type="button">Start again</button></div>
-<div class="axiom">Through any two distinct points, there is exactly one line.</div>
+<div id="status" class="status">Tap anywhere in the frame to place point A.</div>
+<button id="reset" type="button">Start again</button>
+<div id="conclusion" class="conclusion">Conclusion: Two distinct points determine a unique straight line.</div>
 </section>
 </main>
 <script>
-const svg=document.getElementById('board'),mainLine=document.getElementById('mainLine'),trace=document.getElementById('trace'),oldC=document.getElementById('oldC'),Ael=document.getElementById('A'),Bel=document.getElementById('B'),Cel=document.getElementById('C'),labelA=document.getElementById('labelA'),labelB=document.getElementById('labelB'),labelC=document.getElementById('labelC'),status=document.getElementById('status');
-const W=900,H=520,M=62,MIN_AB=120,HIT_LINE=64;
-let stage=0,A=null,B=null,C=null,originalC=null,cParameter=null,draggingB=false;
+const svg=document.getElementById('board');
+const mainLine=document.getElementById('mainLine');
+const Ael=document.getElementById('A');
+const Bel=document.getElementById('B');
+const labelA=document.getElementById('labelA');
+const labelB=document.getElementById('labelB');
+const status=document.getElementById('status');
+const conclusion=document.getElementById('conclusion');
+const W=900,H=520,M=34,MIN_AB=110;
+let stage=0,A=null,B=null;
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const distance=(p,q)=>Math.hypot(q.x-p.x,q.y-p.y);
 function pointer(e){const r=svg.getBoundingClientRect();return{x:clamp((e.clientX-r.left)*W/r.width,M,W-M),y:clamp((e.clientY-r.top)*H/r.height,M,H-M)}}
-function projection(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,l2=dx*dx+dy*dy,t=((p.x-a.x)*dx+(p.y-a.y)*dy)/l2;return{x:a.x+t*dx,y:a.y+t*dy,t}}
-function visibleInterval(a,b){const dx=b.x-a.x,dy=b.y-a.y;let lo=-Infinity,hi=Infinity;for(const [p,d,min,max] of [[a.x,dx,M,W-M],[a.y,dy,M,H-M]]){if(Math.abs(d)<1e-9){if(p<min||p>max)return null;continue}let t1=(min-p)/d,t2=(max-p)/d;if(t1>t2)[t1,t2]=[t2,t1];lo=Math.max(lo,t1);hi=Math.min(hi,t2)}return lo<=hi?{lo,hi}:null}
 function pointAt(a,b,t){return{x:a.x+t*(b.x-a.x),y:a.y+t*(b.y-a.y)}}
-function setVisibleLine(){const range=visibleInterval(A,B);if(!range)return;const p1=pointAt(A,B,range.lo),p2=pointAt(A,B,range.hi);mainLine.setAttribute('x1',p1.x);mainLine.setAttribute('y1',p1.y);mainLine.setAttribute('x2',p2.x);mainLine.setAttribute('y2',p2.y);mainLine.setAttribute('visibility','visible')}
-function setPoint(el,label,p,text){el.setAttribute('cx',p.x);el.setAttribute('cy',p.y);el.setAttribute('visibility','visible');label.setAttribute('x',p.x+25);label.setAttribute('y',p.y-24);label.textContent=text;label.setAttribute('visibility','visible')}
-function update(){if(A)setPoint(Ael,labelA,A,'A');if(B){setPoint(Bel,labelB,B,'B');setVisibleLine()}if(C)setPoint(Cel,labelC,C,draggingB?'C′':'C');if(originalC&&draggingB){oldC.setAttribute('cx',originalC.x);oldC.setAttribute('cy',originalC.y);oldC.classList.add('visible');trace.setAttribute('x1',originalC.x);trace.setAttribute('y1',originalC.y);trace.setAttribute('x2',C.x);trace.setAttribute('y2',C.y);trace.setAttribute('visibility','visible')}else{oldC.classList.remove('visible');trace.setAttribute('visibility','hidden')}}
-svg.addEventListener('pointerdown',e=>{const p=pointer(e);if(stage===0){A=p;stage=1;status.innerHTML='<strong>A is fixed.</strong> Tap a different position to place red point B.';update();return}if(stage===1){if(distance(A,p)<MIN_AB){status.innerHTML='<strong>A and B must be distinct.</strong> Tap farther away from A.';return}B=p;stage=2;status.innerHTML='<strong>A and B determine one unique line.</strong> Tap anywhere on the full line, including beyond A or B, to place C.';update();return}if(stage===2){const q=projection(p,A,B),range=visibleInterval(A,B);if(distance(p,q)>HIT_LINE){status.innerHTML='<strong>Place C on the line AB.</strong> You may tap between A and B or beyond either point.';return}const t=clamp(q.t,range.lo,range.hi);C=pointAt(A,B,t);originalC={...C};cParameter=t;stage=3;const where=t<0?'beyond A':t>1?'beyond B':'between A and B';status.innerHTML='<strong>C is '+where+' on the full line AB.</strong> Now drag red B.';update();return}if(stage===3&&distance(p,B)<78){draggingB=true;Bel.setPointerCapture(e.pointerId);update()}});
-svg.addEventListener('pointermove',e=>{if(!draggingB)return;let p=pointer(e);if(distance(A,p)<MIN_AB){const angle=Math.atan2(p.y-A.y,p.x-A.x);p={x:A.x+Math.cos(angle)*MIN_AB,y:A.y+Math.sin(angle)*MIN_AB}}B=p;const range=visibleInterval(A,B);const visibleT=clamp(cParameter,range.lo,range.hi);C=pointAt(A,B,visibleT);status.innerHTML='<strong>The line remains unique.</strong> C′ stays on the full line and inside the boundary.';update()});
-function stop(e){if(!draggingB)return;draggingB=false;try{Bel.releasePointerCapture(e.pointerId)}catch{}update()}
-svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
-document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;C=null;originalC=null;cParameter=null;draggingB=false;[Ael,Bel,Cel,labelA,labelB,labelC].forEach(el=>el.setAttribute('visibility','hidden'));mainLine.setAttribute('visibility','hidden');trace.setAttribute('visibility','hidden');oldC.classList.remove('visible');status.textContent='Tap anywhere inside the boundary to place blue point A.'});
-update();
+function visibleInterval(a,b){const dx=b.x-a.x,dy=b.y-a.y;let lo=-Infinity,hi=Infinity;for(const [p,d,min,max] of [[a.x,dx,0,W],[a.y,dy,0,H]]){if(Math.abs(d)<1e-9){if(p<min||p>max)return null;continue}let t1=(min-p)/d,t2=(max-p)/d;if(t1>t2)[t1,t2]=[t2,t1];lo=Math.max(lo,t1);hi=Math.min(hi,t2)}return lo<=hi?{lo,hi}:null}
+function setPoint(el,label,p){el.setAttribute('cx',p.x);el.setAttribute('cy',p.y);el.setAttribute('visibility','visible');label.setAttribute('x',p.x+25);label.setAttribute('y',p.y-24);label.setAttribute('visibility','visible')}
+function drawLine(){const range=visibleInterval(A,B);const p1=pointAt(A,B,range.lo),p2=pointAt(A,B,range.hi);mainLine.setAttribute('x1',p1.x);mainLine.setAttribute('y1',p1.y);mainLine.setAttribute('x2',p2.x);mainLine.setAttribute('y2',p2.y);mainLine.setAttribute('visibility','visible')}
+svg.addEventListener('pointerdown',e=>{const p=pointer(e);if(stage===0){A=p;setPoint(Ael,labelA,A);stage=1;status.innerHTML='<strong>Point A placed.</strong> Tap a different position to place point B.';return}if(stage===1){if(distance(A,p)<MIN_AB){status.innerHTML='<strong>A and B must be distinct.</strong> Tap farther away from A.';return}B=p;setPoint(Bel,labelB,B);drawLine();stage=2;status.innerHTML='<strong>The straight line through A and B extends to both borders of the frame.</strong>';conclusion.classList.add('visible')}});
+document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;[Ael,Bel,labelA,labelB].forEach(el=>el.setAttribute('visibility','hidden'));mainLine.setAttribute('visibility','hidden');conclusion.classList.remove('visible');status.textContent='Tap anywhere in the frame to place point A.'});
 </script>
 </body>
 </html>
