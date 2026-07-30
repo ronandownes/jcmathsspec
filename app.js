@@ -226,6 +226,7 @@ if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
       document.body.classList.remove("mobile-menu-open");
       burger.setAttribute("aria-expanded", "false");
       burger.setAttribute("aria-label", "Open table of contents");
+      burger.setAttribute("aria-label", "Open table of contents");
     };
     burger.addEventListener("click", event => {
       event.preventDefault();
@@ -233,6 +234,13 @@ if (isGeometry && !document.querySelector('script[data-geometry-visuals]')) {
       const opening = !document.body.classList.contains("mobile-menu-open");
       document.body.classList.toggle("mobile-menu-open", opening);
       burger.setAttribute("aria-expanded", opening ? "true" : "false");
+
+      burger.setAttribute(
+        "aria-label",
+        opening
+          ? "Close table of contents"
+          : "Open table of contents"
+      );
 
       burger.setAttribute(
         "aria-label",
