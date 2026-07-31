@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Axiom 1 — Two-Point Axiom</title>
+<style>
+:root{
+  --blue:#1565c0;
+  --red:#d32f2f;
+  --ink:#1f2937;
+  --muted:#667085;
+  --bg:#f4f6f8;
+  --panel:#ffffff;
+  --border:#cbd5e1;
+  --axiom-bg:#eef7ee;
+  --axiom-border:#8fbf91;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+body{overscroll-behavior:none}
+main{width:min(100%,760px);margin:auto;padding:12px;min-height:100dvh}
+h1{margin:4px 0 10px;text-align:center;font-size:clamp(1.45rem,5vw,2rem);line-height:1.1}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:10px;box-shadow:0 8px 24px rgba(15,23,42,.08)}
+#instruction{margin:0 0 10px;min-height:2.8em;display:grid;place-items:center;text-align:center;font-size:1.05rem;font-weight:750;line-height:1.35;color:var(--muted)}
+svg{width:100%;height:min(62dvh,500px);min-height:320px;display:block;background:#fff;border:2px solid #98a2b3;border-radius:12px;touch-action:none;user-select:none;overflow:hidden}
+.line{stroke:#111827;stroke-width:4;stroke-linecap:butt}
+.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.point-a{fill:var(--blue)}
+.point-b{fill:var(--red)}
+.label{font-size:28px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.label-a{fill:var(--blue)}
+.label-b{fill:var(--red)}
+.axiom-box{display:none;margin-top:12px;padding:14px 16px;background:var(--axiom-bg);border:2px solid var(--axiom-border);border-radius:12px;text-align:center}
+.axiom-box.visible{display:block}
+.axiom-box h2{margin:0 0 8px;font-size:1.1rem}
+.axiom-box p{margin:0;font-size:1.08rem;line-height:1.45;font-weight:750}
+button{width:100%;margin-top:10px;padding:12px;border:0;border-radius:10px;background:#e6ebf1;color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+@media(max-height:700px){svg{height:54dvh;min-height:280px}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Axiom 1 — Two-Point Axiom</h1>
+  <section class="card">
+    <p id="instruction">We need two points. Tap to place point A.</p>
+
+    <svg id="board" viewBox="0 0 900 520" aria-label="Interactive two-point axiom">
+      <line id="mainLine" class="line" visibility="hidden"></line>
+      <circle id="pointA" class="point point-a" r="20" visibility="hidden"></circle>
+      <circle id="pointB" class="point point-b" r="20" visibility="hidden"></circle>
+      <text id="labelA" class="label label-a" visibility="hidden">A</text>
+      <text id="labelB" class="label label-b" visibility="hidden">B</text>
+    </svg>
+
+    <section id="axiomBox" class="axiom-box" aria-live="polite">
+      <h2>Axiom 1 — Two-Point Axiom</h2>
+      <p>Through any two distinct points, there is exactly one straight line.</p>
+    </section>
+
+    <button id="reset" type="button">Start Again</button>
+  </section>
+</main>
+
+<script>
+const board = document.getElementById('board');
+const mainLine = document.getElementById('mainLine');
+const pointA = document.getElementById('pointA');
+const pointB = document.getElementById('pointB');
+const labelA = document.getElementById('labelA');
+const labelB = document.getElementById('labelB');
+const instruction = document.getElementById('instruction');
+const axiomBox = document.getElementById('axiomBox');
+const resetButton = document.getElementById('reset');
+
+const WIDTH = 900;
+const HEIGHT = 520;
+const MARGIN = 32;
+const MINIMUM_DISTANCE = 5;
+
+let stage = 0;
+let A = null;
+let B = null;
+
+const clamp = (value, minimum, maximum) => Math.max(minimum, Math.min(maximum, value));
+const distance = (first, second) => Math.hypot(second.x - first.x, second.y - first.y);
+
+function pointerPosition(event) {
+  const rect = board.getBoundingClientRect();
+  return {
+    x: clamp((event.clientX - rect.left) * WIDTH / rect.width, MARGIN, WIDTH - MARGIN),
+    y: clamp((event.clientY - rect.top) * HEIGHT / rect.height, MARGIN, HEIGHT - MARGIN)
+  };
+}
+
+function showPoint(circle, label, point) {
+  circle.setAttribute('cx', point.x);
+  circle.setAttribute('cy', point.y);
+  circle.setAttribute('visibility', 'visible');
+  label.setAttribute('x', point.x + 18);
+  label.setAttribute('y', point.y - 17);
+  label.setAttribute('visibility', 'visible');
+}
+
+function drawLineThroughPoints() {
+  const dx = B.x - A.x;
+  const dy = B.y - A.y;
+  const length = Math.hypot(dx, dy);
+  const ux = dx / length;
+  const uy = dy / length;
+  const extension = 2000;
+
+  mainLine.setAttribute('x1', A.x - ux * extension);
+  mainLine.setAttribute('y1', A.y - uy * extension);
+  mainLine.setAttribute('x2', A.x + ux * extension);
+  mainLine.setAttribute('y2', A.y + uy * extension);
+  mainLine.setAttribute('visibility', 'visible');
+}
+
+board.addEventListener('pointerdown', event => {
+  const point = pointerPosition(event);
+
+  if (stage === 0) {
+    A = point;
+    showPoint(pointA, labelA, A);
+    stage = 1;
+    instruction.textContent = 'Now tap to place point B.';
+    return;
+  }
+
+  if (stage === 1) {
+    if (distance(A, point) < MINIMUM_DISTANCE) {
+      instruction.textContent = 'Point B must be distinct from point A.';
+      return;
+    }
+
+    B = point;
+    showPoint(pointB, labelB, B);
+    drawLineThroughPoints();
+    stage = 2;
+    instruction.textContent = '';
+    axiomBox.classList.add('visible');
+  }
+});
+
+resetButton.addEventListener('click', () => {
+  stage = 0;
+  A = null;
+  B = null;
+  [pointA, pointB, labelA, labelB, mainLine].forEach(element => {
+    element.setAttribute('visibility', 'hidden');
+  });
+  axiomBox.classList.remove('visible');
+  instruction.textContent = 'We need two points. Tap to place point A.';
+});
+</script>
+</body>
+</html>
