@@ -15,13 +15,14 @@ h1{margin:4px 0 8px;font-size:clamp(1.45rem,6vw,2.2rem);line-height:1.08;text-al
 #instruction{min-height:2.8em;margin:0 0 8px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:1rem;font-weight:700;line-height:1.35}
 svg{width:100%;height:min(62dvh,520px);min-height:330px;display:block;border:2px solid #9aa7b7;border-radius:12px;background:#fff;overflow:hidden;touch-action:none;user-select:none}
 .line{stroke:#202936;stroke-width:4;stroke-linecap:butt}
-.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.point{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18));cursor:grab}
+.point:active{cursor:grabbing}
 .point-a{fill:var(--blue)}.point-b{fill:var(--red)}
 .label{font-size:28px;font-weight:850;pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
 .label-a{fill:var(--blue)}.label-b{fill:var(--red)}
 .discovery{display:none;margin-top:10px;padding:14px;border:2px solid #27313e;border-radius:12px;text-align:center;animation:reveal .3s ease-out}
 .discovery.visible{display:block}
-.discovery h2{margin:0 0 7px;font-size:1.15rem}.discovery p{margin:0;font-size:1rem;line-height:1.45;font-weight:750}
+.discovery h2{margin:0 0 8px;font-size:1.12rem}.discovery p{margin:5px 0;font-size:1rem;line-height:1.45;font-weight:700}.discovery .prompt{color:var(--muted);font-weight:650}.discovery .axiom{margin-top:12px;font-weight:850}
 button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:800}
 @keyframes reveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-height:700px){svg{height:54dvh;min-height:280px}.discovery{padding:10px}}
@@ -40,8 +41,10 @@ button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;backg
 <text id="labelB" class="label label-b" visibility="hidden">B</text>
 </svg>
 <section id="discovery" class="discovery" aria-live="polite">
-<h2>You have discovered the Two-Point Axiom</h2>
-<p>Through any two distinct points, there is exactly one straight line.</p>
+<h2>So what is always true?</h2>
+<p class="prompt">Drag A or B to different positions. What stays the same?</p>
+<p class="prompt">How many straight lines can pass through both points?</p>
+<p class="axiom">Through any two distinct points, there is exactly one straight line.</p>
 </section>
 <button id="reset" type="button">Start again</button>
 </section>
@@ -56,14 +59,21 @@ const labelB=document.getElementById('labelB');
 const instruction=document.getElementById('instruction');
 const discovery=document.getElementById('discovery');
 const WIDTH=900,HEIGHT=520,MARGIN=32,MINIMUM_DISTANCE=90;
-let stage=0,A=null,B=null;
+let stage=0,A=null,B=null,dragging=null;
 const clamp=(value,minimum,maximum)=>Math.max(minimum,Math.min(maximum,value));
 function pointerPosition(event){const rect=board.getBoundingClientRect();return{x:clamp((event.clientX-rect.left)*WIDTH/rect.width,MARGIN,WIDTH-MARGIN),y:clamp((event.clientY-rect.top)*HEIGHT/rect.height,MARGIN,HEIGHT-MARGIN)}}
 const distance=(first,second)=>Math.hypot(second.x-first.x,second.y-first.y);
 function showPoint(circle,label,point){circle.setAttribute('cx',point.x);circle.setAttribute('cy',point.y);circle.setAttribute('visibility','visible');label.setAttribute('x',point.x+18);label.setAttribute('y',point.y-17);label.setAttribute('visibility','visible')}
-function drawInfiniteLine(){const dx=B.x-A.x,dy=B.y-A.y,length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length,extension=2000;mainLine.setAttribute('x1',A.x-ux*extension);mainLine.setAttribute('y1',A.y-uy*extension);mainLine.setAttribute('x2',A.x+ux*extension);mainLine.setAttribute('y2',A.y+uy*extension);mainLine.setAttribute('visibility','visible')}
-board.addEventListener('pointerdown',event=>{const point=pointerPosition(event);if(stage===0){A=point;showPoint(pointA,labelA,A);stage=1;instruction.textContent='Tap a different location to place point B.';return}if(stage===1){if(distance(A,point)<MINIMUM_DISTANCE){instruction.textContent='A and B must be distinct. Tap farther away from A.';return}B=point;showPoint(pointB,labelB,B);drawInfiniteLine();stage=2;instruction.textContent='The unique straight line through A and B has formed.';discovery.classList.add('visible')}});
-document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;[pointA,pointB,labelA,labelB,mainLine].forEach(element=>element.setAttribute('visibility','hidden'));discovery.classList.remove('visible');instruction.textContent='Tap anywhere in the frame to place point A.'});
+function drawInfiniteLine(){const dx=B.x-A.x,dy=B.y-A.y,length=Math.hypot(dx,dy);if(!length)return;const ux=dx/length,uy=dy/length,extension=2000;mainLine.setAttribute('x1',A.x-ux*extension);mainLine.setAttribute('y1',A.y-uy*extension);mainLine.setAttribute('x2',A.x+ux*extension);mainLine.setAttribute('y2',A.y+uy*extension);mainLine.setAttribute('visibility','visible')}
+function refresh(){showPoint(pointA,labelA,A);showPoint(pointB,labelB,B);drawInfiniteLine()}
+function beginDrag(which,event){if(stage!==2)return;dragging=which;event.currentTarget.setPointerCapture(event.pointerId);event.preventDefault()}
+pointA.addEventListener('pointerdown',event=>beginDrag('A',event));
+pointB.addEventListener('pointerdown',event=>beginDrag('B',event));
+board.addEventListener('pointermove',event=>{if(stage!==2||!dragging)return;const point=pointerPosition(event);if(dragging==='A'){if(distance(point,B)<MINIMUM_DISTANCE)return;A=point}else{if(distance(A,point)<MINIMUM_DISTANCE)return;B=point}refresh();instruction.textContent='Move A and B around. The same unique straight line relationship remains.'});
+board.addEventListener('pointerup',()=>{dragging=null});
+board.addEventListener('pointercancel',()=>{dragging=null});
+board.addEventListener('pointerdown',event=>{if(event.target===pointA||event.target===pointB)return;const point=pointerPosition(event);if(stage===0){A=point;showPoint(pointA,labelA,A);stage=1;instruction.textContent='Tap a different location to place point B.';return}if(stage===1){if(distance(A,point)<MINIMUM_DISTANCE){instruction.textContent='A and B must be distinct. Tap farther away from A.';return}B=point;showPoint(pointB,labelB,B);drawInfiniteLine();stage=2;instruction.textContent='A straight line has formed through A and B. Now drag either point and investigate.';discovery.classList.add('visible')}});
+document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;dragging=null;[pointA,pointB,labelA,labelB,mainLine].forEach(element=>element.setAttribute('visibility','hidden'));discovery.classList.remove('visible');instruction.textContent='Tap anywhere in the frame to place point A.'});
 </script>
 </body>
 </html>
