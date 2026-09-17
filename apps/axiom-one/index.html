@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Exercise 2 — Axiom 1</title>
+<script>
+const axiomParams=new URLSearchParams(location.search);
+if(axiomParams.has('embed')) document.documentElement.classList.add('embedded');
+else if(window.top===window) location.replace('../../sections/axiom-one.html');
+</script>
 <style>
 :root{--blue:#1565c0;--red:#d32f2f;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--border:#cbd4df;--good:#137333;--warn:#8a4b00}
 *{box-sizing:border-box}
@@ -19,6 +24,7 @@ svg{width:100%;height:min(62dvh,520px);min-height:330px;display:block;border:2px
 .discovery{display:none;margin-top:10px;padding:14px;border:2px solid #27313e;border-radius:12px;text-align:center}.discovery.visible{display:block}.discovery h2{margin:0 0 8px;font-size:1.12rem}.discovery p{margin:5px 0;font-size:1rem;line-height:1.45;font-weight:700}.discovery .prompt{color:var(--muted);font-weight:650}.discovery .axiom{margin-top:12px;font-weight:850}.discovery .note{margin-top:8px;color:var(--muted);font-size:.92rem;font-weight:600}
 #coincidentBox{display:none;margin-top:10px;padding:12px;border:2px dashed var(--warn);border-radius:12px;text-align:center;background:#fff8ee}#coincidentBox.visible{display:block}#coincidentBox strong{display:block;margin-bottom:4px}
 button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:800;cursor:pointer}.quiz{margin-top:10px}.question{padding:12px 0;border-top:1px solid var(--border)}.question:first-of-type{border-top:0}.question p{margin:0 0 8px;font-weight:750}.question label{display:block;margin:6px 0;line-height:1.35}.question input{margin-right:8px;transform:scale(1.1)}.sentence-cue{margin:8px 0;padding:9px 11px;border-left:4px solid var(--border);background:#f8fafc;border-radius:6px;font-weight:800}.sentence-cue.finish{text-align:right}#feedback{min-height:1.5em;margin-top:9px;text-align:center;font-weight:800}.good{color:var(--good)}.warn{color:var(--warn)}
+html.embedded,html.embedded body{background:#fff}html.embedded .app{width:100%;max-width:none;min-height:0;padding:12px 14px}html.embedded h1{display:none}
 @media(max-height:700px){svg{height:54dvh;min-height:280px}.discovery{padding:10px}}
 </style>
 </head>
