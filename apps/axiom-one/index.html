@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Exercise 2 — Axiom 1</title>
 <style>
-:root{--blue:#1565c0;--red:#d32f2f;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--border:#cbd4df}
+:root{--blue:#1565c0;--red:#d32f2f;--ink:#202936;--muted:#657084;--bg:#f3f6fa;--panel:#fff;--border:#cbd4df;--soft:#eef3f8;--good:#137333;--warn:#8a4b00}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
 body{overscroll-behavior:none}
 .app{width:min(100%,760px);min-height:100dvh;margin:auto;padding:10px}
-h1{margin:4px 0 6px;font-size:clamp(1.45rem,6vw,2.2rem);line-height:1.08;text-align:center}
-.reminder{margin:0 0 10px;padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:12px;line-height:1.45}
-.reminder p{margin:0}
+h1{margin:4px 0 8px;font-size:clamp(1.45rem,6vw,2.2rem);line-height:1.08;text-align:center}
+h2{margin:0 0 6px;font-size:1.05rem}
+.panel{margin:0 0 10px;padding:12px 14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;line-height:1.45}
+.panel p{margin:0}.panel ul{margin:7px 0 0;padding-left:22px}.panel li{margin:3px 0}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:9px;box-shadow:0 8px 24px rgba(25,38,58,.08)}
 #instruction{min-height:2.8em;margin:0 0 8px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:1rem;font-weight:700;line-height:1.35}
 svg{width:100%;height:min(62dvh,520px);min-height:330px;display:block;border:2px solid #9aa7b7;border-radius:12px;background:#fff;overflow:hidden;touch-action:none;user-select:none}
@@ -25,7 +26,9 @@ svg{width:100%;height:min(62dvh,520px);min-height:330px;display:block;border:2px
 .discovery{display:none;margin-top:10px;padding:14px;border:2px solid #27313e;border-radius:12px;text-align:center;animation:reveal .3s ease-out}
 .discovery.visible{display:block}
 .discovery h2{margin:0 0 8px;font-size:1.12rem}.discovery p{margin:5px 0;font-size:1rem;line-height:1.45;font-weight:700}.discovery .prompt{color:var(--muted);font-weight:650}.discovery .axiom{margin-top:12px;font-weight:850}.discovery .note{margin-top:8px;color:var(--muted);font-size:.92rem;font-weight:600}
-button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:800}
+button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;background:#e8edf4;color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+.quiz{margin-top:10px}.question{padding:12px 0;border-top:1px solid var(--border)}.question:first-of-type{border-top:0}.question p{margin:0 0 8px;font-weight:750}.question label{display:block;margin:6px 0;line-height:1.35}.question input{margin-right:8px;transform:scale(1.1)}
+#feedback{min-height:1.5em;margin-top:9px;text-align:center;font-weight:800}.good{color:var(--good)}.warn{color:var(--warn)}
 @keyframes reveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-height:700px){svg{height:54dvh;min-height:280px}.discovery{padding:10px}}
 </style>
@@ -33,7 +36,19 @@ button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;backg
 <body>
 <main class="app">
 <h1>Exercise 2 — Axiom 1</h1>
-<section class="reminder"><p><strong>What is an axiom?</strong> An axiom is a mathematical statement that we accept as true without proof. It is a starting point for developing other mathematical results.</p></section>
+
+<section class="panel">
+<h2>Learning intention</h2>
+<p>By the end of this activity, you will be able to:</p>
+<ul>
+<li>understand and state the Two-Point Axiom;</li>
+<li>explain what <strong>distinct points</strong> are;</li>
+<li>recognise <strong>coincident points</strong> — points in exactly the same position.</li>
+</ul>
+</section>
+
+<section class="panel"><p><strong>What is an axiom?</strong> An axiom is a mathematical statement that we accept as true without proof. It is a starting point for developing other mathematical results.</p></section>
+
 <section class="card">
 <p id="instruction">Tap anywhere in the frame to place point A.</p>
 <svg id="board" viewBox="0 0 900 520" aria-label="Interactive exploration of Axiom 1">
@@ -53,6 +68,32 @@ button{width:100%;margin-top:10px;border:0;border-radius:10px;padding:12px;backg
 </section>
 <button id="reset" type="button">Start again</button>
 </section>
+
+<section class="panel" style="margin-top:10px"><p><strong>Language point:</strong> Two points are <strong>distinct</strong> if they are in different positions. If two points lie in exactly the same position, they are called <strong>coincident points</strong>.</p></section>
+
+<section class="panel quiz">
+<h2>Quick check — formative assessment</h2>
+<div class="question" data-answer="b">
+<p>1. What is an axiom?</p>
+<label><input type="radio" name="q1" value="a">A statement that must first be proved.</label>
+<label><input type="radio" name="q1" value="b">A mathematical statement accepted as true without proof.</label>
+<label><input type="radio" name="q1" value="c">A measurement rule.</label>
+</div>
+<div class="question" data-answer="a">
+<p>2. What does <em>distinct points</em> mean?</p>
+<label><input type="radio" name="q2" value="a">Points in different positions.</label>
+<label><input type="radio" name="q2" value="b">Points on different pages.</label>
+<label><input type="radio" name="q2" value="c">Points in exactly the same position.</label>
+</div>
+<div class="question" data-answer="c">
+<p>3. Complete Axiom 1: Through any two distinct points...</p>
+<label><input type="radio" name="q3" value="a">no straight line can be drawn.</label>
+<label><input type="radio" name="q3" value="b">many straight lines can be drawn.</label>
+<label><input type="radio" name="q3" value="c">there is exactly one straight line.</label>
+</div>
+<button id="check" type="button">Check my answers</button>
+<div id="feedback" aria-live="polite"></div>
+</section>
 </main>
 <script>
 const board=document.getElementById('board');
@@ -71,7 +112,7 @@ const distance=(first,second)=>Math.hypot(second.x-first.x,second.y-first.y);
 function showPoint(circle,label,point){circle.setAttribute('cx',point.x);circle.setAttribute('cy',point.y);circle.setAttribute('visibility','visible');label.setAttribute('x',point.x+14);label.setAttribute('y',point.y-14);label.setAttribute('visibility','visible')}
 function drawInfiniteLine(){const dx=B.x-A.x,dy=B.y-A.y,length=Math.hypot(dx,dy);if(!length)return;const ux=dx/length,uy=dy/length,extension=2000;mainLine.setAttribute('x1',A.x-ux*extension);mainLine.setAttribute('y1',A.y-uy*extension);mainLine.setAttribute('x2',A.x+ux*extension);mainLine.setAttribute('y2',A.y+uy*extension);mainLine.setAttribute('visibility','visible')}
 function refresh(){drawInfiniteLine();showPoint(pointA,labelA,A);showPoint(pointB,labelB,B)}
-function beginDrag(which,event){if(stage!==2)return;dragging=which;event.currentTarget.setPointerCapture(event.pointerId);event.preventDefault()}
+function beginDrag(which,event){if(stage!==2)return;dragging=which;if(event.currentTarget.setPointerCapture)event.currentTarget.setPointerCapture(event.pointerId);event.preventDefault()}
 pointA.addEventListener('pointerdown',event=>beginDrag('A',event));
 pointB.addEventListener('pointerdown',event=>beginDrag('B',event));
 board.addEventListener('pointermove',event=>{if(stage!==2||!dragging)return;const point=pointerPosition(event);if(dragging==='A'){if(distance(point,B)<MINIMUM_DISTANCE)return;A=point}else{if(distance(A,point)<MINIMUM_DISTANCE)return;B=point}refresh();instruction.textContent='Keep moving A and B. What remains true?'});
@@ -79,6 +120,7 @@ board.addEventListener('pointerup',()=>{dragging=null});
 board.addEventListener('pointercancel',()=>{dragging=null});
 board.addEventListener('pointerdown',event=>{if(event.target===pointA||event.target===pointB)return;const point=pointerPosition(event);if(stage===0){A=point;showPoint(pointA,labelA,A);stage=1;instruction.textContent='Tap a different location to place point B.';return}if(stage===1){if(distance(A,point)<MINIMUM_DISTANCE){instruction.textContent='A and B must be distinct. Place B just away from A.';return}B=point;refresh();stage=2;instruction.textContent='Now drag either point and explore what Axiom 1 means.';discovery.classList.add('visible')}});
 document.getElementById('reset').addEventListener('click',()=>{stage=0;A=null;B=null;dragging=null;[pointA,pointB,labelA,labelB,mainLine].forEach(element=>element.setAttribute('visibility','hidden'));discovery.classList.remove('visible');instruction.textContent='Tap anywhere in the frame to place point A.'});
+document.getElementById('check').addEventListener('click',()=>{const questions=[...document.querySelectorAll('.question')];let answered=0,correct=0;questions.forEach(q=>{const chosen=q.querySelector('input:checked');if(chosen){answered++;if(chosen.value===q.dataset.answer)correct++}});const feedback=document.getElementById('feedback');feedback.className='';if(answered<questions.length){feedback.textContent='Answer all three questions first.';feedback.classList.add('warn');return}feedback.textContent=correct===3?'Excellent — 3 out of 3.':`${correct} out of 3 correct. Review the axiom and try again.`;feedback.classList.add(correct===3?'good':'warn')});
 </script>
 </body>
 </html>
