@@ -8,6 +8,7 @@
 <style>
   .axiom-page-main{max-width:1180px;margin:0 auto;padding:18px 18px 32px}
   .axiom-context{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px;flex-wrap:wrap}
+  .axiom-context .context-links{display:flex;gap:12px;flex-wrap:wrap}
   .axiom-context a{font-weight:800;text-decoration:none}
   .axiom-page-card{background:#fff;border:1px solid #d3dbe5;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(25,38,58,.08)}
   .axiom-page-heading{padding:16px 18px 12px;border-bottom:1px solid #d3dbe5}
@@ -31,24 +32,60 @@
 
 <main class="axiom-page-main">
   <nav class="axiom-context" aria-label="Axiom 1 context">
-    <a href="appendix-b.html#appendix-b-axioms">← Appendix B · Axioms 1–5</a>
+    <div class="context-links">
+      <a href="geometry-trigonometry.html#GT3">← Geometry &amp; Trigonometry</a>
+      <a href="appendix-b.html#appendix-b-axioms">Appendix B · Axioms 1–5</a>
+    </div>
     <a href="../index.html">JC Maths Spec home</a>
   </nav>
 
   <section class="axiom-page-card">
     <header class="axiom-page-heading">
-      <span>Appendix B · Geometry · Exercise 2</span>
+      <span>Geometry &amp; Trigonometry · Appendix B · Exercise 2</span>
       <h1>Axiom 1 · Two-Point Axiom</h1>
     </header>
     <iframe class="axiom-frame" src="../apps/axiom-one/?embed=1" title="Interactive Axiom 1 activity"></iframe>
   </section>
 
   <nav class="axiom-nav" aria-label="Previous and next">
-    <a href="appendix-b.html#appendix-b-axioms">← Previous · Axioms 1–5</a>
-    <a href="appendix-b.html#appendix-b-t1-6">Next · Theorems 1–6 →</a>
+    <a href="geometry-trigonometry.html#GT3">← Previous · Geometry &amp; proof</a>
+    <a href="appendix-b.html#appendix-b-axioms">Next · Axioms 1–5 →</a>
   </nav>
 </main>
 
 <script src="../app.js?v=20260917-axiom-shell"></script>
+<script>
+(() => {
+  const nav = document.querySelector('.top-nav');
+  if (!nav) return;
+  const geometryMenu = [...nav.querySelectorAll(':scope > details.menu')]
+    .find(details => details.querySelector(':scope > summary')?.textContent.includes('Geometry'));
+  if (!geometryMenu) return;
+  const panel = geometryMenu.querySelector(':scope > .menu-panel');
+  if (!panel) return;
+
+  if (!panel.querySelector('[data-axiom-nav]')) {
+    const label = document.createElement('div');
+    label.className = 'menu-group-label';
+    label.dataset.axiomNav = 'true';
+    label.textContent = 'GEOMETRY FOUNDATIONS';
+    panel.appendChild(label);
+
+    const axioms = document.createElement('a');
+    axioms.href = 'appendix-b.html#appendix-b-axioms';
+    axioms.textContent = 'Axioms 1–5';
+    panel.appendChild(axioms);
+
+    const axiomOne = document.createElement('a');
+    axiomOne.href = 'axiom-one.html';
+    axiomOne.innerHTML = '<strong>Axiom 1</strong> Two Points';
+    axiomOne.setAttribute('aria-current', 'page');
+    panel.appendChild(axiomOne);
+  }
+
+  geometryMenu.classList.add('current-section');
+  geometryMenu.querySelector(':scope > summary')?.setAttribute('aria-current','page');
+})();
+</script>
 </body>
 </html>
