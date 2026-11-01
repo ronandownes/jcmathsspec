@@ -1,30 +1,19 @@
-# JC Maths Spec
+# Junior Cycle Mathematics — official specification
 
-Responsive, visual Junior Cycle Mathematics specification.
+This site displays the original NCCA Junior Cycle Mathematics specification **without rewriting the learning outcomes or mathematical notation**.
 
-## Section sweep
+Official source: https://www.curriculumonline.ie/getmedia/6a7f1ff5-9b9e-4d71-8e1f-6d4f932191db/JC_Mathematics_Specification.pdf
 
-All substantive specification pages live in `sections/` in this order:
+## Accessibility and UDL
 
-1. Front Matter
-2. Unifying
-3. Number
-4. Geometry & Trigonometry
-5. Algebra & Functions
-6. Statistics & Probability
-7. Assessment & Reporting
-8. Appendix A
-9. Appendix B
+- Choose a strand to open the original PDF at its relevant page.
+- Read only one section at a time while retaining the source document’s exact layout.
+- Use the native PDF toolbar to zoom, navigate, download or print.
+- Open the original in a separate tab if embedding is unsupported.
+- Navigation labels are aids, not quotations of NCCA outcome wording.
 
-`index.html` is the website home/index only.
+This is an independent navigation interface; it is not an NCCA publication. No textbook materials or school schemes of work are reproduced here.
 
-## Design principles
+## Backup
 
-- Beamer-style responsive slides
-- HTML text reflows and wraps at browser zoom
-- MathJax mathematics
-- Formulae & Tables figures
-- Front Matter presented in short narrative slides
-- Learning outcomes are the slides: one source of truth
-- Visual and interactive mathematics where useful
-- Accessible formative assessment
+The previous HTML interpretation of the specification is retained on branch `backup-before-pdf-reset-2026-11-01`.
